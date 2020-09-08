@@ -7,11 +7,13 @@ import { AppRoutingModule } from './app.routing';
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './signup/signup.component';
-import { LandingComponent } from './landing/landing.component';
+import { VotingComponent } from './voting/voting.component';
 import { SongSelectionComponent } from './song-selection/song-selection.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
-import {MatFormFieldModule} from '@angular/material/form-field'; 
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatExpansionModule } from '@angular/material/expansion'; 
+import { MatSliderModule } from '@angular/material/slider'; 
 
 import { HomeModule } from './home/home.module';
 import { LoginComponent } from './login/login.component';
@@ -21,7 +23,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   declarations: [
     AppComponent,
     SignupComponent,
-    LandingComponent,
+    VotingComponent,
     SongSelectionComponent,
     NavbarComponent,
     FooterComponent,
@@ -35,7 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HomeModule,
     BrowserAnimationsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatExpansionModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

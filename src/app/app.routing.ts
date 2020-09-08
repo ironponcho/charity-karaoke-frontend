@@ -6,15 +6,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { SongSelectionComponent } from './song-selection/song-selection.component';
 import { SignupComponent } from './signup/signup.component';
-import { LandingComponent } from './landing/landing.component';
+import { VotingComponent } from './voting/voting.component';
 import { LoginComponent } from './login/login.component';
 
 const routes: Routes =[
-    { path: 'home',             component: HomeComponent },
-    { path: 'song-selection',     component: SongSelectionComponent },
-    { path: 'register',           component: SignupComponent },
-    { path: 'landing',          component: LandingComponent },
-    { path: 'login',          component: LoginComponent },
+    { path: 'home', component: HomeComponent },
+    { path: 'song-selection', component: SongSelectionComponent },
+    { path: 'register', component: SignupComponent },
+    { path: 'voting', component: VotingComponent },
+    { path: 'login', component: LoginComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
