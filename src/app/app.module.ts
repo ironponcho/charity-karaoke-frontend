@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
@@ -18,6 +18,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { HomeModule } from './home/home.module';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GlobalErrorHandler } from 'src/GlobalErrorHandler';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SongSelectionComponent,
     NavbarComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatExpansionModule,
     MatSliderModule
   ],
-  providers: [],
+  providers: [
+    {
+    provide: ErrorHandler,
+    useClass: GlobalErrorHandler
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,7 +5,6 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './song-selection.component.html',
     styleUrls: ['./song-selection.component.scss']
 })
-
 export class SongSelectionComponent implements OnInit {
 
     constructor() { }
