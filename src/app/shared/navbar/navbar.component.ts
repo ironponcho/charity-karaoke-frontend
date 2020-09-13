@@ -17,8 +17,7 @@ export class NavbarComponent implements OnInit {
 
 
     navigateToPage() {
-        console.log("Navigate!")
-        this.isCollapsed = false;
+        this.isCollapsed = true;
       }
 
     ngOnInit() {

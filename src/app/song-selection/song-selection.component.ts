@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpServiceService } from '../http-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-song-selection',
@@ -7,34 +9,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SongSelectionComponent implements OnInit {
 
-    constructor() { }
+    constructor(
+        private httpService: HttpServiceService,
+        private route:ActivatedRoute
+    ) { }
 
-    currentAttendee: Attendee =  {
-        id: "1234",
-        name: "Jonas",
-        isCurrentlyPerforming: false,
-        song: {
-          originalArtist: "Fleetwood Mac", 
-          name: "Everyhwere", 
-          youtubeKaraokeLink: "https://www.youtube.com/watch?v=I2rReu-Wzak"
-        }, 
-        receivedVotes: []
-      }
+    currentAttendee: Attendee
 
-    currentCompetition: Karaoke =  {
-        name: "Charity Karaoke II", 
-        description: "Coole Sache!", 
-        id: "1234", 
-        date: new Date("2020-09-13")
-      }
-
-    songFormModel = this.currentAttendee.song
+    songFormModel: Song
 
     saveSong() {
-        alert("Going to save " + JSON.stringify(this.songFormModel))
+        this.httpService.saveSong(this.songFormModel)
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        console.log(this.route.snapshot.paramMap.get('bank'))
+        this.currentAttendee = this.httpService.getAttendee(this.route.snapshot.paramMap.get('bank'))
+        this.songFormModel = this.currentAttendee.song
+    }
 
     submitted = false;
 

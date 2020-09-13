@@ -1,6 +1,7 @@
 <main class="profile-page">
-  <section class="section-profile-cover section-shaped my-0">
-    <!-- Circles background -->
+  <section 
+  style="height: 20%;"
+  class="section-profile-cover section-shaped my-0">
     <div class="shape shape-style-1 shape-primary alpha-4">
       <span></span>
       <span></span>
@@ -10,28 +11,16 @@
       <span></span>
       <span></span>
     </div>
-    <!-- SVG separator -->
-    <div class="separator separator-bottom separator-skew">
-      <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-        <polygon class="fill-white" points="2560 0 2560 100 0 100"></polygon>
-      </svg>
+    <div class="container shape-container d-flex align-items-center py-lg">
     </div>
-  </section>
-  <section class="section">
-    <div class="container">
+    <div class="container" style="margin-top: 10%; padding: 5%;">
       <div class="card card-profile shadow mt--300">
-        <div class="px-4">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 order-lg-1">
-              <div class="card-profile-stats d-flex justify-content-center">
-                  Hallo, {{currentAttendee.name}}!
-              </div>
-            </div>
-          </div>     
+        <div class="px-4">  
+          <h3 class="align-items-center">
+            Wähle deinen Song!
+          </h3>
           <div class="mt-5 text-center">
-         
             <div class="form-group">
-
               <label for="Original Artist Name">Original Artist Name</label>
               <p>
                   <input matInput
@@ -64,7 +53,6 @@
                 (click)="saveSong()"
                 type="button"
                 >Speichern</button>
-
             </div>
           </div>
         </div>
