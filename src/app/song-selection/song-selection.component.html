@@ -24,42 +24,48 @@
           <div class="row justify-content-center">
             <div class="col-lg-4 order-lg-1">
               <div class="card-profile-stats d-flex justify-content-center">
-                Enter a song!
+                  Hallo, {{currentAttendee.name}}!
               </div>
             </div>
-          </div>
-          <div class="text-center mt-5">
-            <h3>USER_NAME</h3>
-            <div><i class="ni education_hat mr-2"></i>NAME_OF_KARAOKE_COMPETITION</div>
-          </div>
-          <div class="mt-5 py-5 border-top text-center">
-            <form>
-              <h4>Original Artist Name</h4>
+          </div>     
+          <div class="mt-5 text-center">
+         
+            <div class="form-group">
+
+              <label for="Original Artist Name">Original Artist Name</label>
               <p>
-                <mat-form-field>
-                  <mat-label>Legacy form field</mat-label>
-                  <input matInput placeholder="Lighthouse Family">
-                </mat-form-field>
+                  <input matInput
+                  style="width: 100%;"
+                  required
+                  [(ngModel)]="songFormModel.originalArtist"
+                  placeholder="Hermes House Band">
+              </p>
+              <label for="Song Title">Song Title</label>
+              <p>
+                  <input matInput
+                  style="width: 100%;"
+                  required
+                  [(ngModel)]="songFormModel.name"
+                  placeholder="Hermes House Band">
               </p>
 
-              <h4>Song Name</h4>
+              <label for="Youtube Karaoke Link">Youtube Karaoke Link</label>
               <p>
-                <mat-form-field appearance="standard">
-                  <mat-label>Standard form field</mat-label>
-                  <input matInput placeholder="High">
-                </mat-form-field>
+                <input matInput
+                style="width: 100%;"
+                required
+                [(ngModel)]="songFormModel.youtubeKaraokeLink"
+                placeholder="https://www.youtube.com/watch?v=I2rReu-Wzak">
               </p>
 
-              <h4>Youtube-Link (Karaoke)</h4>
-              <p>
-                <mat-form-field appearance="fill">
-                  <mat-label>Fill form field</mat-label>
-                  <input matInput placeholder="https://www.youtube.com/watch?v=I2rReu-Wzak">
-                </mat-form-field>
-              </p>
+              <button 
+                style="margin-top:24px" 
+                class="btn btn-primary" 
+                (click)="saveSong()"
+                type="button"
+                >Speichern</button>
 
-              <button style="margin-top:24px" class="btn btn-primary" type="button">Speichern</button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
