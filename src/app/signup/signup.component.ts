@@ -11,13 +11,13 @@ export class SignupComponent implements OnInit {
     focus;
     focus1;
     focus2;
-    allKaraokeCompetitions: Karaoke[]
+    allKaraokeCompetitions: Karaoke[];
 
     constructor(
         private httpService: HttpService
     ) { }
 
     ngOnInit() {
-        this.allKaraokeCompetitions = this.httpService.getAllKaraokeCompetitions()
+        this.allKaraokeCompetitions = this.httpService.getAllKaraokeCompetitions();
     }
 }

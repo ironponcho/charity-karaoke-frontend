@@ -14,7 +14,7 @@ import { HomeComponent } from './home.component';
         RouterModule
     ],
     declarations: [ HomeComponent],
-    exports:[ HomeComponent ],
+    exports: [ HomeComponent ],
     providers: []
 })
 export class HomeModule { }

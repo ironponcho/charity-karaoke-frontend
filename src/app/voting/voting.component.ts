@@ -19,12 +19,26 @@ export class VotingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    let currentAttendeeId: string
+    let currentAttendeeId: string;
     this.route.queryParams.subscribe(params => {
       currentAttendeeId = params['currentAttendeeId'];
     });
-    this.currentAttendee = this.httpService.getContestant(currentAttendeeId)
-    this.contestants = this.httpService.getContestants(this.currentAttendee.karaokeId, this.currentAttendee.id)
+    this.currentAttendee = this.httpService.getContestant(currentAttendeeId);
+    this.contestants = this.httpService.getContestants(this.currentAttendee.karaokeId, this.currentAttendee.id);
+  }
+
+  saveVote(forAttendeeId: string, percentage: number){
+
+    if(this.currentAttendee.id == null){
+      alert("Please log in to vote!")
+      return
+    }
+    let vote: Vote = {
+      fromAttendeeId: this.currentAttendee.id,
+      forAttendeeId: forAttendeeId,
+      percentage: percentage ? percentage : 0 
+    }
+    this.httpService.saveVote(vote)
   }
 
 }

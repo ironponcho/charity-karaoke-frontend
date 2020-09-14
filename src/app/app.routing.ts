@@ -9,7 +9,7 @@ import { SignupComponent } from './signup/signup.component';
 import { VotingComponent } from './voting/voting.component';
 import { LoginComponent } from './login/login.component';
 
-const routes: Routes =[
+const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'register', component: SignupComponent },
     { path: 'login', component: LoginComponent },
@@ -22,7 +22,7 @@ const routes: Routes =[
   imports: [
     CommonModule,
     BrowserModule,
-    RouterModule.forRoot(routes,{
+    RouterModule.forRoot(routes, {
       useHash: true
     })
   ],

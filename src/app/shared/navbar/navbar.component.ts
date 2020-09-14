@@ -23,9 +23,9 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
       this.router.events.subscribe((event) => {
         this.isCollapsed = true;
-      
+
      });
-     this.location.subscribe((ev:PopStateEvent) => {
+     this.location.subscribe((ev: PopStateEvent) => {
          this.lastPoppedUrl = ev.url;
      });
     }
