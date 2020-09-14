@@ -22,20 +22,20 @@
               <p class="lead text-white">Bewerte hier die Auftritte der Teilnehmer!</p>
               <div class="btn-wrapper">
 
-                <mat-accordion *ngFor="let attendee of items">
+                <mat-accordion *ngFor="let contestant of contestants">
                   <mat-expansion-panel>
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        <span *ngIf="attendee.isCurrentlyPerforming">
-                          <b>{{attendee.song.originalArtist}} - {{attendee.song.name}}</b>
+                        <span *ngIf="contestant.isCurrentlyPerforming">
+                          <b>{{contestant.song.originalArtist}} - {{contestant.song.name}}</b>
                         </span>
-                        <span *ngIf="!attendee.isCurrentlyPerforming">
-                          {{attendee.song.originalArtist}} - {{attendee.song.name}}
+                        <span *ngIf="!contestant.isCurrentlyPerforming">
+                          {{contestant.song.originalArtist}} - {{contestant.song.name}}
                         </span>
                       </mat-panel-title>
                    
                         <mat-panel-description style="display: flex; justify-content: flex-end;">
-                          <span>{{attendee.name}}     </span>
+                          <span>{{contestant.name}}</span>
                       </mat-panel-description>
                       
                     </mat-expansion-panel-header>
