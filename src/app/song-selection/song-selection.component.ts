@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpServiceService } from '../http-service.service';
+import { HttpService } from '../http-service.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,12 +10,11 @@ import { ActivatedRoute } from '@angular/router';
 export class SongSelectionComponent implements OnInit {
 
     constructor(
-        private httpService: HttpServiceService,
+        private httpService: HttpService,
         private route:ActivatedRoute
     ) { }
 
     currentAttendee: Attendee
-
     songFormModel: Song
 
     saveSong() {
@@ -23,8 +22,11 @@ export class SongSelectionComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.route.snapshot.paramMap.get('bank'))
-        this.currentAttendee = this.httpService.getAttendee(this.route.snapshot.paramMap.get('bank'))
+        let currentAttendeeId: string
+        this.route.queryParams.subscribe(params => {
+            currentAttendeeId = params['currentAttendeeId'];
+        });
+        this.currentAttendee = this.httpService.getAttendee(currentAttendeeId)
         this.songFormModel = this.currentAttendee.song
     }
 

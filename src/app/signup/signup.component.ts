@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http-service.service';
 
 @Component({
     selector: 'app-signup',
@@ -6,11 +7,17 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
-    test : Date = new Date();
+
     focus;
     focus1;
     focus2;
-    constructor() { }
+    allKaraokeCompetitions: Karaoke[]
 
-    ngOnInit() {}
+    constructor(
+        private httpService: HttpService
+    ) { }
+
+    ngOnInit() {
+        this.allKaraokeCompetitions = this.httpService.getAllKaraokeCompetitions()
+    }
 }

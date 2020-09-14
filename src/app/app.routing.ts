@@ -11,10 +11,10 @@ import { LoginComponent } from './login/login.component';
 
 const routes: Routes =[
     { path: 'home', component: HomeComponent },
-    { path: 'song-selection', component: SongSelectionComponent },
     { path: 'register', component: SignupComponent },
-    { path: 'voting', component: VotingComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'voting', component: VotingComponent },
+    { path: 'song-selection', component: SongSelectionComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 
