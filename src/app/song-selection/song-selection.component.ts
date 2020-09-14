@@ -14,6 +14,9 @@ export class SongSelectionComponent implements OnInit {
         private route:ActivatedRoute
     ) { }
 
+    focusArtistName;
+    focusSongTitle;
+    focusYoutubeLink;
     currentAttendee: Attendee
     songFormModel: Song
 

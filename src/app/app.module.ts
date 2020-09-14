@@ -45,8 +45,8 @@ import { GlobalErrorHandler } from 'src/GlobalErrorHandler';
   providers: [
     {
     provide: ErrorHandler,
-    useClass: GlobalErrorHandler
-  }
+    useClass: GlobalErrorHandler,
+    }
   ],
   bootstrap: [AppComponent]
 })

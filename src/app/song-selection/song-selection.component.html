@@ -17,35 +17,51 @@
       <div class="card card-profile shadow mt--300">
         <div class="px-4">  
           <h3 class="align-items-center">
-            Songauswahl!
+            Songauswahl
           </h3>
           <div class="mt-5 text-center">
             <div class="form-group">
               <label for="Original Artist Name">Original Artist Name</label>
-              <p>
-                  <input matInput
-                  style="width: 100%;"
-                  required
-                  [(ngModel)]="songFormModel.originalArtist"
-                  placeholder="Hermes House Band">
-              </p>
-              <label for="Song Title">Song Title</label>
-              <p>
-                  <input matInput
-                  style="width: 100%;"
-                  required
-                  [(ngModel)]="songFormModel.name"
-                  placeholder="Hermes House Band">
-              </p>
+                <div class="form-group" [ngClass]="{'focused':focusArtistName===true}">
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input 
+                    [(ngModel)]="songFormModel.originalArtist"
+                    class="form-control" 
+                    placeholder="Hermes House Band" 
+                    type="text" (focus)="focus=true" (blur)="focus=false">
+                  </div>
+                </div>
+
+                <label for="Song Title">Song Title</label>
+                <div class="form-group" [ngClass]="{'focused':focusSongTitle===true}">
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input 
+                    [(ngModel)]="songFormModel.name"
+                    class="form-control" 
+                    placeholder="Country Roads" 
+                    type="text" (focus)="focus=true" (blur)="focus=false">
+                  </div>
+                </div>
 
               <label for="Youtube Karaoke Link">Youtube Karaoke Link</label>
-              <p>
-                <input matInput
-                style="width: 100%;"
-                required
-                [(ngModel)]="songFormModel.youtubeKaraokeLink"
-                placeholder="https://www.youtube.com/watch?v=I2rReu-Wzak">
-              </p>
+              <div class="form-group" [ngClass]="{'focused':focusYoutubeLink===true}">
+                <div class="input-group input-group-alternative mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                  </div>
+                  <input 
+                  [(ngModel)]="songFormModel.youtubeKaraokeLink"
+                  class="form-control" 
+                  placeholder="https://www.youtube.com/watch?v=I2rReu-Wzak" 
+                  type="text" (focus)="focus=true" (blur)="focus=false">
+                </div>
+              </div>
 
               <button 
                 style="margin-top:24px" 

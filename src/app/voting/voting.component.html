@@ -1,0 +1,68 @@
+<main>
+  <div class="position-relative">
+    <!-- shape Hero -->
+    <section class="section section-lg section-shaped pb-250">
+      <div class="shape shape-style-1 shape-primary">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="container py-lg-md d-flex">
+        <div class="col px-0">
+          <div class="row" style="justify-content: center; width: 100%;">
+            <div class="col-lg-6">
+              <h1 class="display-3 text-white">COMPETETION_NAME
+              </h1>
+              <p class="lead text-white">Bewerte hier die Auftritte der Teilnehmer!</p>
+              <div class="btn-wrapper">
+
+                <mat-accordion *ngFor="let attendee of items">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <span *ngIf="attendee.isCurrentlyPerforming">
+                          <b>{{attendee.song.originalArtist}} - {{attendee.song.name}}</b>
+                        </span>
+                        <span *ngIf="!attendee.isCurrentlyPerforming">
+                          {{attendee.song.originalArtist}} - {{attendee.song.name}}
+                        </span>
+                      </mat-panel-title>
+                   
+                        <mat-panel-description style="display: flex; justify-content: flex-end;">
+                          <span>{{attendee.name}}     </span>
+                      </mat-panel-description>
+                      
+                    </mat-expansion-panel-header>
+                    <div>
+                      <mat-slider
+                      style="width: 100%"
+                      thumbLabel
+                      min="1"
+                      max="100"></mat-slider>
+                    </div>
+                
+                      <p>
+                        <button style="margin-top:12px" class="btn btn-primary" type="button">Speichern</button>
+                      </p>
+                       
+
+                  </mat-expansion-panel>
+                  
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- 1st Hero Variation -->
+  </div>
+ 
+</main>
