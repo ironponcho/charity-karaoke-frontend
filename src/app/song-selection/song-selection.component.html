@@ -1,7 +1,5 @@
-<main class="profile-page">
-  <section 
-  style="height: 20%;"
-  class="section-profile-cover section-shaped my-0">
+<main>
+  <section  class="section section-shaped section-lg">
     <div class="shape shape-style-1 shape-primary alpha-4">
       <span></span>
       <span></span>
@@ -10,65 +8,63 @@
       <span></span>
       <span></span>
       <span></span>
+      <span></span>
     </div>
-    <div class="container shape-container d-flex align-items-center py-lg">
-    </div>
-    <div class="container" style="margin-top: 10%; padding: 5%;">
-      <div class="card card-profile shadow mt--300">
-        <div class="px-4">  
-          <h3 class="align-items-center">
-            Songauswahl
-          </h3>
-          <div class="mt-5 text-center">
-            <div class="form-group">
-              <label for="Original Artist Name">Original Artist Name</label>
-                <div class="form-group" [ngClass]="{'focused':focusArtistName===true}">
-                  <div class="input-group input-group-alternative mb-3">
+    <div class="container pt-lg-md">
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="px-4">  
+                <h3 style="display: flex; justify-content: center; margin-bottom: 24px;">
+                  Songauswahl
+                </h3>
+              </div>
+              <div class="form-group">
+
+                <label for="Artist Name">ArtistName</label>
+                <div class="form-group mb-3" [ngClass]="{'focused':focusArtistName===true}">
+                  <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                      <span class="input-group-text"></span>
                     </div>
-                    <input 
+                    <input
                     [(ngModel)]="songFormModel.originalArtist"
-                    class="form-control" 
-                    placeholder="Hermes House Band" 
-                    type="text" (focus)="focus=true" (blur)="focus=false">
+                    class="form-control"
+                    placeholder="Celine Dion" type="name" (focus)="focusArtistName=true" (blur)="focus=false">
                   </div>
                 </div>
-
+             
                 <label for="Song Title">Song Title</label>
-                <div class="form-group" [ngClass]="{'focused':focusSongTitle===true}">
-                  <div class="input-group input-group-alternative mb-3">
+                <div class="form-group mb-3" [ngClass]="{'focused':focusSongTitle===true}">
+                  <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                      <span class="input-group-text"></span>
                     </div>
-                    <input 
+                    <input
                     [(ngModel)]="songFormModel.name"
-                    class="form-control" 
-                    placeholder="Country Roads" 
-                    type="text" (focus)="focus=true" (blur)="focus=false">
+                    class="form-control"
+                    placeholder="My heart will go on" type="name" (focus)="focusArtistName=true" (blur)="focus=false">
                   </div>
                 </div>
 
-              <label for="Youtube Karaoke Link">Youtube Karaoke Link</label>
-              <div class="form-group" [ngClass]="{'focused':focusYoutubeLink===true}">
-                <div class="input-group input-group-alternative mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                <label for="Youtube Karaoke Link">Youtube Karaoke Link</label>
+                <div class="form-group mb-3" [ngClass]="{'focused':focusYoutubeLink===true}">
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"></span>
+                    </div>
+                    <input
+                    [(ngModel)]="songFormModel.youtubeKaraokeLink"
+                    class="form-control"
+                    placeholder="https://www.youtube.com/watch?v=eGwKvxGpLqs" type="name" (focus)="focusArtistName=true" (blur)="focus=false">
                   </div>
-                  <input 
-                  [(ngModel)]="songFormModel.youtubeKaraokeLink"
-                  class="form-control" 
-                  placeholder="https://www.youtube.com/watch?v=I2rReu-Wzak" 
-                  type="text" (focus)="focus=true" (blur)="focus=false">
+                </div>
+
+                <div class="text-center">
+                  <button type="button" class="btn btn-primary my-4" (click)="saveSong()">Speichern</button>
                 </div>
               </div>
-
-              <button 
-                style="margin-top:24px" 
-                class="btn btn-primary" 
-                (click)="saveSong()"
-                type="button"
-                >Speichern</button>
             </div>
           </div>
         </div>

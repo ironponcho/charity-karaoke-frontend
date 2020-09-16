@@ -1,5 +1,7 @@
 interface Vote {
-    fromAttendeeId: String;
-    forAttendeeId: String;
+    fromAttendeeId: string;
     percentage: number;
 }
+
+
+

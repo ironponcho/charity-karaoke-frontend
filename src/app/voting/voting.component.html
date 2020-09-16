@@ -1,7 +1,5 @@
-<main class="profile-page">
-  <section 
-  style="height: 20%;"
-  class="section-profile-cover section-shaped my-0">
+<main>
+  <section class="section section-shaped section-lg">
     <div class="shape shape-style-1 shape-primary alpha-4">
       <span></span>
       <span></span>
@@ -10,56 +8,57 @@
       <span></span>
       <span></span>
       <span></span>
+      <span></span>
     </div>
-    <div class="container shape-container d-flex align-items-center py-lg">
-    </div>
-    <div class="container" style="margin-top: 10%; padding: 5%;">
-      <div class="card card-profile">
-        <div class="px-4">  
-          <h3 class="align-items-center">
-            Abstimmung
-          </h3>
-        <div style="padding-bottom: 10px;">
-            {{contestants.length}} Contestants
-        </div>
-
-        </div>
-          <mat-accordion *ngFor="let contestant of contestants">
+    <div class="container pt-lg-md">
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="px-4">  
+                <h3 style="display: flex; justify-content: center; margin-bottom: 24px;">
+                  Abstimmung
+                </h3>
+              </div>
+              <mat-accordion *ngFor="let contestant of contestants">
                 <mat-expansion-panel>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <span *ngIf="contestant.isCurrentlyPerforming">
-                          <b>{{contestant.song.originalArtist}} - {{contestant.song.name}}</b>               
+                                <b>{{contestant.song.originalArtist}} - {{contestant.song.name}}</b>               
                       </span>
                       <span *ngIf="!contestant.isCurrentlyPerforming">
-                        {{contestant.song.originalArtist}} - {{contestant.song.name}}
+                              {{contestant.song.originalArtist}} - {{contestant.song.name}}
                       </span>
-                    </mat-panel-title>
-                      
+                      </mat-panel-title>
+                            
                       <mat-panel-description style="display: flex; justify-content: flex-end;">
-                        <span>{{contestant.name}}</span>
-                    </mat-panel-description>
-                    
-                  </mat-expansion-panel-header>
-                  <div>
-                    <mat-slider
-                    style="width: 100%"
-                    thumbLabel
-                    [(ngModel)]="contestant.voteFromCurrentAttendee"
-                    min="1"
-                    max="100"></mat-slider>
-                  </div>   
-                    <p>
-                      <button 
-                      style="margin-top:12px; float: right;" 
-                      class="btn btn-primary" 
-                      (click)="saveVote(contestant.id, contestant.voteFromCurrentAttendee)"
-                      type="button"
-                      >Speichern</button>
-                    </p>           
+                              <span>{{contestant.name}}</span>
+                      </mat-panel-description>
+                          
+                      </mat-expansion-panel-header>
+                        <div>
+                          <mat-slider
+                          style="width: 100%"
+                          thumbLabel
+                          [(ngModel)]="contestant.voteFromCurrentAttendee"
+                          min="1"
+                          max="100"></mat-slider>
+                        </div>   
+                          <p>
+                            <button 
+                            style="margin-top:12px; float: right;" 
+                            class="btn btn-primary" 
+                            (click)="saveVote(contestant.id, contestant.voteFromCurrentAttendee)"
+                            type="button"
+                            >Speichern</button>
+                          </p>           
                 </mat-expansion-panel>
               </mat-accordion>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
   </section>
 </main>

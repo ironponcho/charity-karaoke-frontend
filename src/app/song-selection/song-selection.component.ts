@@ -35,7 +35,7 @@ export class SongSelectionComponent implements OnInit {
         this.route.queryParams.subscribe(params => {
             currentAttendeeId = params['currentAttendeeId'];
         });
-        this.currentAttendee = this.httpService.getContestant(currentAttendeeId);
+        this.currentAttendee = this.httpService.getAttendee(currentAttendeeId);
         this.songFormModel = this.currentAttendee.song;
     }
 

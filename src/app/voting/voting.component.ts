@@ -10,7 +10,8 @@ import { HttpService } from '../http-service.service';
 
 export class VotingComponent implements OnInit {
 
-  contestants: Contestant[]
+  contestants: Attendee[]
+
   currentAttendee: Attendee
 
   constructor(
@@ -23,8 +24,9 @@ export class VotingComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       currentAttendeeId = params['currentAttendeeId'];
     });
-    this.currentAttendee = this.httpService.getContestant(currentAttendeeId);
-    this.contestants = this.httpService.getContestants(this.currentAttendee.karaokeId, this.currentAttendee.id);
+    this.currentAttendee = this.httpService.getAttendee(currentAttendeeId);
+    this.contestants = this.httpService.getAttendees(this.currentAttendee.karaokeId)
+      .filter(attendee => attendee.song)
   }
 
   saveVote(forAttendeeId: string, percentage: number){
@@ -33,7 +35,7 @@ export class VotingComponent implements OnInit {
       alert("Please log in to vote!")
       return
     }
-    let vote: Vote = {
+    let vote: VoteOutbound = {
       fromAttendeeId: this.currentAttendee.id,
       forAttendeeId: forAttendeeId,
       percentage: percentage ? percentage : 0 

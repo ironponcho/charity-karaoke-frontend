@@ -16,7 +16,7 @@ export class HttpService {
     ];
   }
 
-  getContestant(attendeeId: string): Contestant {
+  getAttendee(attendeeId: string): Attendee {
     return {
       id: attendeeId,
       name: 'Nico ' + attendeeId,
@@ -27,11 +27,12 @@ export class HttpService {
         name: 'My heart will go on',
         youtubeKaraokeLink: 'https://www.youtube.com/watch?v=I2rReu-Wzak'
       },
-      receivedVotes: []
+      receivedVotes: [],
+      isAdmin: true
     };
   }
 
-  getContestants(karaokeId: string, attendeeId: string): Contestant[] {
+  getAttendees(karaokeId: string): Attendee[] {
     return [
       {
         id: '1',
@@ -43,8 +44,17 @@ export class HttpService {
           name: 'Sternenhimmel',
           youtubeKaraokeLink: 'youtube.com/watch'
         },
-        receivedVotes: [],
-        voteFromCurrentAttendee: 71
+        receivedVotes: [
+        {
+          fromAttendeeId: "2",
+          percentage: 81
+        },
+        {
+          fromAttendeeId: "4",
+          percentage: 61
+        },
+      ],
+        isAdmin: false
       },
       {
         id: '2',
@@ -56,8 +66,24 @@ export class HttpService {
           name: 'High',
           youtubeKaraokeLink: 'youtube.com/watch'
         },
-        receivedVotes: [],
-        voteFromCurrentAttendee: 47
+        receivedVotes: [{
+          fromAttendeeId: "1",
+          percentage: 71
+        },
+        {
+          fromAttendeeId: "2",
+          percentage: 81
+        },
+        {
+          fromAttendeeId: "4",
+          percentage: 84
+        },
+        {
+          fromAttendeeId: "4",
+          percentage: 99
+        },
+      ],
+        isAdmin: false
       },
       {
         id: '3',
@@ -69,8 +95,28 @@ export class HttpService {
           name: 'My heart will go on',
           youtubeKaraokeLink: 'youtube.com/watch'
         },
-        receivedVotes: [],
-        voteFromCurrentAttendee: 57
+        receivedVotes: [{
+          fromAttendeeId: "1",
+          percentage: 47
+        },
+        {
+          fromAttendeeId: "2",
+          percentage: 55
+        },
+        {
+          fromAttendeeId: "3",
+          percentage: 97
+        },
+        {
+          fromAttendeeId: "4",
+          percentage: 100
+        },
+        {
+          fromAttendeeId: "4",
+          percentage: 60
+        },
+      ],
+        isAdmin: false
       },
       {
         id: '4',
@@ -82,8 +128,29 @@ export class HttpService {
           name: '至少還有你',
           youtubeKaraokeLink: 'youtube.com/watch'
         },
-        receivedVotes: [],
-        voteFromCurrentAttendee: 75
+        receivedVotes: [
+          {
+            fromAttendeeId: "1",
+            percentage: 100
+          },
+          {
+            fromAttendeeId: "2",
+            percentage: 55
+          },
+          {
+            fromAttendeeId: "3",
+            percentage: 97
+          },
+          {
+            fromAttendeeId: "4",
+            percentage: 1
+          },
+          {
+            fromAttendeeId: "4",
+            percentage: 60
+          },
+        ],
+        isAdmin: false
       },
       {
         id: '5',
@@ -96,7 +163,7 @@ export class HttpService {
           youtubeKaraokeLink: 'youtube.com/watch'
         },
         receivedVotes: [],
-        voteFromCurrentAttendee: 71
+        isAdmin: false
       },
       {
         id: '6',
@@ -109,7 +176,15 @@ export class HttpService {
           youtubeKaraokeLink: 'youtube.com/watch'
         },
         receivedVotes: [],
-        voteFromCurrentAttendee: 91
+        isAdmin: false
+      },
+      {
+        id: '9',
+        name: 'Paula',
+        karaokeId: karaokeId,
+        isAdmin: false,
+        isCurrentlyPerforming: false,
+        receivedVotes: []
       },
       {
         id: '7',
@@ -122,7 +197,7 @@ export class HttpService {
           youtubeKaraokeLink: 'youtube.com/watch'
         },
         receivedVotes: [],
-        voteFromCurrentAttendee: 98
+        isAdmin: false
       },
       {
         id: '8',
@@ -135,7 +210,7 @@ export class HttpService {
           youtubeKaraokeLink: 'youtube.com/watch'
         },
         receivedVotes: [],
-        voteFromCurrentAttendee: 99
+        isAdmin: false
       }
     ];
   }
@@ -146,6 +221,14 @@ export class HttpService {
 
   saveSong(songFormModel: Song) {
     alert('Going to save ' + JSON.stringify(songFormModel));
+  }
+
+  login(login: Login) {
+    alert('Post Login: ' +JSON.stringify(login))
+  }
+
+  register(registration: Registration) {
+    alert('Post Registration: ' +JSON.stringify(registration))
   }
 
   constructor() { }
