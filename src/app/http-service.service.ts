@@ -46,7 +46,7 @@ export class HttpService {
         },
         receivedVotes: [
         {
-          fromAttendeeId: "2",
+          fromAttendeeId: "1",
           percentage: 81
         },
         {
@@ -171,8 +171,8 @@ export class HttpService {
         karaokeId: karaokeId,
         isCurrentlyPerforming: false,
         song: {
-          originalArtist: 'Live is a roller coaster',
-          name: 'Ronan Keating',
+          originalArtist: 'Ronan Keating',
+          name: 'Live is a roller coaster',
           youtubeKaraokeLink: 'youtube.com/watch'
         },
         receivedVotes: [],
@@ -211,7 +211,19 @@ export class HttpService {
         },
         receivedVotes: [],
         isAdmin: false
-      }
+      }, {
+        id: '10',
+        name: 'Niklas & Jan',
+        karaokeId: karaokeId,
+        isCurrentlyPerforming: false,
+        song: {
+          originalArtist: 'Meite Kelly & Roland kaiser',
+          name: 'Warum hast du nicht nein gesagt',
+          youtubeKaraokeLink: 'youtube.com/watch'
+        },
+        receivedVotes: [],
+        isAdmin: false
+      },
     ];
   }
 

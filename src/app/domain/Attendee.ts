@@ -7,4 +7,5 @@ interface Attendee {
     song?: Song
     receivedVotes: Vote[],
     averageVoteInPercentage?: number
+    voteFromCurrentAttendee?: number
 }

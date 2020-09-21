@@ -27,6 +27,9 @@ export class VotingComponent implements OnInit {
     this.currentAttendee = this.httpService.getAttendee(currentAttendeeId);
     this.contestants = this.httpService.getAttendees(this.currentAttendee.karaokeId)
       .filter(attendee => attendee.song)
+
+    this.contestants.forEach(contestant => contestant.voteFromCurrentAttendee = this.getVoteFromCurrentContestant(contestant.receivedVotes))  
+
   }
 
   saveVote(forAttendeeId: string, percentage: number){
@@ -43,4 +46,19 @@ export class VotingComponent implements OnInit {
     this.httpService.saveVote(vote)
   }
 
+  getVoteFromCurrentContestant(votes: Vote[]): number{
+
+    let maybeVotes = votes.filter(vote => vote.fromAttendeeId == this.currentAttendee.id)
+    if(maybeVotes.length!=1){
+      return 0 
+    } else {
+      return maybeVotes[0].percentage
+    }
+  }
+
+  isCurrentAttendee(attendeeId: string) {
+    let isCurrentAttende = this.currentAttendee.id == attendeeId
+    console.log(attendeeId + ": " +isCurrentAttende)
+    return this.currentAttendee.id == attendeeId
+  }
 }
