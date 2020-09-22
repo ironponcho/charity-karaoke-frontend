@@ -13,15 +13,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatDividerModule } from '@angular/material/divider';
+import { CookieModule, CookieService } from 'ngx-cookie';
 
 import { HomeModule } from './home/home.module';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { GlobalErrorHandler } from 'src/GlobalErrorHandler';
 import { FooterComponent } from './common/footer/footer.component';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { ResultsComponent } from './results/results.component';
-import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -35,6 +34,7 @@ import { CookieService } from 'ngx-cookie-service';
     ResultsComponent,
   ],
   imports: [
+    CookieModule.forRoot(),
     BrowserModule,
     NgbModule,
     FormsModule,
@@ -48,11 +48,7 @@ import { CookieService } from 'ngx-cookie-service';
     MatDividerModule
   ],
   providers: [
-    {
-      provide: ErrorHandler,
-      useClass: GlobalErrorHandler,
-    },
-    CookieService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

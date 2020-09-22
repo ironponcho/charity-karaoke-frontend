@@ -32,7 +32,7 @@ export class HttpService {
     });
   }
 
-  getAttendees(): Observable<Attendee[]> {
+  getAttendees(karaokeId: string): Observable<Attendee[]> {
 
     return of ([
       {

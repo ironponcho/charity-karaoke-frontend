@@ -24,7 +24,7 @@ export class ResultsComponent implements OnInit {
   }
 
   getContestants$() {
-    return this.httpService.getAttendees();
+    return this.contestantService.getContestantsForCurrentKaraoke$();
   }
 
 }

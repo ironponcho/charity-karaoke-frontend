@@ -16,6 +16,8 @@ export class SongSelectionComponent implements OnInit {
         private loginStateService: LoginStateService
     ) { }
 
+    currentUser: User
+
     focusArtistName;
     focusSongTitle;
     focusYoutubeLink;
@@ -27,16 +29,15 @@ export class SongSelectionComponent implements OnInit {
 
     submitted = false;
 
-    saveSong() {
-        this.httpService.saveSong(this.songFormModel);
+    ngOnInit() {
+        this.currentUser = this.loginStateService.getCurrentUser()
+        this.httpService.getAttendee(this.currentUser.id).subscribe(currentAttendee => {
+            this.songFormModel = currentAttendee.song;
+        });
     }
 
-    ngOnInit() {
-        this.loginStateService.getCurrentUser$().subscribe(currentUser => {
-            this.httpService.getAttendee(currentUser.id).subscribe(currentAttendee => {
-                this.songFormModel = currentAttendee.song;
-            });
-        });
+    saveSong() {
+        this.httpService.saveSong(this.songFormModel);
     }
 
     onSubmit() { this.submitted = true; }

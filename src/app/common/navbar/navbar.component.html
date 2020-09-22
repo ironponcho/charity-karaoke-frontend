@@ -1,27 +1,30 @@
 <nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
+  
   <div class="container">
     <a class="navbar-brand mr-lg-5" [routerLink]="['/home']">
       <h3 style="color:white">CK</h3>
     </a>
+    <div style="color:white"> Hallo {{currentUser.name}}!</div>
     <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
           [attr.aria-expanded]="!isCollapsed">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="navbar-collapse collapse" [ngbCollapse]="isCollapsed">
       <div class="navbar-collapse-header">
         <div class="row">
           <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
             <li class="nav-item dropdown" (click)="navigateToPage()">
-              <a *ngIf="currentUser$ |async as user" class="dropdown-item">Hallo {{user.name}}</a>
-              <a><mat-divider></mat-divider></a>
-              <a [routerLink]="['/register']" class="dropdown-item">Registierung</a>
-              <a [routerLink]="['/login']" class="dropdown-item">Login</a>
-              <a [routerLink]="['/song-selection']" class="dropdown-item">Songauswahl</a>
-              <a [routerLink]="['/voting']" class="dropdown-item">Abstimmung</a>
-              <a><mat-divider></mat-divider></a>
-              <a (click)="performLogout()" [routerLink]="['/home']" class="dropdown-item">Logout</a>
+              <b>Veranstaltung</b>
+              <a *ngIf="!currentUser" [routerLink]="['/register']" class="dropdown-item">Registierung</a>
+              <a *ngIf="!currentUser" [routerLink]="['/login']" class="dropdown-item">Login</a>
+              <a *ngIf="currentUser" [routerLink]="['/song-selection']" class="dropdown-item">Songauswahl</a>
+              <a *ngIf="currentUser" [routerLink]="['/voting']" class="dropdown-item">Abstimmung</a>
               <mat-divider></mat-divider>
-              <a [routerLink]="['/results']" class="dropdown-item">Ergebnis</a>
+              <b>Admin</b>
+              <a *ngIf="currentUser.isAdmin" [routerLink]="['/results']" class="dropdown-item">Ergebnis</a>
+              <mat-divider></mat-divider>
+              <a (click)="performLogout()" [routerLink]="['/home']" class="dropdown-item">Logout</a>
             </li>
           </ul>
         </div>

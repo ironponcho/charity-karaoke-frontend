@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Location, PopStateEvent } from '@angular/common';
 import { LoginStateService } from 'src/app/login-state-service.service';
-import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-navbar',
@@ -11,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
 
-  currentUser$: Observable<User>;
+  currentUser: User;
 
   public isCollapsed = true;
   private lastPoppedUrl: string;
@@ -23,23 +22,24 @@ export class NavbarComponent implements OnInit {
     private router: Router) {
   }
 
-    navigateToPage() {
-        this.isCollapsed = true;
-      }
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
+      this.isCollapsed = true;
 
-    ngOnInit() {
-      this.router.events.subscribe((event) => {
-        this.isCollapsed = true;
+    });
+    this.location.subscribe((ev: PopStateEvent) => {
+        this.lastPoppedUrl = ev.url;
+    });
 
-      });
-      this.location.subscribe((ev: PopStateEvent) => {
-          this.lastPoppedUrl = ev.url;
-      });
-      this.currentUser$ = this.loginStateService.getCurrentUser$();
+    this.currentUser = this.loginStateService.getCurrentUser();
+    
+  }
 
-    }
+  navigateToPage() {
+    this.isCollapsed = true;
+  }
 
-    performLogout() {
-      this.loginStateService.performLogout();
-    }
+  performLogout() {
+    this.loginStateService.performLogout();
+  }
 }
