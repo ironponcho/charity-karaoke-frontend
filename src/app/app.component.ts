@@ -7,8 +7,8 @@ import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 
 let didScroll;
 let lastScrollTop = 0;
-let delta = 5;
-let navbarHeight = 0;
+const delta = 5;
+const navbarHeight = 0;
 
 @Component({
     selector: 'app-root',
@@ -22,13 +22,13 @@ export class AppComponent implements OnInit {
     @HostListener('window:scroll', ['$event'])
     hasScrolled() {
 
-        let st = window.pageYOffset;
+        const st = window.pageYOffset;
         // Make sure they scroll more than delta
         if (Math.abs(lastScrollTop - st) <= delta) {
             return;
         }
 
-        let navbar = document.getElementsByTagName('nav')[0];
+        const navbar = document.getElementsByTagName('nav')[0];
 
         // If they scrolled down and are past the navbar, add class .headroom--unpinned.
         // This is necessary so you never see what is "behind" the navbar.
@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
         lastScrollTop = st;
     }
     ngOnInit() {
-      let navbar: HTMLElement = this.element.nativeElement.children[0].children[0];
+      const navbar: HTMLElement = this.element.nativeElement.children[0].children[0];
       this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {
           if (window.outerWidth > 991) {
               window.document.children[0].scrollTop = 0;

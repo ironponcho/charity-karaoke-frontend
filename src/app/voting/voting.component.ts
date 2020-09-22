@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { first, take } from 'rxjs/operators';
+import { ContestantService } from '../contestant.service';
 import { HttpService } from '../http-service.service';
+import { LoginStateService } from '../login-state-service.service';
 
 @Component({
     selector: 'app-landing',
@@ -10,55 +14,53 @@ import { HttpService } from '../http-service.service';
 
 export class VotingComponent implements OnInit {
 
-  contestants: Attendee[]
-
-  currentAttendee: Attendee
-
   constructor(
-    private route: ActivatedRoute,
-    private httpService: HttpService
+    private loginStateService: LoginStateService,
+    private httpService: HttpService,
+    private contestantService: ContestantService
   ) {}
 
   ngOnInit() {
-    let currentAttendeeId: string;
-    this.route.queryParams.subscribe(params => {
-      currentAttendeeId = params['currentAttendeeId'];
+ }
+
+  getContestants$():  Observable<Attendee[]> {
+    return this.contestantService.getContestantsForCurrentKaraoke$();
+  }
+
+  saveVote(forAttendeeId: string, percentage: number) {
+
+    this.loginStateService.getCurrentUser$().subscribe(currentUser => {
+      const vote: VoteOutbound = {
+        fromAttendeeId: currentUser.id,
+        forAttendeeId: forAttendeeId,
+        percentage: percentage ? percentage : 0
+      };
+      this.httpService.saveVote(vote);
     });
-    this.currentAttendee = this.httpService.getAttendee(currentAttendeeId);
-    this.contestants = this.httpService.getAttendees(this.currentAttendee.karaokeId)
-      .filter(attendee => attendee.song)
-
-    this.contestants.forEach(contestant => contestant.voteFromCurrentAttendee = this.getVoteFromCurrentContestant(contestant.receivedVotes))  
-
   }
 
-  saveVote(forAttendeeId: string, percentage: number){
+  getVoteFromCurrentContestant(votes: Vote[]): number {
 
-    if(this.currentAttendee.id == null){
-      alert("Please log in to vote!")
-      return
-    }
-    let vote: VoteOutbound = {
-      fromAttendeeId: this.currentAttendee.id,
-      forAttendeeId: forAttendeeId,
-      percentage: percentage ? percentage : 0 
-    }
-    this.httpService.saveVote(vote)
+    let percentage: number;
+    this.loginStateService.getCurrentUser$().pipe(first()).subscribe(currentUser => {
+      const maybeVotes = votes.filter(vote => vote.fromAttendeeId == currentUser.id);
+      if (maybeVotes.length != 1) {
+        percentage = 0;
+      } else {
+        percentage = maybeVotes[0].percentage;
+      }
+    });
+    return percentage;
   }
 
-  getVoteFromCurrentContestant(votes: Vote[]): number{
+  isCurrentAttendee(attendeeId: string): Boolean {
 
-    let maybeVotes = votes.filter(vote => vote.fromAttendeeId == this.currentAttendee.id)
-    if(maybeVotes.length!=1){
-      return 0 
-    } else {
-      return maybeVotes[0].percentage
-    }
-  }
+    let isCurrentUser: boolean;
 
-  isCurrentAttendee(attendeeId: string) {
-    let isCurrentAttende = this.currentAttendee.id == attendeeId
-    console.log(attendeeId + ": " +isCurrentAttende)
-    return this.currentAttendee.id == attendeeId
+    this.loginStateService.getCurrentUser$().pipe(first()).subscribe(currentUser => {
+      currentUser.id == attendeeId;
+    });
+
+    return isCurrentUser;
   }
 }

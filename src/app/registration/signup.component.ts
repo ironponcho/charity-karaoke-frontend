@@ -13,7 +13,7 @@ export class SignupComponent implements OnInit {
     competitionSelectionFocus;
     allKaraokeCompetitions: Karaoke[];
 
-    registrationModel: Registration
+    registrationModel: Registration;
 
     constructor(
         private httpService: HttpService
@@ -25,17 +25,18 @@ export class SignupComponent implements OnInit {
             karaokeId : '00000000',
             username: '',
             password: ''
-        }
+        };
     }
 
     register() {
-        
-        if(this.registrationModel.karaokeId == '00000000'){
-            console.warn("HEADS UP! YOU ARE USING THE DEFAULT KARAOKE ID")
+
+        if (this.registrationModel.karaokeId == '00000000') {
+            console.warn('HEADS UP! YOU ARE USING THE DEFAULT KARAOKE ID');
         }
 
 
-        if(this.registrationModel.karaokeId && this.registrationModel.username && this.registrationModel.password)
-        this.httpService.register(this.registrationModel)
+        if (this.registrationModel.karaokeId && this.registrationModel.username && this.registrationModel.password) {
+        this.httpService.register(this.registrationModel);
+        }
     }
 }

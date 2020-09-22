@@ -21,6 +21,7 @@ import { GlobalErrorHandler } from 'src/GlobalErrorHandler';
 import { FooterComponent } from './common/footer/footer.component';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { ResultsComponent } from './results/results.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -48,9 +49,10 @@ import { ResultsComponent } from './results/results.component';
   ],
   providers: [
     {
-    provide: ErrorHandler,
-    useClass: GlobalErrorHandler,
-    }
+      provide: ErrorHandler,
+      useClass: GlobalErrorHandler,
+    },
+    CookieService,
   ],
   bootstrap: [AppComponent]
 })

@@ -12,11 +12,15 @@
         <div class="row">
           <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
             <li class="nav-item dropdown" (click)="navigateToPage()">
-              <a [routerLink]="['/home']" class="dropdown-item">Startseite</a>
+              <a *ngIf="currentUser$ |async as user" class="dropdown-item">Hallo {{user.name}}</a>
+              <a><mat-divider></mat-divider></a>
               <a [routerLink]="['/register']" class="dropdown-item">Registierung</a>
               <a [routerLink]="['/login']" class="dropdown-item">Login</a>
               <a [routerLink]="['/song-selection']" class="dropdown-item">Songauswahl</a>
               <a [routerLink]="['/voting']" class="dropdown-item">Abstimmung</a>
+              <a><mat-divider></mat-divider></a>
+              <a (click)="performLogout()" [routerLink]="['/home']" class="dropdown-item">Logout</a>
+              <mat-divider></mat-divider>
               <a [routerLink]="['/results']" class="dropdown-item">Ergebnis</a>
             </li>
           </ul>

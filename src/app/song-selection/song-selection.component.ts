@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../http-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { LoginStateService } from '../login-state-service.service';
 
 @Component({
     selector: 'app-song-selection',
@@ -11,32 +12,31 @@ export class SongSelectionComponent implements OnInit {
 
     constructor(
         private httpService: HttpService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private loginStateService: LoginStateService
     ) { }
 
     focusArtistName;
     focusSongTitle;
     focusYoutubeLink;
-    currentAttendee: Attendee;
-    songFormModel: Song;
+    songFormModel: Song = {
+        originalArtist: '',
+        name: '',
+        youtubeKaraokeLink: '',
+    };
 
     submitted = false;
 
     saveSong() {
-        if(this.currentAttendee.id == null){
-            alert("Please log in first!")
-            return
-        }
         this.httpService.saveSong(this.songFormModel);
     }
 
     ngOnInit() {
-        let currentAttendeeId: string;
-        this.route.queryParams.subscribe(params => {
-            currentAttendeeId = params['currentAttendeeId'];
+        this.loginStateService.getCurrentUser$().subscribe(currentUser => {
+            this.httpService.getAttendee(currentUser.id).subscribe(currentAttendee => {
+                this.songFormModel = currentAttendee.song;
+            });
         });
-        this.currentAttendee = this.httpService.getAttendee(currentAttendeeId);
-        this.songFormModel = this.currentAttendee.song;
     }
 
     onSubmit() { this.submitted = true; }

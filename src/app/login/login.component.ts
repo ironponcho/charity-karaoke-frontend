@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   usernameFocus;
   passwordFocus;
 
-  loginForm : Login; 
+  loginForm: Login;
 
   constructor(
     private httpService: HttpService
@@ -22,12 +22,12 @@ export class LoginComponent implements OnInit {
     this.loginForm = {
       username: '',
       password: ''
-    }
+    };
   }
 
-  login(){
-    if(this.loginForm.password && this.loginForm.username){
-      this.httpService.login(this.loginForm)
-    } 
+  login() {
+    if (this.loginForm.password && this.loginForm.username) {
+      this.httpService.login(this.loginForm);
+    }
   }
 }

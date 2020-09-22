@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { first } from 'rxjs/operators';
+import { ContestantService } from '../contestant.service';
 import { HttpService } from '../http-service.service';
 
 @Component({
@@ -9,33 +11,20 @@ import { HttpService } from '../http-service.service';
 })
 export class ResultsComponent implements OnInit {
 
-  attendees: Attendee[]
-  currentAttendee: Attendee
+  currentAttendee: Attendee;
+  attendees: any;
 
   constructor(
     private route: ActivatedRoute,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private contestantService: ContestantService
   ) { }
 
   ngOnInit(): void {
-    let currentAttendeeId: string;
-    this.route.queryParams.subscribe(params => {
-      currentAttendeeId = params['currentAttendeeId'];
-    });
-    this.currentAttendee = this.httpService.getAttendee(currentAttendeeId)
-
-    this.attendees = this.httpService.getAttendees(this.currentAttendee.karaokeId).filter(attendee => attendee.receivedVotes.length > 0);
-    this.attendees.forEach(attendee => attendee.averageVoteInPercentage = this.getAverage(attendee.receivedVotes))
-    this.attendees.sort(function (a, b) {
-      return b.averageVoteInPercentage - a.averageVoteInPercentage;
-    })
-      
   }
 
-  getAverage(votes: Vote[]){
-    let sum = 0
-    votes.forEach(vote => sum += vote.percentage)
-    return sum / votes.length
+  getContestants$() {
+    return this.httpService.getAttendees();
   }
 
 }

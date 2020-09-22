@@ -20,7 +20,7 @@
                   Abstimmung
                 </h3>
               </div>
-              <mat-accordion *ngFor="let contestant of contestants">
+              <mat-accordion *ngFor="let contestant of getContestants$() | async">
                 <mat-expansion-panel  class="currentAttendee" *ngIf="isCurrentAttendee(contestant.id)">
                   <mat-expansion-panel-header>
                     <mat-panel-title>

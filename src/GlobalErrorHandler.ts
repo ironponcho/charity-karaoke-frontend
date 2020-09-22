@@ -5,8 +5,7 @@ export class GlobalErrorHandler implements ErrorHandler {
   constructor(private injector: Injector) { }
   handleError(error) {
     const router = this.injector.get(Router);
-    console.log(error.stack.toString());
-
+    console.error(error.message.toString());
   }
 
 }
