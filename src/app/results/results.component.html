@@ -1,51 +1,63 @@
 <main>
-    <section class="section section-shaped section-lg">
-      <div class="shape shape-style-1 shape-primary alpha-4">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <div class="container pt-lg-md">
-        <div class="row justify-content-center">
-          <div class="col-lg-5">
-            <div class="card bg-secondary shadow border-0">
-              <div class="card-body px-lg-5 py-lg-5">
-                <div class="px-4">  
-                  <h3 style="display: flex; justify-content: center; margin-bottom: 24px;">
-                    Ergebnis
-                  </h3>
-                </div>
-                <div *ngFor="let attendee of attendees">
-                  <div class="attendee">
+  <section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 shape-primary alpha-4">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="container pt-lg-md">
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="px-4">
+                <h3
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 24px;
+                  "
+                >
+                  Ergebnis
+                </h3>
+              </div>
+              <div *ngFor="let attendee of getContestants$() | async">
+                <div class="attendee">
+                  <div>
                     <div>
-                      <div>
-                        <h4>{{attendee.name}}</h4>
-                      </div>    
-                      <i>{{attendee.song.originalArtist}} - {{attendee.song.name}}</i>
+                      <h4>{{ attendee.name }}</h4>
                     </div>
-                      <div>
-                        <mat-slider
-                          style="width: 100%"
-                          thumbLabel = true
-                          value="{{attendee.averageVoteInPercentage}}"
-                          min="1"
-                          max="100">
-                        </mat-slider>
-                        <span>Ø {{attendee.averageVoteInPercentage}} bei {{attendee.receivedVotes.length}} Stimmen </span>
-                    </div>      
+                    <i
+                      >{{ attendee.song.originalArtist }} -
+                      {{ attendee.song.name }}</i
+                    >
                   </div>
-                  <mat-divider></mat-divider>
+                  <div>
+                    <mat-slider
+                      style="width: 100%"
+                      thumbLabel="true"
+                      value="{{ getAverage(attendee.receivedVotes) }}"
+                      min="1"
+                      max="100"
+                    >
+                    </mat-slider>
+                    <span
+                      >Ø {{ getAverage(attendee.receivedVotes) }} bei
+                      {{ attendee.receivedVotes.length }} Stimmen
+                    </span>
+                  </div>
                 </div>
+                <mat-divider></mat-divider>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </main>
-  
+    </div>
+  </section>
+</main>

@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ContestantService } from '../contestant.service';
-import { HttpService } from '../http-service.service';
-import { LoginStateService } from '../login-state-service.service';
+import { Component, OnInit } from "@angular/core";
+import { ContestantService } from "../contestant.service";
+import { HttpService } from "../http-service.service";
+import { LoginStateService } from "../login-state-service.service";
 
 @Component({
-    selector: 'app-landing',
-    templateUrl: './voting.component.html',
-    styleUrls: ['./voting.component.scss']
+  selector: "app-landing",
+  templateUrl: "./voting.component.html",
+  styleUrls: ["./voting.component.scss"],
 })
-
 export class VotingComponent implements OnInit {
-
-  currentUser: User
-  contestants
+  currentUser: User;
+  contestants: Attendee[];
 
   constructor(
     private loginStateService: LoginStateService,
@@ -21,26 +19,26 @@ export class VotingComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.currentUser =  this.loginStateService.getCurrentUser()
-    
-    this.contestantService.getContestantsForCurrentKaraoke$().subscribe(
-      res => this.contestants = res
-    )
+    this.currentUser = this.loginStateService.getCurrentUser();
 
+    this.contestantService
+      .getContestantsForCurrentKaraoke$()
+      .subscribe((res) => (this.contestants = res));
   }
 
   saveVote(forAttendeeId: string, percentage: number) {
     const vote: VoteOutbound = {
       fromAttendeeId: this.currentUser.id,
       forAttendeeId: forAttendeeId,
-      percentage: percentage ? percentage : 0
+      percentage: percentage ? percentage : 0,
     };
     this.httpService.saveVote(vote);
   }
 
   getVoteFromCurrentContestant(votes: Vote[]): number {
-
-    const maybeVotes = votes.filter(vote => vote.fromAttendeeId == this.currentUser.id)
+    const maybeVotes = votes.filter(
+      (vote) => vote.fromAttendeeId == this.currentUser.id
+    );
     if (maybeVotes.length != 1) {
       return 0;
     } else {
@@ -48,7 +46,7 @@ export class VotingComponent implements OnInit {
     }
   }
 
-  isCurrentAttendee(attendeeId: string): Boolean {   
+  isCurrentAttendee(attendeeId: string): Boolean {
     return this.currentUser.id == attendeeId;
   }
 }

@@ -15,96 +15,136 @@
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
             <div class="card-body px-lg-5 py-lg-5">
-              <div class="px-4">  
-                <h3 style="display: flex; justify-content: center; margin-bottom: 24px;">
+              <div class="px-4">
+                <h3
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 24px;
+                  "
+                >
                   Abstimmung
                 </h3>
               </div>
               <mat-accordion *ngFor="let contestant of contestants">
-                <mat-expansion-panel  class="currentAttendee" *ngIf="isCurrentAttendee(contestant.id)">
+                <mat-expansion-panel
+                  class="currentAttendee"
+                  *ngIf="isCurrentAttendee(contestant.id)"
+                  disabled
+                >
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-
                       <mat-panel-description class="attendee">
-                        <span>{{contestant.name}}</span>
+                        <span>{{ contestant.name }}</span>
                       </mat-panel-description>
-                      
-                      <span *ngIf="contestant.isCurrentlyPerforming" class="currentlyPerformingAttendee">
-                        <div class="song">{{contestant.song.originalArtist}}</div>
-                        <div class="song">{{contestant.song.name}}</div>                      
+
+                      <span
+                        *ngIf="contestant.isCurrentlyPerforming"
+                        class="currentlyPerformingAttendee"
+                      >
+                        <div class="song">
+                          {{ contestant.song.originalArtist }}
+                        </div>
+                        <div class="song">{{ contestant.song.name }}</div>
                       </span>
                       <span *ngIf="!contestant.isCurrentlyPerforming">
-                        <div class="song">{{contestant.song.originalArtist}}</div>
-                        <div class="song">{{contestant.song.name}}</div>
+                        <div class="song">
+                          {{ contestant.song.originalArtist }}
+                        </div>
+                        <div class="song">{{ contestant.song.name }}</div>
                       </span>
-                      </mat-panel-title>
-                          
-                      </mat-expansion-panel-header>
-                        <i>
-                          Du kannst nicht für dich selber abstimmen :) 
-                        </i>            
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <i> Du kannst nicht für dich selber abstimmen :)</i>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel *ngIf="!isCurrentAttendee(contestant.id)">
-                  <mat-expansion-panel-header *ngIf="contestant.isCurrentlyPerforming" class="currentlyPerformingAttendee">
+                  <mat-expansion-panel-header
+                    *ngIf="contestant.isCurrentlyPerforming"
+                    class="currentlyPerformingAttendee"
+                  >
                     <mat-panel-title>
                       <mat-panel-description class="attendee">
-                        <span>{{contestant.name}}</span>
+                        <span>{{ contestant.name }}</span>
                       </mat-panel-description>
-                      <span >
-                        <div class="song">{{contestant.song.originalArtist}}</div>
-                        <div class="song">{{contestant.song.name}}</div>                    
+                      <span>
+                        <div class="song">
+                          {{ contestant.song.originalArtist }}
+                        </div>
+                        <div class="song">{{ contestant.song.name }}</div>
                       </span>
-                    </mat-panel-title>  
-                    </mat-expansion-panel-header>
-                      <div>
-                        <mat-slider
-                          style="width: 100%"
-                          thumbLabel
-                          [(ngModel)]="contestant.voteFromCurrentAttendee"
-                          min="1"
-                          max="100"></mat-slider>
-                      </div>   
-                          <p>
-                            <button    
-                            style="margin-top:12px; float: right;" 
-                            class="btn btn-primary" 
-                            (click)="saveVote(contestant.id, contestant.voteFromCurrentAttendee)"
-                            type="button"
-                            >Speichern</button>
-                          </p>           
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div>
+                    <mat-slider
+                      style="width: 100%"
+                      thumbLabel
+                      [(ngModel)]="contestant.voteFromCurrentAttendee"
+                      min="1"
+                      max="100"
+                    ></mat-slider>
+                  </div>
+                  <p>
+                    <button
+                      style="margin-top: 12px; float: right"
+                      class="btn btn-primary"
+                      (click)="
+                        saveVote(
+                          contestant.id,
+                          contestant.voteFromCurrentAttendee
+                        )
+                      "
+                      type="button"
+                    >
+                      Speichern
+                    </button>
+                  </p>
                 </mat-expansion-panel>
 
                 <mat-expansion-panel *ngIf="!isCurrentAttendee(contestant.id)">
-                  <mat-expansion-panel-header *ngIf="!contestant.isCurrentlyPerforming">
+                  <mat-expansion-panel-header
+                    *ngIf="!contestant.isCurrentlyPerforming"
+                  >
                     <mat-panel-title>
                       <mat-panel-description class="attendee">
-                        <span>{{contestant.name}}</span>
+                        <span>{{ contestant.name }}</span>
                       </mat-panel-description>
-                      <span >
-                        <div class="song">{{contestant.song.originalArtist}}</div>
-                        <div class="song">{{contestant.song.name}}</div>                    
+                      <span>
+                        <div class="song">
+                          {{ contestant.song.originalArtist }}
+                        </div>
+                        <div class="song">{{ contestant.song.name }}</div>
                       </span>
-                    </mat-panel-title>  
-                    </mat-expansion-panel-header>
-                      <div>
-                        <mat-slider
-                          style="width: 100%"
-                          thumbLabel
-                          [(ngModel)]="contestant.voteFromCurrentAttendee"
-                          min="1"
-                          max="100"></mat-slider>
-                      </div>   
-                          <p>
-                            <button    
-                            style="margin-top:12px; float: right;" 
-                            class="btn btn-primary" 
-                            (click)="saveVote(contestant.id, contestant.voteFromCurrentAttendee)"
-                            type="button"
-                            >Speichern</button>
-                          </p>           
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div>
+                    <mat-slider
+                      style="width: 100%"
+                      thumbLabel
+                      value="{{
+                        getVoteFromCurrentContestant(contestant.receivedVotes)
+                      }}"
+                      [(ngModel)]="contestant.voteFromCurrentAttendee"
+                      min="1"
+                      max="100"
+                    ></mat-slider>
+                  </div>
+                  <p>
+                    <button
+                      style="margin-top: 12px; float: right"
+                      class="btn btn-primary"
+                      (click)="
+                        saveVote(
+                          contestant.id,
+                          contestant.voteFromCurrentAttendee
+                        )
+                      "
+                      type="button"
+                    >
+                      Speichern
+                    </button>
+                  </p>
                 </mat-expansion-panel>
-                
               </mat-accordion>
             </div>
           </div>
