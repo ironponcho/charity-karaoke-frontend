@@ -21,6 +21,7 @@ export class SongSelectionComponent implements OnInit {
     focusArtistName;
     focusSongTitle;
     focusYoutubeLink;
+
     songFormModel: Song = {
         originalArtist: '',
         name: '',
@@ -31,13 +32,13 @@ export class SongSelectionComponent implements OnInit {
 
     ngOnInit() {
         this.currentUser = this.loginStateService.getCurrentUser()
-        this.httpService.getAttendee(this.currentUser.id).subscribe(currentAttendee => {
+        this.httpService.getAttendee(this.currentUser.karaokeId, this.currentUser.id).subscribe(currentAttendee => {
             this.songFormModel = currentAttendee.song;
         });
     }
 
     saveSong() {
-        this.httpService.saveSong(this.songFormModel);
+        this.httpService.saveSong(this.currentUser, this.songFormModel);
     }
 
     onSubmit() { this.submitted = true; }

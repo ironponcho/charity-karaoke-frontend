@@ -4,7 +4,8 @@
     <a class="navbar-brand mr-lg-5" [routerLink]="['/home']">
       <h3 style="color:white">CK</h3>
     </a>
-    <div style="color:white"> Hallo {{currentUser.name}}!</div>
+
+    <div *ngIf="getCurrentUser()" style="color:white"> Hallo {{getCurrentUser().name}}!</div>
     <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
           [attr.aria-expanded]="!isCollapsed">
       <span class="navbar-toggler-icon"></span>
@@ -16,13 +17,13 @@
           <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
             <li class="nav-item dropdown" (click)="navigateToPage()">
               <b>Veranstaltung</b>
-              <a *ngIf="!currentUser" [routerLink]="['/register']" class="dropdown-item">Registierung</a>
-              <a *ngIf="!currentUser" [routerLink]="['/login']" class="dropdown-item">Login</a>
-              <a *ngIf="currentUser" [routerLink]="['/song-selection']" class="dropdown-item">Songauswahl</a>
-              <a *ngIf="currentUser" [routerLink]="['/voting']" class="dropdown-item">Abstimmung</a>
+              <a *ngIf="!getCurrentUser()" [routerLink]="['/register']" class="dropdown-item">Registierung</a>
+              <a *ngIf="!getCurrentUser()" [routerLink]="['/login']" class="dropdown-item">Login</a>
+              <a *ngIf="getCurrentUser()" [routerLink]="['/song-selection']" class="dropdown-item">Songauswahl</a>
+              <a *ngIf="getCurrentUser()" [routerLink]="['/voting']" class="dropdown-item">Abstimmung</a>
               <mat-divider></mat-divider>
               <b>Admin</b>
-              <a *ngIf="currentUser.isAdmin" [routerLink]="['/results']" class="dropdown-item">Ergebnis</a>
+              <a *ngIf="getCurrentUser().isAdmin" [routerLink]="['/results']" class="dropdown-item">Ergebnis</a>
               <mat-divider></mat-divider>
               <a (click)="performLogout()" [routerLink]="['/home']" class="dropdown-item">Logout</a>
             </li>

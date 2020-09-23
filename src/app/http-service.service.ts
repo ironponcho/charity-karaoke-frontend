@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,19 +17,22 @@ export class HttpService {
     ];
   }
 
-  getAttendee(attendeeId: string): Observable<Attendee> {
-    return of({
-      id: attendeeId,
-      name: 'Nico ' + attendeeId,
-      karaokeId: '12345',
-      isCurrentlyPerforming: true,
-      song: {
-        originalArtist: 'Celine Dion ',
-        name: 'My heart will go on',
-        youtubeKaraokeLink: 'https://www.youtube.com/watch?v=I2rReu-Wzak'
-      },
-      receivedVotes: []
-    });
+  getAttendee(karaokeId: string, attendeeId: string): Observable<Attendee> {
+
+    let results: Attendee[]
+   
+    this.getAttendees(karaokeId).subscribe(attendees => {
+      results = attendees.filter(attendee => 
+        attendee.id === attendeeId
+      )
+    })
+    
+    if(results.length != 1){
+      console.error("No attende was found for karaokeID " + karaokeId +" and attendeeId " +attendeeId)
+      return EMPTY
+    } else {
+      return of(results[0])
+    }
   }
 
   getAttendees(karaokeId: string): Observable<Attendee[]> {
@@ -38,7 +41,7 @@ export class HttpService {
       {
         id: '1',
         name: 'Matthias',
-        karaokeId: '12345',
+        karaokeId: karaokeId,
         isCurrentlyPerforming: false,
         song: {
           originalArtist: 'Hubert Kah',
@@ -59,7 +62,7 @@ export class HttpService {
       {
         id: '2',
         name: 'Jonas',
-        karaokeId: '12345',
+        karaokeId: karaokeId,
         isCurrentlyPerforming: false,
         song: {
           originalArtist: 'Lighthouse Family',
@@ -87,7 +90,7 @@ export class HttpService {
       {
         id: '3',
         name: 'Nico',
-        karaokeId: '12345',
+        karaokeId: karaokeId,
         isCurrentlyPerforming: true,
         song: {
           originalArtist: 'Celine Dion',
@@ -119,7 +122,7 @@ export class HttpService {
       {
         id: '4',
         name: 'Jessy',
-        karaokeId: '12345',
+        karaokeId: karaokeId,
         isCurrentlyPerforming: false,
         song: {
           originalArtist: '林憶蓮',
@@ -152,7 +155,7 @@ export class HttpService {
       {
         id: '5',
         name: 'Leif',
-        karaokeId: '12345',
+        karaokeId: karaokeId,
         isCurrentlyPerforming: false,
         song: {
           originalArtist: 'Wham',
@@ -164,7 +167,7 @@ export class HttpService {
       {
         id: '6',
         name: 'Danny',
-        karaokeId: '12345',
+        karaokeId: karaokeId,
         isCurrentlyPerforming: false,
         song: {
           originalArtist: 'Ronan Keating',
@@ -176,14 +179,14 @@ export class HttpService {
       {
         id: '9',
         name: 'Paula',
-        karaokeId: '12345',
+        karaokeId: karaokeId,
         isCurrentlyPerforming: false,
         receivedVotes: []
       },
       {
         id: '7',
         name: 'Mike',
-        karaokeId: '12345',
+        karaokeId: karaokeId,
         isCurrentlyPerforming: false,
         song: {
           originalArtist: 'Hermes House Band',
@@ -195,7 +198,7 @@ export class HttpService {
       {
         id: '8',
         name: 'Jonte',
-        karaokeId: '12345',
+        karaokeId: karaokeId,
         isCurrentlyPerforming: false,
         song: {
           originalArtist: 'Robbie Williams',
@@ -205,11 +208,11 @@ export class HttpService {
         receivedVotes: []
       }, {
         id: '10',
-        name: 'Niklas & Jan',
-        karaokeId: '12345',
+        name: 'Niklas',
+        karaokeId: karaokeId,
         isCurrentlyPerforming: false,
         song: {
-          originalArtist: 'Meite Kelly & Roland kaiser',
+          originalArtist: 'Roland kaiser',
           name: 'Warum hast du nicht nein gesagt',
           youtubeKaraokeLink: 'youtube.com/watch'
         },
@@ -222,8 +225,8 @@ export class HttpService {
     alert('Going to save ' + JSON.stringify(vote));
   }
 
-  saveSong(songFormModel: Song) {
-    alert('Going to save ' + JSON.stringify(songFormModel));
+  saveSong(currentUser: User, songFormModel: Song) {
+    alert('Going to save ' + JSON.stringify(songFormModel) +' for User ' + currentUser.id);
   }
 
   login(login: Login) {

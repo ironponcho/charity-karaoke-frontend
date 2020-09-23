@@ -10,8 +10,6 @@ import { LoginStateService } from 'src/app/login-state-service.service';
 })
 export class NavbarComponent implements OnInit {
 
-  currentUser: User;
-
   public isCollapsed = true;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
@@ -30,9 +28,12 @@ export class NavbarComponent implements OnInit {
     this.location.subscribe((ev: PopStateEvent) => {
         this.lastPoppedUrl = ev.url;
     });
+  }
 
-    this.currentUser = this.loginStateService.getCurrentUser();
-    
+  getCurrentUser() {
+    let currentUser = this.loginStateService.getCurrentUser()
+    console.log("currentUser: " +JSON.stringify(currentUser))
+    return currentUser;
   }
 
   navigateToPage() {
