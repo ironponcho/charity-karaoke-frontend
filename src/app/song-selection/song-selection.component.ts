@@ -1,46 +1,60 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../http-service.service';
-import { ActivatedRoute } from '@angular/router';
-import { LoginStateService } from '../login-state-service.service';
+import { Component, OnInit } from "@angular/core";
+import { ApiService } from "../api-service.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { LoginStateService } from "../login-state-service.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
-    selector: 'app-song-selection',
-    templateUrl: './song-selection.component.html',
-    styleUrls: ['./song-selection.component.scss']
+  selector: "app-song-selection",
+  templateUrl: "./song-selection.component.html",
+  styleUrls: ["./song-selection.component.scss"],
 })
 export class SongSelectionComponent implements OnInit {
+  constructor(
+    private httpService: ApiService,
+    private loginStateService: LoginStateService,
+    private toastrService: ToastrService,
+    private router: Router
+  ) {}
 
-    constructor(
-        private httpService: HttpService,
-        private route: ActivatedRoute,
-        private loginStateService: LoginStateService
-    ) { }
+  currentUser: User;
 
-    currentUser: User
+  focusArtistName;
+  focusSongTitle;
+  focusYoutubeLink;
 
-    focusArtistName;
-    focusSongTitle;
-    focusYoutubeLink;
+  songFormModel: Song = {
+    originalArtist: "",
+    name: "",
+    youtubeKaraokeLink: "",
+  };
 
-    songFormModel: Song = {
-        originalArtist: '',
-        name: '',
-        youtubeKaraokeLink: '',
-    };
+  submitted = false;
 
-    submitted = false;
+  ngOnInit() {
+    this.currentUser = this.loginStateService.getCurrentUser();
+    this.httpService
+      .getAttendee(this.currentUser.karaokeId, this.currentUser.id)
+      .subscribe((currentAttendee) => {
+        this.songFormModel = currentAttendee.song;
+      });
+  }
 
-    ngOnInit() {
-        this.currentUser = this.loginStateService.getCurrentUser()
-        this.httpService.getAttendee(this.currentUser.karaokeId, this.currentUser.id).subscribe(currentAttendee => {
-            this.songFormModel = currentAttendee.song;
-        });
-    }
+  saveSong() {
+    this.httpService.saveSong(this.currentUser, this.songFormModel).subscribe(
+      (data) => {
+        this.toastrService.success(
+          this.songFormModel.name + " wurde eingetragen!"
+        );
+        this.router.navigate(["/voting"]);
+      },
+      (err) => {
+        this.toastrService.error(err.message);
+      }
+    );
+  }
 
-    saveSong() {
-        this.httpService.saveSong(this.currentUser, this.songFormModel);
-    }
-
-    onSubmit() { this.submitted = true; }
-
+  onSubmit() {
+    this.submitted = true;
+  }
 }

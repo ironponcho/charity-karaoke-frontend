@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HttpService } from './http-service.service';
+import { InboundMapperService } from './inbound-mapper.service';
 
-describe('HttpServiceService', () => {
-  let service: HttpService;
+describe('InboundMapperService', () => {
+  let service: InboundMapperService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(HttpService);
+    service = TestBed.inject(InboundMapperService);
   });
 
   it('should be created', () => {

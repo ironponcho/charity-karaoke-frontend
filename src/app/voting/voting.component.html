@@ -30,7 +30,6 @@
                 <mat-expansion-panel
                   class="currentAttendee"
                   *ngIf="isCurrentAttendee(contestant.id)"
-                  disabled
                 >
                   <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -89,10 +88,7 @@
                       style="margin-top: 12px; float: right"
                       class="btn btn-primary"
                       (click)="
-                        saveVote(
-                          contestant.id,
-                          contestant.voteFromCurrentAttendee
-                        )
+                        saveVote(contestant, contestant.voteFromCurrentAttendee)
                       "
                       type="button"
                     >
@@ -134,10 +130,7 @@
                       style="margin-top: 12px; float: right"
                       class="btn btn-primary"
                       (click)="
-                        saveVote(
-                          contestant.id,
-                          contestant.voteFromCurrentAttendee
-                        )
+                        saveVote(contestant, contestant.voteFromCurrentAttendee)
                       "
                       type="button"
                     >

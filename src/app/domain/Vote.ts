@@ -1,7 +1,4 @@
 interface Vote {
-    fromAttendeeId: string;
-    percentage: number;
+  fromAttendeeId: string;
+  percentage: number;
 }
-
-
-

@@ -1,7 +1,7 @@
 import { OnInit } from "@angular/core";
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
-import { HttpService } from "./http-service.service";
+import { ApiService } from "./api-service.service";
 import { LoginStateService } from "./login-state-service.service";
 
 @Injectable({
@@ -12,7 +12,7 @@ export class ContestantService implements OnInit {
 
   constructor(
     private loginStateService: LoginStateService,
-    private httpService: HttpService
+    private api: ApiService
   ) {}
 
   ngOnInit() {
@@ -24,11 +24,18 @@ export class ContestantService implements OnInit {
 
     let contestants: Observable<Attendee[]>;
 
-    this.httpService
-      .getAttendees(this.currentUser.karaokeId)
-      .subscribe((attendees) => {
-        contestants = of(attendees.filter((attendee) => attendee.song));
+    this.api.getAttendees(this.currentUser.karaokeId).subscribe((attendees) => {
+      attendees.forEach((attendee) => {
+        // ggf. vom Backend machen lassen?
+        attendee.averageVote =
+          attendee.receivedVotes.length === 0
+            ? 0
+            : attendee.receivedVotes
+                .map((vote) => vote.percentage)
+                .reduce((a, b) => a + b, 0) / attendee.receivedVotes.length;
       });
+      contestants = of(attendees.filter((attendee) => attendee.song));
+    });
 
     return contestants;
   }

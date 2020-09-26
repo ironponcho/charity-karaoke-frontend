@@ -1,13 +1,21 @@
-<nav id="navbar-main" class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned">
-  
+<nav
+  id="navbar-main"
+  class="navbar navbar-main navbar-expand-lg navbar-transparent navbar-light headroom headroom--top headroom--pinned"
+>
   <div class="container">
     <a class="navbar-brand mr-lg-5" [routerLink]="['/home']">
-      <h3 style="color:white">CK</h3>
+      <h3 style="color: white">CK</h3>
     </a>
 
-    <div *ngIf="getCurrentUser().name" style="color:white"> Hallo {{getCurrentUser().name}}!</div>
-    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed"
-          [attr.aria-expanded]="!isCollapsed">
+    <div *ngIf="getCurrentUser().name" style="color: white">
+      Hallo {{ getCurrentUser().name }}!
+    </div>
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="isCollapsed = !isCollapsed"
+      [attr.aria-expanded]="!isCollapsed"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -18,30 +26,42 @@
             <li class="nav-item dropdown" (click)="navigateToPage()">
               <span *ngIf="!isLoggedIn()">
                 <b>Menu</b>
-                <a [routerLink]="['/register']" class="dropdown-item">Registierung</a>
+                <a [routerLink]="['/register']" class="dropdown-item"
+                  >Registierung</a
+                >
                 <a [routerLink]="['/login']" class="dropdown-item">Login</a>
               </span>
-            
+
               <span *ngIf="isLoggedIn()">
                 <b>Veranstaltung</b>
-                <a [routerLink]="['/song-selection']" class="dropdown-item">Songauswahl</a>
-                <a [routerLink]="['/voting']" class="dropdown-item">Abstimmung</a>
+                <a [routerLink]="['/song-selection']" class="dropdown-item"
+                  >Songauswahl</a
+                >
+                <a [routerLink]="['/voting']" class="dropdown-item"
+                  >Abstimmung</a
+                >
               </span>
 
               <span *ngIf="isLoggedIn() && getCurrentUser().isAdmin">
                 <mat-divider></mat-divider>
                 <b>Admin</b>
-                <a [routerLink]="['/results']" class="dropdown-item">Ergebnis</a>
+                <a [routerLink]="['/results']" class="dropdown-item"
+                  >Ergebnis</a
+                >
               </span>
-            
+
               <span *ngIf="isLoggedIn()">
-                <a (click)="performLogout()" [routerLink]="['/home']" class="dropdown-item">Logout</a>
+                <a
+                  (click)="performLogout()"
+                  [routerLink]="['/home']"
+                  class="dropdown-item"
+                  >Logout</a
+                >
               </span>
-         
             </li>
           </ul>
         </div>
-      </div>   
+      </div>
     </div>
   </div>
 </nav>

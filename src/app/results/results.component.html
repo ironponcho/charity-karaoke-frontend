@@ -26,7 +26,11 @@
                   Ergebnis
                 </h3>
               </div>
-              <div *ngFor="let attendee of getContestants$() | async">
+              <div
+                *ngFor="
+                  let attendee of getContestants$() | async | sortByAverageVote
+                "
+              >
                 <div class="attendee">
                   <div>
                     <div>
@@ -41,13 +45,13 @@
                     <mat-slider
                       style="width: 100%"
                       thumbLabel="true"
-                      value="{{ getAverage(attendee.receivedVotes) }}"
+                      value="{{ attendee.averageVote }}"
                       min="1"
                       max="100"
                     >
                     </mat-slider>
                     <span
-                      >Ø {{ getAverage(attendee.receivedVotes) }} bei
+                      >Ø {{ attendee.averageVote }} bei
                       {{ attendee.receivedVotes.length }} Stimmen
                     </span>
                   </div>

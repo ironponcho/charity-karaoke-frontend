@@ -1,0 +1,162 @@
+openapi: 3.0.0
+info:
+  description: ""
+  version: "0.1"
+  title: "Charity Karaoke"
+  contact:
+    email: "thc@vtg.com"
+servers:
+  - url: "https://charity-karaoke.de"
+paths:
+  "/karaoke/{karaokeId}/user":
+    post:
+      summary: "Post the userName, receive the generated userId"
+      parameters:
+        - name: karaokeId
+          schema:
+            type: string
+          in: path
+          required: true
+      requestBody:
+        description: Supply the username
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        200:
+          description: "The user was generated"
+          content:
+            application/json:
+              schema:
+                description: "returns the generated userId"
+                type: string
+  "/karaoke/{karaokeId}/user/{userId}/song":
+    post:
+      summary: "participate with a song or change it"
+      parameters:
+        - name: karaokeId
+          schema:
+            type: string
+          in: path
+          required: true
+        - name: userId
+          schema:
+            type: string
+          in: path
+          required: true
+      requestBody:
+        description: Supply the username
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/song"
+      responses:
+        204:
+          description: "The song was successfully added / updated"
+  "/karaoke/{karaokeId}/attendeees":
+    get:
+      summary: "Fetch all attendees"
+      parameters:
+        - name: karaokeId
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/attendee-response"
+  "/karaoke/{karaokeId}/vote":
+    post:
+      summary: "Vote for the supplied user"
+      parameters:
+        - name: karaokeId
+          schema:
+            type: string
+          in: path
+          required: true
+      responses:
+        204:
+          description: "The vote was successfully registered"
+      requestBody:
+        description: Supply the username
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/vote"
+  "/karaoke":
+    get:
+      summary: "Lists all karaoke competitions"
+      responses:
+        200:
+          description: ""
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/karaoke-response"
+components:
+  schemas:
+    karaoke-response:
+      type: object
+      properties:
+        attendees:
+          type: array
+          items:
+            $ref: "#/components/schemas/karaoke"
+    attendee-response:
+      type: object
+      properties:
+        attendees:
+          type: array
+          items:
+            $ref: "#/components/schemas/attendee"
+    attendee:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        isCurrentlyPerforming:
+          type: boolean
+        song:
+          $ref: "#/components/schemas/song"
+        receivedVotes:
+          items:
+            $ref: "#/components/schemas/vote"
+    song:
+      type: object
+      properties:
+        originalArtist:
+          type: string
+        name:
+          type: string
+        youtubeKaraokeLink:
+          type: string
+    vote:
+      type: object
+      properties:
+        fromUserId:
+          type: string
+        forUserId:
+          type: string
+        percentage:
+          type: integer
+    karaoke:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        date:
+          type: string

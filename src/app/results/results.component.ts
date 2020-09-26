@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { first } from "rxjs/operators";
 import { ContestantService } from "../contestant.service";
-import { HttpService } from "../http-service.service";
+import { ApiService } from "../api-service.service";
 
 @Component({
   selector: "app-results",
@@ -14,7 +14,7 @@ export class ResultsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private httpService: HttpService,
+    private httpService: ApiService,
     private contestantService: ContestantService
   ) {}
 
@@ -22,14 +22,5 @@ export class ResultsComponent implements OnInit {
 
   getContestants$() {
     return this.contestantService.getContestantsForCurrentKaraoke$();
-  }
-
-  getAverage(votes: Vote[]) {
-    let sum = 0;
-    if (votes.length === 0) {
-      return sum;
-    }
-    votes.forEach((vote) => (sum += vote.percentage));
-    return sum / votes.length;
   }
 }

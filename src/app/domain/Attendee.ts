@@ -6,4 +6,5 @@ interface Attendee {
   song?: Song;
   receivedVotes: Vote[];
   voteFromCurrentAttendee?: number;
+  averageVote?: number;
 }
