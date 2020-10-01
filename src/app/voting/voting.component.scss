@@ -1,16 +1,26 @@
-.currentAttendee {
-}
-
-.currentlyPerformingAttendee {
-  background-color: plum;
-}
-
-.song {
+.headline {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  margin-bottom: 24px;
 }
 
 .attendee {
-  margin: 8px;
-  color: purple;
+  display: block;
+
+  .currentlyPerforming {
+    background-color: #ae82ff;
+  }
+
+  .notCurrentlyPerforming {
+  }
+
+  .song {
+    .cover {
+      font-weight: bold;
+    }
+  }
+}
+
+.attendee {
+  margin: 4px;
 }

@@ -15,66 +15,113 @@
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
             <div class="card-body px-lg-5 py-lg-5">
-              <div class="px-4">  
-                <h3 style="display: flex; justify-content: center; margin-bottom: 24px;">
+              <div class="px-4">
+                <h3
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 24px;
+                  "
+                >
                   Registierung
                 </h3>
               </div>
 
               <div role="form">
-
                 <label for="Name">Name</label>
-                <div class="form-group" [ngClass]="{'focused':nameFocus===true}">
+                <div
+                  class="form-group"
+                  [ngClass]="{ focused: nameFocus === true }"
+                >
                   <div class="input-group input-group-alternative mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                      <span class="input-group-text"
+                        ><i class="ni ni-hat-3"></i
+                      ></span>
                     </div>
-                    <input 
-                    [(ngModel)]="registrationModel.username"
-                    class="form-control" 
-                    placeholder="Name"
-                    type="text" (focus)="focus=true" (blur)="focus=false">
+                    <input
+                      [(ngModel)]="registrationModel.name"
+                      class="form-control"
+                      placeholder="Name"
+                      type="text"
+                      (focus)="focus = true"
+                      (blur)="focus = false"
+                    />
                   </div>
                 </div>
 
                 <label for="Password">Passwort</label>
-                <div class="form-group" [ngClass]="{'focused':passwordFocus===true}">
+                <div
+                  class="form-group"
+                  [ngClass]="{ focused: passwordFocus === true }"
+                >
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                      <span class="input-group-text"
+                        ><i class="ni ni-lock-circle-open"></i
+                      ></span>
                     </div>
-                    <input 
-                    [(ngModel)]="registrationModel.password"
-                    class="form-control" 
-                    placeholder="Passwort" 
-                    type="password" (focus)="focus2=true" (blur)="focus2=false">
+                    <input
+                      [(ngModel)]="registrationModel.password"
+                      class="form-control"
+                      placeholder="Passwort"
+                      type="password"
+                      (focus)="focus2 = true"
+                      (blur)="focus2 = false"
+                    />
                   </div>
                 </div>
-             
+
                 <label for="Password">Veranstaltung</label>
-                <div class="form-group" [ngClass]="{'focused':competitionSelectionFocus===true}">
+                <div
+                  class="form-group"
+                  [ngClass]="{ focused: competitionSelectionFocus === true }"
+                >
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                      <span class="input-group-text"
+                        ><i class="ni ni-lock-circle-open"></i
+                      ></span>
                     </div>
-                      <select class="form-control"  id="power"
-                              required>
-                        <option 
-                        *ngFor="let karaoke of allKaraokeCompetitions" [value]="karaoke.name">{{karaoke.name}}</option>
-                      </select>
-                    </div>
+                    <select
+                      class="form-control"
+                      id="power"
+                      required
+                      [(ngModel)]="registrationModel.karaokeId"
+                    >
+                      <option
+                        *ngFor="let karaoke of allKaraokeCompetitions | async"
+                        [ngValue]="karaoke.id"
+                      >
+                        {{ karaoke.name }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
 
                 <div class="row my-4">
                   <div class="col-12">
-                      <label>
-                        <b>Diese Informationen werden ausschließlich zu deiner Identifikation während des ausgewählten Wettkampfs benötigt. </b>
-                        <b>Mit dem Erstellen deines Accounts gibst du uns die Erlaubnis deinen Namen zu speichern.</b>
-                      </label>
+                    <label>
+                      <b
+                        >Diese Informationen werden ausschließlich zu deiner
+                        Identifikation während des ausgewählten Wettkampfs
+                        benötigt.
+                      </b>
+                      <b
+                        >Mit dem Erstellen deines Accounts gibst du uns die
+                        Erlaubnis deinen Namen zu speichern.</b
+                      >
+                    </label>
                   </div>
                 </div>
                 <div class="text-center">
-                  <button type="button" (click)="register()" class="btn btn-primary mt-4">Account erstellen</button>
+                  <button
+                    type="button"
+                    (click)="register()"
+                    class="btn btn-primary mt-4"
+                  >
+                    Account erstellen
+                  </button>
                 </div>
               </div>
             </div>

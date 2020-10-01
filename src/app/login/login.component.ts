@@ -12,6 +12,7 @@ import { LoginStateService } from "../login-state-service.service";
 export class LoginComponent implements OnInit {
   usernameFocus;
   passwordFocus;
+  karaokeIdFocus;
 
   loginForm: Login;
 
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = {
       username: "",
       password: "",
+      karaokeId: "1234",
     };
   }
 
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
         (user) => {
           this.loginStateService.setUserCookies(user);
           this.toastrService.success("Hallo " + user.name + "!");
-          this.router.navigate(["/song-selection"]);
+          this.router.navigate(["/voting"]);
         },
         (err) => {
           this.toastrService.error(err.message);
@@ -48,8 +50,10 @@ export class LoginComponent implements OnInit {
     return (
       this.loginForm.password &&
       this.loginForm.username &&
+      this.loginForm.karaokeId &&
       this.loginForm.password.length > 0 &&
-      this.loginForm.username.length > 0
+      this.loginForm.username.length > 0 &&
+      this.loginForm.karaokeId.length > 0
     );
   }
 }

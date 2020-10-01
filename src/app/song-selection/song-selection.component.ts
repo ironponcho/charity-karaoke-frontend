@@ -41,17 +41,19 @@ export class SongSelectionComponent implements OnInit {
   }
 
   saveSong() {
-    this.httpService.saveSong(this.currentUser, this.songFormModel).subscribe(
-      (data) => {
-        this.toastrService.success(
-          this.songFormModel.name + " wurde eingetragen!"
-        );
-        this.router.navigate(["/voting"]);
-      },
-      (err) => {
-        this.toastrService.error(err.message);
-      }
-    );
+    this.httpService
+      .saveSong(this.songFormModel, this.currentUser.karaokeId)
+      .subscribe(
+        (data) => {
+          this.toastrService.success(
+            this.songFormModel.name + " wurde eingetragen!"
+          );
+          this.router.navigate(["/voting"]);
+        },
+        (err) => {
+          this.toastrService.error(err.message);
+        }
+      );
   }
 
   onSubmit() {

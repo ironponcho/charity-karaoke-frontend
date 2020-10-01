@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { EMPTY, Observable, of } from "rxjs";
 import { ApiPathProviderService } from "./api-path-provider.service";
 import { OutboundMapperService } from "./outbound-mapper.service";
+import { map } from "rxjs/operators";
+import { InboundMapperService } from "./inbound-mapper.service";
 
 @Injectable({
   providedIn: "root",
@@ -12,21 +14,15 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private pathProvider: ApiPathProviderService,
-    private outboundMapperService: OutboundMapperService
+    private outboundMapperService: OutboundMapperService,
+    private inboundMapperService: InboundMapperService
   ) {}
 
-  getAllKaraokeCompetitions(): Karaoke[] {
-    return [
-      {
-        name: "Charity-Karaoke II",
-        description: "Elevate-Studios Hamburg",
-        id: "123465",
-        date: new Date("2020-01-01"),
-      },
-    ];
+  getAllKaraokeCompetitions() {
+    return this.http.get<Karaoke[]>(this.pathProvider.getKaraokesPath());
   }
 
-  getAttendee(karaokeId: string, attendeeId: string): Observable<Attendee> {
+  getAttendee(karaokeId: string, attendeeId: string) {
     let results: Attendee[];
 
     this.getAttendees(karaokeId).subscribe((attendees) => {
@@ -242,53 +238,33 @@ export class ApiService {
     }
   }
 
-  saveSong(currentUser: User, song: Song): Observable<string> {
-    if (song.name === "High") {
-      return of("Success!");
-    } else {
-      return this.http.post<string>(
-        this.pathProvider.postSongSelectionPath(
-          currentUser.karaokeId,
-          currentUser.id
-        ),
-        this.outboundMapperService.toSongOutbound(song)
-      );
-    }
+  saveSong(song: Song, karaokeId: string): Observable<string> {
+    return this.http.post<string>(
+      this.pathProvider.postSongPath(),
+      this.outboundMapperService.toSongOutbound(song, karaokeId)
+    );
   }
 
   login(login: Login): Observable<User> {
-    if (login.username === "Jonas") {
-      return of({
-        isAdmin: false,
-        name: "Jonas",
-        id: "2",
-        karaokeId: "1234",
-        token:
-          "Bearer eyJhbGci9f5fef85305880101d5e302afafa20154d094b229f75773e",
-      });
-    } else {
-      return this.http.post<User>(
-        this.pathProvider.postLoginPath(),
+    return this.http
+      .post<UserInbound>(
+        this.pathProvider.postLoginPath(login.karaokeId),
         this.outboundMapperService.toLoginOutbound(login)
+      )
+      .pipe(
+        map((userInbound) => {
+          return this.inboundMapperService.mapUser(
+            userInbound,
+            login.karaokeId
+          );
+        })
       );
-    }
   }
 
   register(registration: Registration): Observable<User> {
-    if (registration.username === "Jonas") {
-      return of({
-        isAdmin: false,
-        name: "Jonas",
-        id: "2",
-        karaokeId: "1234",
-        token:
-          "Bearer eyJhbGci9f5fef85305880101d5e302afafa20154d094b229f75773e",
-      });
-    } else {
-      return this.http.post<User>(
-        this.pathProvider.postLoginPath(),
-        this.outboundMapperService.toRegistrationOutbound(registration)
-      );
-    }
+    return this.http.post<User>(
+      this.pathProvider.postRegistrationPath(registration.karaokeId),
+      this.outboundMapperService.toRegistrationOutbound(registration)
+    );
   }
 }

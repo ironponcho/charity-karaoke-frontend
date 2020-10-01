@@ -26,7 +26,6 @@ export class ContestantService implements OnInit {
 
     this.api.getAttendees(this.currentUser.karaokeId).subscribe((attendees) => {
       attendees.forEach((attendee) => {
-        // ggf. vom Backend machen lassen?
         attendee.averageVote =
           attendee.receivedVotes.length === 0
             ? 0

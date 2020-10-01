@@ -1,5 +1,5 @@
 interface Registration {
-    username: string;
-    password: string;
-    karaokeId: string;
+  name: string;
+  password: string;
+  karaokeId: string;
 }

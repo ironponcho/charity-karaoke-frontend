@@ -1,6 +1,6 @@
 interface Karaoke {
-    name: string;
-    description: string;
-    id: string;
-    date: Date;
+  name: string;
+  id: string;
+  date: string;
+  expired: boolean;
 }

@@ -22,9 +22,12 @@ import { FooterComponent } from "./common/footer/footer.component";
 import { NavbarComponent } from "./common/navbar/navbar.component";
 import { ResultsComponent } from "./results/results.component";
 import { CommonModule } from "@angular/common";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { ToastrModule } from "ngx-toastr";
 import { SortByAverageVotePipe } from "./sort-by-average-vote.pipe";
+import { LandingPageComponent } from "./landing-page/landing-page.component";
+import { LivePageComponent } from "./live-page/live-page.component";
+import { AuthInterceptor } from "./auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -37,6 +40,8 @@ import { SortByAverageVotePipe } from "./sort-by-average-vote.pipe";
     LoginComponent,
     ResultsComponent,
     SortByAverageVotePipe,
+    LandingPageComponent,
+    LivePageComponent,
   ],
   imports: [
     CookieModule.forRoot(),
@@ -55,7 +60,14 @@ import { SortByAverageVotePipe } from "./sort-by-average-vote.pipe";
     MatDividerModule,
     HttpClientModule,
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

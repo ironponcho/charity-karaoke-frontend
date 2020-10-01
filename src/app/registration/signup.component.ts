@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 import { ApiService } from "../api-service.service";
 
 @Component({
@@ -10,32 +12,42 @@ export class SignupComponent implements OnInit {
   nameFocus;
   passwordFocus;
   competitionSelectionFocus;
-  allKaraokeCompetitions: Karaoke[];
+  allKaraokeCompetitions;
 
   registrationModel: Registration;
 
-  constructor(private httpService: ApiService) {}
+  constructor(
+    private httpService: ApiService,
+    private toastrService: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.allKaraokeCompetitions = this.httpService.getAllKaraokeCompetitions();
     this.registrationModel = {
-      karaokeId: "00000000",
-      username: "",
+      karaokeId: "",
+      name: "",
       password: "",
     };
   }
 
   register() {
-    if (this.registrationModel.karaokeId == "00000000") {
-      console.warn("HEADS UP! YOU ARE USING THE DEFAULT KARAOKE ID");
-    }
-
     if (
       this.registrationModel.karaokeId &&
-      this.registrationModel.username &&
+      this.registrationModel.name &&
       this.registrationModel.password
     ) {
-      this.httpService.register(this.registrationModel);
+      this.httpService.register(this.registrationModel).subscribe(
+        (data) => {
+          this.toastrService.success(
+            "Herzlich Willkommen, " + this.registrationModel.name + "!"
+          );
+          this.router.navigate(["/landing-page"]);
+        },
+        (err) => {
+          this.toastrService.error(err.message);
+        }
+      );
     }
   }
 }

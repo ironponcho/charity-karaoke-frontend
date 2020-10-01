@@ -17,22 +17,24 @@ export class OutboundMapperService {
     return {
       username: login.username,
       password: login.password,
+      karaokeId: login.karaokeId,
     };
   }
 
   toRegistrationOutbound(registration: Registration): RegistrationOutbound {
     return {
-      username: registration.username,
+      username: registration.name,
       password: registration.password,
       karaokeId: registration.karaokeId,
     };
   }
 
-  toSongOutbound(song: Song): SongOutbound {
+  toSongOutbound(song: Song, karaokeId: string): SongOutbound {
     return {
-      originalArtist: song.originalArtist,
-      name: song.name,
-      youtubeKaraokeLink: song.youtubeKaraokeLink,
+      artist: song.originalArtist,
+      title: song.name,
+      link: song.youtubeKaraokeLink,
+      karaokeId: +karaokeId,
     };
   }
 }
@@ -45,6 +47,7 @@ interface VoteOutbound {
 interface LoginOutbound {
   username: string;
   password: string;
+  karaokeId: string;
 }
 
 interface RegistrationOutbound {
@@ -54,7 +57,8 @@ interface RegistrationOutbound {
 }
 
 interface SongOutbound {
-  originalArtist: string;
-  name: string;
-  youtubeKaraokeLink: string;
+  artist: string;
+  title: string;
+  link: string;
+  karaokeId: number;
 }

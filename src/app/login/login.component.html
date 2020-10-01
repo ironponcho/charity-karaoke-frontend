@@ -46,6 +46,27 @@
                     />
                   </div>
                 </div>
+
+                <label for="User Name">Veranstaltung-Schlüssel</label>
+                <div
+                  class="form-group mb-3"
+                  [ngClass]="{ focused: karaokeIdFocus === true }"
+                >
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"></span>
+                    </div>
+                    <input
+                      [(ngModel)]="loginForm.karaokeId"
+                      class="form-control"
+                      placeholder="Karaoke-Id"
+                      type="name"
+                      (focus)="karaokeIdFocus = true"
+                      (blur)="focus = false"
+                    />
+                  </div>
+                </div>
+
                 <label for="User Name">Password</label>
                 <div
                   class="form-group"

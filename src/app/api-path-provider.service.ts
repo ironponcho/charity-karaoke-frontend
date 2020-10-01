@@ -4,20 +4,22 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class ApiPathProviderService {
-  private readonly ENV_QUALIFIER = "https://localhost:8080";
+  private readonly ENV_QUALIFIER = "https://charity-karaoke.fanya.dev/api";
 
-  postRegistrationPath() {
-    this.ENV_QUALIFIER + "/register";
+  getKaraokesPath() {
+    return this.ENV_QUALIFIER + "/karaoke";
   }
 
-  postLoginPath() {
-    return this.ENV_QUALIFIER + "/login";
+  postRegistrationPath(karaokeId: string) {
+    return this.ENV_QUALIFIER + "/auth/signup";
   }
 
-  postSongSelectionPath(karaokeId: string, userId: string) {
-    return (
-      this.ENV_QUALIFIER + "/karaoke/" + karaokeId + "/user/" + userId + "/song"
-    );
+  postLoginPath(karaokeId: string) {
+    return this.ENV_QUALIFIER + "/auth/signin";
+  }
+
+  postSongPath() {
+    return this.ENV_QUALIFIER + "/song";
   }
 
   postVotingPath(karaokeId: string) {

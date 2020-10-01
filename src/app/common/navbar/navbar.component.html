@@ -4,7 +4,7 @@
 >
   <div class="container">
     <a class="navbar-brand mr-lg-5" [routerLink]="['/home']">
-      <h3 style="color: white">CK</h3>
+      <img class="icon" src="assets/img/icons/ck_navbar.png" />
     </a>
 
     <div *ngIf="getCurrentUser().name" style="color: white">
@@ -21,44 +21,46 @@
 
     <div class="navbar-collapse collapse" [ngbCollapse]="isCollapsed">
       <div class="navbar-collapse-header">
+        <span class="close">
+          <a (click)="navigateToPage()" class="dropdown-item">X</a>
+        </span>
         <div class="row">
           <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-            <li class="nav-item dropdown" (click)="navigateToPage()">
-              <span *ngIf="!isLoggedIn()">
+            <div class="navigation-category" *ngIf="!isLoggedIn()">
+              <li class="nav-item dropdown" (click)="navigateToPage()">
                 <b>Menu</b>
                 <a [routerLink]="['/register']" class="dropdown-item"
                   >Registierung</a
                 >
                 <a [routerLink]="['/login']" class="dropdown-item">Login</a>
-              </span>
+              </li>
+            </div>
 
-              <span *ngIf="isLoggedIn()">
-                <b>Veranstaltung</b>
-                <a [routerLink]="['/song-selection']" class="dropdown-item"
-                  >Songauswahl</a
-                >
-                <a [routerLink]="['/voting']" class="dropdown-item"
-                  >Abstimmung</a
-                >
-              </span>
-
-              <span *ngIf="isLoggedIn() && getCurrentUser().isAdmin">
-                <mat-divider></mat-divider>
-                <b>Admin</b>
-                <a [routerLink]="['/results']" class="dropdown-item"
-                  >Ergebnis</a
-                >
-              </span>
-
-              <span *ngIf="isLoggedIn()">
-                <a
-                  (click)="performLogout()"
-                  [routerLink]="['/home']"
-                  class="dropdown-item"
-                  >Logout</a
-                >
-              </span>
-            </li>
+            <div class="navigation-category" *ngIf="isLoggedIn()">
+              <b>Veranstaltung</b>
+              <a [routerLink]="['/song-selection']" class="dropdown-item"
+                >Songauswahl</a
+              >
+              <a [routerLink]="['/voting']" class="dropdown-item">Abstimmung</a>
+            </div>
+            <div
+              class="navigation-category"
+              *ngIf="isLoggedIn() && getCurrentUser().isAdmin"
+            >
+              <b>Admin</b>
+              <a [routerLink]="['/results']" class="dropdown-item">Ergebnis</a>
+              <a [routerLink]="['/live-page']" class="dropdown-item"
+                >Live-Page</a
+              >
+            </div>
+            <div class="navigation-category" *ngIf="isLoggedIn()">
+              <a
+                (click)="performLogout()"
+                [routerLink]="['/home']"
+                class="dropdown-item"
+                >Logout</a
+              >
+            </div>
           </ul>
         </div>
       </div>
