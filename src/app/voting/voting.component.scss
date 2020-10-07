@@ -6,12 +6,12 @@
 
 .attendee {
   display: block;
+  -webkit-box-shadow: 6px 6px 17px -4px rgba(111, 66, 193, 0.74);
+  -moz-box-shadow: 6px 6px 17px -4px rgba(111, 66, 193, 0.74);
+  box-shadow: 6px 6px 17px -4px rgba(111, 66, 193, 0.74);
 
   .currentlyPerforming {
-    background-color: #ae82ff;
-  }
-
-  .notCurrentlyPerforming {
+    background-color: #f1ddfc;
   }
 
   .song {
@@ -19,8 +19,13 @@
       font-weight: bold;
     }
   }
+
+  .selfvote {
+    margin-top: 16px;
+    margin-bottom: 16px;
+  }
 }
 
 .attendee {
-  margin: 4px;
+  margin: 8px;
 }

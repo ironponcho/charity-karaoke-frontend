@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ApiService } from "../api-service.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { LoginStateService } from "../login-state-service.service";
 import { ToastrService } from "ngx-toastr";
 
@@ -10,13 +10,7 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ["./song-selection.component.scss"],
 })
 export class SongSelectionComponent implements OnInit {
-  constructor(
-    private httpService: ApiService,
-    private loginStateService: LoginStateService,
-    private toastrService: ToastrService,
-    private router: Router
-  ) {}
-
+  readonly youtubePrefix = "youtube.com";
   currentUser: User;
 
   focusArtistName;
@@ -30,6 +24,13 @@ export class SongSelectionComponent implements OnInit {
   };
 
   submitted = false;
+
+  constructor(
+    private httpService: ApiService,
+    private loginStateService: LoginStateService,
+    private toastrService: ToastrService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.currentUser = this.loginStateService.getCurrentUser();
@@ -58,5 +59,9 @@ export class SongSelectionComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
+  }
+
+  isValidYoutubeLink(): boolean {
+    return this.songFormModel.youtubeKaraokeLink.includes(this.youtubePrefix);
   }
 }

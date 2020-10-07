@@ -20,6 +20,7 @@ export class ContestantService implements OnInit {
   }
 
   getContestantsForCurrentKaraoke$(): Observable<Attendee[]> {
+    console.log("FETCHING CONTESTANTS");
     this.setCurrentUserIfNeeded();
 
     let contestants: Observable<Attendee[]>;

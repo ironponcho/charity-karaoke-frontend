@@ -1,5 +1,5 @@
 <main>
-  <section  class="section section-shaped section-lg">
+  <section class="section section-shaped section-lg">
     <div class="shape shape-style-1 shape-primary alpha-4">
       <span></span>
       <span></span>
@@ -15,54 +15,84 @@
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
             <div class="card-body px-lg-5 py-lg-5">
-              <div class="px-4">  
-                <h3 style="display: flex; justify-content: center; margin-bottom: 24px;">
+              <div class="px-4">
+                <h3
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 24px;
+                  "
+                >
                   Songauswahl
                 </h3>
               </div>
               <div class="form-group">
-
                 <label for="Artist Name">ArtistName</label>
-                <div class="form-group mb-3" [ngClass]="{'focused':focusArtistName===true}">
+                <div
+                  class="form-group mb-3"
+                  [ngClass]="{ focused: focusArtistName === true }"
+                >
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"></span>
                     </div>
                     <input
-                    [(ngModel)]="songFormModel.originalArtist"
-                    class="form-control"
-                    placeholder="Celine Dion" type="name" (focus)="focusArtistName=true" (blur)="focus=false">
+                      [(ngModel)]="songFormModel.originalArtist"
+                      class="form-control"
+                      type="name"
+                      (focus)="focusArtistName = true"
+                      (blur)="focus = false"
+                    />
                   </div>
                 </div>
-             
+
                 <label for="Song Title">Song Title</label>
-                <div class="form-group mb-3" [ngClass]="{'focused':focusSongTitle===true}">
+                <div
+                  class="form-group mb-3"
+                  [ngClass]="{ focused: focusSongTitle === true }"
+                >
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"></span>
                     </div>
                     <input
-                    [(ngModel)]="songFormModel.name"
-                    class="form-control"
-                    placeholder="My heart will go on" type="name" (focus)="focusArtistName=true" (blur)="focus=false">
+                      [(ngModel)]="songFormModel.name"
+                      class="form-control"
+                      type="name"
+                      (focus)="focusArtistName = true"
+                      (blur)="focus = false"
+                    />
                   </div>
                 </div>
 
                 <label for="Youtube Karaoke Link">Youtube Karaoke Link</label>
-                <div class="form-group mb-3" [ngClass]="{'focused':focusYoutubeLink===true}">
+                <div
+                  class="form-group mb-3"
+                  [ngClass]="{ focused: focusYoutubeLink === true }"
+                >
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"></span>
                     </div>
                     <input
-                    [(ngModel)]="songFormModel.youtubeKaraokeLink"
-                    class="form-control"
-                    placeholder="https://www.youtube.com/watch?v=eGwKvxGpLqs" type="name" (focus)="focusArtistName=true" (blur)="focus=false">
+                      [(ngModel)]="songFormModel.youtubeKaraokeLink"
+                      class="form-control"
+                      type="name"
+                      (focus)="focusArtistName = true"
+                      (blur)="focus = false"
+                    />
                   </div>
                 </div>
 
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary my-4" (click)="saveSong()">Speichern</button>
+                  <button
+                    type="button"
+                    class="btn btn-primary my-4"
+                    [disabled]="!isValidYoutubeLink()"
+                    (click)="saveSong()"
+                  >
+                    Speichern
+                  </button>
                 </div>
               </div>
             </div>

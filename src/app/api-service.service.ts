@@ -102,7 +102,7 @@ export class ApiService {
         song: {
           originalArtist: "Celine Dion",
           name: "My heart will go on",
-          youtubeKaraokeLink: "youtube.com/watch",
+          youtubeKaraokeLink: "https://youtu.be/cdgU8YmD3Kc",
         },
         receivedVotes: [
           {

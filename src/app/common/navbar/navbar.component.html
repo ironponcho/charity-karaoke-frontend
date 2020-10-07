@@ -13,7 +13,7 @@
     <button
       class="navbar-toggler"
       type="button"
-      (click)="isCollapsed = !isCollapsed"
+      (click)="navigationClicked$.next()"
       [attr.aria-expanded]="!isCollapsed"
     >
       <span class="navbar-toggler-icon"></span>

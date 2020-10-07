@@ -14,12 +14,20 @@
       <div class="row justify-content-center">
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
-            <div class="card-body px-lg-5 py-lg-5">
+            <div
+              class="card-body px-lg-5 py-lg-5"
+              style="padding: 5px !important"
+            >
               <div class="px-4">
                 <h3 class="headline">Abstimmung</h3>
               </div>
 
-              <mat-accordion *ngFor="let contestant of contestants">
+              <mat-accordion
+                *ngFor="
+                  let contestant of contestants$ | async;
+                  trackBy: identify
+                "
+              >
                 <div class="attendee">
                   <mat-expansion-panel
                     [ngClass]="
@@ -32,20 +40,24 @@
                       <mat-panel-title>
                         <span class="song">
                           <div class="cover">
-                            {{ contestant.name }}
+                            {{ contestant.name | trim }}
                           </div>
                           <span class="original">
                             <div>
-                              {{ contestant.song.name }}
+                              {{ contestant.song.name | trim }}
                             </div>
                           </span>
                         </span>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <i>
-                      Original Artist: {{ contestant.song.originalArtist }}
+                      Original Artist:
+                      {{ contestant.song.originalArtist | trim }}
                     </i>
-                    <div *ngIf="isCurrentAttendee(contestant.id)">
+                    <div
+                      class="selfvote"
+                      *ngIf="isCurrentAttendee(contestant.id)"
+                    >
                       Du kannst nicht für dich selber stimmen
                     </div>
 
@@ -60,6 +72,7 @@
                     </div>
                     <p>
                       <button
+                        *ngIf="!isCurrentAttendee(contestant.id)"
                         style="margin-top: 12px; float: right"
                         class="btn btn-primary"
                         (click)="

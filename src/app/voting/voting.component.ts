@@ -1,17 +1,24 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ContestantService } from "../contestant.service";
 import { ApiService } from "../api-service.service";
 import { LoginStateService } from "../login-state-service.service";
 import { ToastrService } from "ngx-toastr";
+import { interval } from "rxjs/internal/observable/interval";
 
 @Component({
   selector: "app-landing",
   templateUrl: "./voting.component.html",
   styleUrls: ["./voting.component.scss"],
 })
-export class VotingComponent implements OnInit {
-  currentUser: User;
-  contestants: Attendee[];
+export class VotingComponent implements OnDestroy {
+  readonly intervalInMs = 5000;
+
+  currentUser: User = this.loginStateService.getCurrentUser();
+  contestants$ = this.contestantService.getContestantsForCurrentKaraoke$();
+
+  reloadSubscription = interval(this.intervalInMs).subscribe(() => {
+    this.contestants$ = this.contestantService.getContestantsForCurrentKaraoke$();
+  });
 
   constructor(
     private loginStateService: LoginStateService,
@@ -20,12 +27,8 @@ export class VotingComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-  ngOnInit() {
-    this.currentUser = this.loginStateService.getCurrentUser();
-
-    this.contestantService
-      .getContestantsForCurrentKaraoke$()
-      .subscribe((res) => (this.contestants = res));
+  ngOnDestroy(): void {
+    this.reloadSubscription.unsubscribe;
   }
 
   saveVote(forAttende: Attendee, percentage: number) {
@@ -55,6 +58,10 @@ export class VotingComponent implements OnInit {
     } else {
       return maybeVotes[0].percentage;
     }
+  }
+
+  identify(index, item: Attendee) {
+    return item.id;
   }
 
   isCurrentAttendee(attendeeId: string): Boolean {

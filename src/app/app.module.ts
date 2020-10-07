@@ -28,6 +28,8 @@ import { SortByAverageVotePipe } from "./sort-by-average-vote.pipe";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { LivePageComponent } from "./live-page/live-page.component";
 import { AuthInterceptor } from "./auth.interceptor";
+import { TrimmerPipe } from "./trimmer.pipe";
+import { YouTubePlayerModule } from "@angular/youtube-player";
 
 @NgModule({
   declarations: [
@@ -42,6 +44,7 @@ import { AuthInterceptor } from "./auth.interceptor";
     SortByAverageVotePipe,
     LandingPageComponent,
     LivePageComponent,
+    TrimmerPipe,
   ],
   imports: [
     CookieModule.forRoot(),
@@ -56,6 +59,7 @@ import { AuthInterceptor } from "./auth.interceptor";
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatExpansionModule,
+    YouTubePlayerModule,
     MatSliderModule,
     MatDividerModule,
     HttpClientModule,
