@@ -1,0 +1,21 @@
+.song {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.buttonContainer {
+  margin-top: 64px;
+}
+
+.currentlyPerformingAttendee {
+  margin-top: 24px;
+}
+
+.livePageContainer {
+  align-items: center;
+  text-align: center;
+}
+
+.youtube {
+  margin-top: 32px;
+}

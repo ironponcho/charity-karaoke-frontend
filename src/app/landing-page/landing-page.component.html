@@ -1,0 +1,60 @@
+<main>
+  <section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 shape-primary alpha-4">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="container pt-lg-md">
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="px-4">
+                <h3
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 24px;
+                  "
+                >
+                  Willkommen!
+                </h3>
+                <div class="text">
+                  <p>Singen oder nicht singen, das ist hier die Frage!</p>
+                  <p>
+                    Du kannst dich bis die Veranstaltung beginnt noch
+                    umentscheiden.
+                  </p>
+                </div>
+                <img src="/src/assets/flyer/all_you_can_sejt.jpg" />
+                <div class="button-container">
+                  <button
+                    type="button"
+                    class="btn btn-primary my-4"
+                    (click)="navigateToSongSelection()"
+                  >
+                    Zur Songauswahl
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn btn-primary my-4"
+                    (click)="navigateToVoting()"
+                  >
+                    Zum Vorting
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

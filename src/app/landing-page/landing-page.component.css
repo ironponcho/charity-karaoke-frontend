@@ -1,0 +1,8 @@
+.text {
+  text-align: justify;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,97 @@
+<main>
+  <section class="section section-shaped section-lg">
+    <div class="shape shape-style-1 shape-primary alpha-4">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="container pt-lg-md">
+      <div class="row justify-content-center">
+        <div class="col-lg-5">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="livePageContainer">
+                <h3
+                  style="
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 24px;
+                  "
+                >
+                  Live
+                </h3>
+
+                <div class="currentlyPerformingAttendee">
+                  <b>
+                    {{ (currentlyPerformingAttendees$ | async).name }}
+                  </b>
+                </div>
+
+                <div class="song">
+                  <a
+                    target="_blank"
+                    href="{{
+                      (currentlyPerformingAttendees$ | async).song
+                        .youtubeKaraokeLink
+                    }}"
+                  >
+                    <b>Artist:</b>
+                    {{
+                      (currentlyPerformingAttendees$ | async).song
+                        .originalArtist
+                    }}
+                    <div>
+                      <div>
+                        <b>Title:</b>
+                        {{ (currentlyPerformingAttendees$ | async).song.name }}
+                      </div>
+                    </div>
+                  </a>
+                  <div class="youtube">
+                    <youtube-player
+                      *ngIf="videoId$ | async"
+                      videoId="cdgU8YmD3Kc"
+                      suggestedQuality="highres"
+                      [height]="200"
+                      [width]="300"
+                    >
+                    </youtube-player>
+                  </div>
+
+                  <div class="buttonContainer">
+                    <span>
+                      <button
+                        type="button"
+                        class="btn btn-primary my-4"
+                        (click)="goToPreviousSinger()"
+                      >
+                        <span class="material-icons"> navigate_before </span>
+                      </button>
+
+                      <button
+                        type="button"
+                        class="btn btn-primary my-4"
+                        (click)="goToNextSinger()"
+                      >
+                        <span class="material-icons"> navigate_next </span>
+                      </button>
+                    </span>
+                  </div>
+                  <i>
+                    Als nächstes ist
+                    {{ (nextAttendee$ | async).name }} dran
+                  </i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
