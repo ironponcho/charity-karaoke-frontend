@@ -3,6 +3,7 @@ import { ActivatedRoute } from "@angular/router";
 import { first } from "rxjs/operators";
 import { ContestantService } from "../contestant.service";
 import { ApiService } from "../api-service.service";
+import { LoginStateService } from "../login-state-service.service";
 
 @Component({
   selector: "app-results",
@@ -14,13 +15,15 @@ export class ResultsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private httpService: ApiService,
-    private contestantService: ContestantService
+    private loginStateService: LoginStateService,
+    private httpService: ApiService
   ) {}
 
   ngOnInit(): void {}
 
   getContestants$() {
-    return this.contestantService.getContestantsForCurrentKaraoke$();
+    return this.httpService.getAttendees(
+      this.loginStateService.getCurrentUser().karaokeId
+    );
   }
 }
