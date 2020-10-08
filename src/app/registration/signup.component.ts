@@ -1,35 +1,32 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { ApiService } from "../api-service.service";
+import { LoginStateService } from "../login-state-service.service";
 
 @Component({
   selector: "app-signup",
   templateUrl: "./signup.component.html",
   styleUrls: ["./signup.component.scss"],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
   nameFocus;
   passwordFocus;
   competitionSelectionFocus;
-  allKaraokeCompetitions;
+  allKaraokeCompetitions = this.httpService.getAllKaraokeCompetitions();
 
-  registrationModel: Registration;
+  registrationModel: Registration = {
+    karaokeId: "",
+    name: "",
+    password: "",
+  };
 
   constructor(
     private httpService: ApiService,
     private toastrService: ToastrService,
+    private loginStateService: LoginStateService,
     private router: Router
   ) {}
-
-  ngOnInit() {
-    this.allKaraokeCompetitions = this.httpService.getAllKaraokeCompetitions();
-    this.registrationModel = {
-      karaokeId: "",
-      name: "",
-      password: "",
-    };
-  }
 
   register() {
     if (
@@ -38,7 +35,8 @@ export class SignupComponent implements OnInit {
       this.registrationModel.password
     ) {
       this.httpService.register(this.registrationModel).subscribe(
-        (data) => {
+        (user) => {
+          this.loginStateService.setUserCookies(user);
           this.toastrService.success(
             "Herzlich Willkommen, " + this.registrationModel.name + "!"
           );
@@ -47,7 +45,7 @@ export class SignupComponent implements OnInit {
         (err) => {
           this.toastrService.error(err.message);
         }
-      );
+      ).unsubscribe;
     }
   }
 }

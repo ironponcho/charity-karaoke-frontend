@@ -10,7 +10,8 @@ import { ToastrService } from "ngx-toastr";
   styleUrls: ["./song-selection.component.scss"],
 })
 export class SongSelectionComponent implements OnInit {
-  readonly youtubePrefix = "youtube.com";
+  readonly youtubeSharePrefix = "https://youtu.be/";
+  readonly youtubeCopyPrefix = "https://www.youtube.com/watch?v=";
   currentUser: User;
 
   focusArtistName;
@@ -62,6 +63,9 @@ export class SongSelectionComponent implements OnInit {
   }
 
   isValidYoutubeLink(): boolean {
-    return this.songFormModel.youtubeKaraokeLink.includes(this.youtubePrefix);
+    return (
+      this.songFormModel.youtubeKaraokeLink.includes(this.youtubeSharePrefix) ||
+      this.songFormModel.youtubeKaraokeLink.includes(this.youtubeCopyPrefix)
+    );
   }
 }

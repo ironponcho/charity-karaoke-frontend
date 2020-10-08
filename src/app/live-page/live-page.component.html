@@ -52,22 +52,13 @@
                       </div>
                     </div>
                   </a>
-                  <div class="youtube">
-                    <youtube-player
-                      *ngIf="videoId$ | async"
-                      videoId="cdgU8YmD3Kc"
-                      suggestedQuality="highres"
-                      [height]="200"
-                      [width]="300"
-                    >
-                    </youtube-player>
-                  </div>
 
                   <div class="buttonContainer">
                     <span>
                       <button
                         type="button"
                         class="btn btn-primary my-4"
+                        [disabled]="!(previousAttendee$ | async)"
                         (click)="goToPreviousSinger()"
                       >
                         <span class="material-icons"> navigate_before </span>
@@ -76,13 +67,14 @@
                       <button
                         type="button"
                         class="btn btn-primary my-4"
+                        [disabled]="!(nextAttendee$ | async)"
                         (click)="goToNextSinger()"
                       >
                         <span class="material-icons"> navigate_next </span>
                       </button>
                     </span>
                   </div>
-                  <i>
+                  <i *ngIf="nextAttendee$ | async">
                     Als nächstes ist
                     {{ (nextAttendee$ | async).name }} dran
                   </i>

@@ -1,4 +1,7 @@
 .text {
+  background-image: url("src/assets/img/icons/ck_main_logo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
   text-align: justify;
 }
 

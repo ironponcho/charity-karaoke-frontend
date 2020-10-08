@@ -1,5 +1,7 @@
+import { isDefined } from "@angular/compiler/src/util";
 import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
+import { EMPTY } from "rxjs/internal/observable/empty";
 import { map, shareReplay } from "rxjs/operators";
 import { ApiService } from "../api-service.service";
 import { LoginStateService } from "../login-state-service.service";
@@ -21,7 +23,7 @@ export class LivePageComponent {
     )
   );
 
-  nextAttendee$ = this.attendees$.pipe(
+  nextAttendee$: Observable<Attendee> = this.attendees$.pipe(
     map((attendees) => {
       for (let i = 0; i < attendees.length; i++) {
         if (attendees[i].isCurrentlyPerforming) {
@@ -35,17 +37,27 @@ export class LivePageComponent {
     })
   );
 
-  videoId$ = this.currentlyPerformingAttendees$.pipe(
-    map((attendee) => this.getTrackId(attendee.song!.youtubeKaraokeLink))
+  previousAttendee$ = this.attendees$.pipe(
+    map((attendees) => {
+      return null;
+    })
   );
 
   constructor(private api: ApiService, private loginState: LoginStateService) {}
 
-  getTrackId(youtubeKaraokeLink: string) {
-    return youtubeKaraokeLink.replace("https://youtu.be/", "");
+  goToNextSinger() {
+    this.nextAttendee$.pipe(
+      map((attendee) => {
+        this.api.selectSinger(attendee.id);
+      })
+    );
   }
 
-  goToNextSinger() {}
-
-  goToPreviousSinger() {}
+  goToPreviousSinger() {
+    this.nextAttendee$.pipe(
+      map((attendee) => {
+        this.api.selectSinger(attendee.id);
+      })
+    );
+  }
 }

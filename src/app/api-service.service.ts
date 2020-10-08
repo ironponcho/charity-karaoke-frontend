@@ -135,7 +135,8 @@ export class ApiService {
         song: {
           originalArtist: "林憶蓮",
           name: "至少還有你",
-          youtubeKaraokeLink: "youtube.com/watch",
+          youtubeKaraokeLink:
+            "https://www.youtube.com/watch?v=VIxg4YuguvA&t=1186s",
         },
         receivedVotes: [
           {
@@ -233,7 +234,7 @@ export class ApiService {
     } else {
       return this.http.post<string>(
         this.pathProvider.postVotingPath(karaokeId),
-        this.outboundMapperService.toVoteOutbound(vote)
+        this.outboundMapperService.toVoteOutbound(vote, karaokeId)
       );
     }
   }
@@ -262,9 +263,22 @@ export class ApiService {
   }
 
   register(registration: Registration): Observable<User> {
-    return this.http.post<User>(
-      this.pathProvider.postRegistrationPath(registration.karaokeId),
-      this.outboundMapperService.toRegistrationOutbound(registration)
-    );
+    return this.http
+      .post<UserInbound>(
+        this.pathProvider.postRegistrationPath(registration.karaokeId),
+        this.outboundMapperService.toRegistrationOutbound(registration)
+      )
+      .pipe(
+        map((userInbound) => {
+          return this.inboundMapperService.mapUser(
+            userInbound,
+            registration.karaokeId
+          );
+        })
+      );
+  }
+
+  selectSinger(id: string) {
+    console.log(id + " is next");
   }
 }

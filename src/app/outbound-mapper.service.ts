@@ -6,9 +6,10 @@ import { Injectable } from "@angular/core";
 export class OutboundMapperService {
   constructor() {}
 
-  toVoteOutbound(vote: Vote): VoteOutbound {
+  toVoteOutbound(vote: Vote, karaokeId: string): VoteOutbound {
     return {
-      fromAttendeeId: vote.fromAttendeeId,
+      karaokeId: +karaokeId,
+      recipientId: vote.fromAttendeeId,
       percentage: vote.percentage,
     };
   }
@@ -40,8 +41,9 @@ export class OutboundMapperService {
 }
 
 interface VoteOutbound {
-  fromAttendeeId: string;
+  recipientId: string;
   percentage: number;
+  karaokeId: number;
 }
 
 interface LoginOutbound {

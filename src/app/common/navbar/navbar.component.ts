@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { Router, NavigationEnd, NavigationStart } from "@angular/router";
-import { Location, PopStateEvent } from "@angular/common";
+import { JsonPipe, Location, PopStateEvent } from "@angular/common";
 import { LoginStateService } from "src/app/login-state-service.service";
 import { BehaviorSubject } from "rxjs";
 import { map } from "rxjs/operators";
@@ -41,6 +41,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   getCurrentUser() {
     let currentUser = this.loginStateService.getCurrentUser();
+
     return currentUser;
   }
 

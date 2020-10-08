@@ -1,6 +1,5 @@
 .song {
   margin-top: 24px;
-  margin-bottom: 24px;
 }
 
 .buttonContainer {
@@ -8,14 +7,10 @@
 }
 
 .currentlyPerformingAttendee {
-  margin-top: 24px;
+  margin-top: 12px;
 }
 
 .livePageContainer {
   align-items: center;
   text-align: center;
-}
-
-.youtube {
-  margin-top: 32px;
 }

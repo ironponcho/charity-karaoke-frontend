@@ -13,7 +13,7 @@ import { interval } from "rxjs/internal/observable/interval";
 export class VotingComponent implements OnDestroy {
   readonly intervalInMs = 5000;
 
-  currentUser: User = this.loginStateService.getCurrentUser();
+  currentUser = this.loginStateService.getCurrentUser();
   contestants$ = this.contestantService.getContestantsForCurrentKaraoke$();
 
   reloadSubscription = interval(this.intervalInMs).subscribe(() => {
