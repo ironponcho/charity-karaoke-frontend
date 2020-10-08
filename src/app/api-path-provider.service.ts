@@ -6,6 +6,10 @@ import { Injectable } from "@angular/core";
 export class ApiPathProviderService {
   private readonly ENV_QUALIFIER = "https://charity-karaoke.fanya.dev/api";
 
+  getSongsForKaraoke(karaokeId: string) {
+    return this.ENV_QUALIFIER + "/song/" + karaokeId;
+  }
+
   getKaraokesPath() {
     return this.ENV_QUALIFIER + "/karaoke";
   }
@@ -22,8 +26,8 @@ export class ApiPathProviderService {
     return this.ENV_QUALIFIER + "/song";
   }
 
-  postVotingPath(karaokeId: string) {
-    return this.ENV_QUALIFIER + "/karaoke/" + karaokeId + "/vote";
+  postVotingPath() {
+    return this.ENV_QUALIFIER + "/vote";
   }
 
   constructor() {}

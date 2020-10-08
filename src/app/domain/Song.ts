@@ -1,5 +1,5 @@
 interface Song {
-    originalArtist: string;
-    name: string;
-    youtubeKaraokeLink: string;
+  originalArtist: string;
+  name: string;
+  youtubeKaraokeLink: string;
 }

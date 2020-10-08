@@ -4,6 +4,7 @@ import { ApiService } from "../api-service.service";
 import { LoginStateService } from "../login-state-service.service";
 import { ToastrService } from "ngx-toastr";
 import { interval } from "rxjs/internal/observable/interval";
+import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-landing",
@@ -11,13 +12,15 @@ import { interval } from "rxjs/internal/observable/interval";
   styleUrls: ["./voting.component.scss"],
 })
 export class VotingComponent implements OnDestroy {
-  readonly intervalInMs = 5000;
+  readonly intervalInMs = 10000;
 
   currentUser = this.loginStateService.getCurrentUser();
-  contestants$ = this.contestantService.getContestantsForCurrentKaraoke$();
+  contestants$ = this.httpService.getAttendees(this.currentUser.karaokeId);
 
   reloadSubscription = interval(this.intervalInMs).subscribe(() => {
-    this.contestants$ = this.contestantService.getContestantsForCurrentKaraoke$();
+    this.contestants$ = this.httpService.getAttendees(
+      this.currentUser.karaokeId
+    );
   });
 
   constructor(
@@ -32,6 +35,10 @@ export class VotingComponent implements OnDestroy {
   }
 
   saveVote(forAttende: Attendee, percentage: number) {
+    if (percentage == 0) {
+      this.toastr.error("Fehler beim Speichern deiner Stimme.");
+      return;
+    }
     const vote: VoteOutbound = {
       fromAttendeeId: this.currentUser.id,
       forAttendeeId: forAttende.id,
@@ -44,9 +51,10 @@ export class VotingComponent implements OnDestroy {
         );
       },
       (err) => {
+        console.log(err);
         this.toastr.error("Fehler beim Speichern deiner Stimme");
       }
-    );
+    ).unsubscribe;
   }
 
   getVoteFromCurrentContestant(votes: Vote[]): number {

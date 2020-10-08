@@ -15,4 +15,31 @@ export class InboundMapperService {
       token: userInbound.tokenType + " " + userInbound.accessToken,
     };
   }
+
+  mapVotingInbound(inbound: SongForVoting, karaokeId: string): Attendee {
+    return {
+      id: inbound.user.id,
+      name: inbound.user.username,
+      karaokeId: karaokeId,
+      isCurrentlyPerforming: false,
+      song: {
+        originalArtist: inbound.artist,
+        name: inbound.title,
+        youtubeKaraokeLink: inbound.link,
+      },
+      receivedVotes: [],
+    };
+  }
+}
+
+export interface SongForVoting {
+  title: string;
+  artist: string;
+  link: string;
+  sequence: number;
+  user: UserVotingOverviewInbound;
+}
+export interface UserVotingOverviewInbound {
+  id: string;
+  username: string;
 }
