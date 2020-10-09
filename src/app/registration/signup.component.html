@@ -44,8 +44,6 @@
                       class="form-control"
                       placeholder="Name"
                       type="text"
-                      (focus)="focus = true"
-                      (blur)="focus = false"
                     />
                   </div>
                 </div>
@@ -66,8 +64,6 @@
                       class="form-control"
                       placeholder="Passwort"
                       type="password"
-                      (focus)="focus2 = true"
-                      (blur)="focus2 = false"
                     />
                   </div>
                 </div>
@@ -90,7 +86,7 @@
                       [(ngModel)]="registrationModel.karaokeId"
                     >
                       <option
-                        *ngFor="let karaoke of allKaraokeCompetitions | async"
+                        *ngFor="let karaoke of allKaraokeCompetitions$ | async"
                         [ngValue]="karaoke.id"
                       >
                         {{ karaoke.name }}
@@ -102,15 +98,20 @@
                 <div class="row my-4">
                   <div class="col-12">
                     <label>
-                      <b
-                        >Diese Informationen werden ausschließlich zu deiner
+                      <p>
+                        Diese Informationen werden ausschließlich zu deiner
                         Identifikation während des ausgewählten Wettkampfs
                         benötigt.
-                      </b>
-                      <b
-                        >Mit dem Erstellen deines Accounts gibst du uns die
-                        Erlaubnis deinen Namen zu speichern.</b
-                      >
+                      </p>
+                      <p>
+                        Mit dem Erstellen deines Accounts gibst du uns die
+                        Erlaubnis deinen Namen zu speichern.
+                      </p>
+                      <p>
+                        Mit dem Ausfüllen der Registrierung erklärst du dich
+                        einverstanden, dass Cookies auf deinem Gerät gespeichert
+                        werden.
+                      </p>
                     </label>
                   </div>
                 </div>

@@ -8,7 +8,7 @@
     </a>
 
     <div *ngIf="getCurrentUser().name" style="color: white">
-      Hallo {{ getCurrentUser().name }}!
+      Hallo {{ getCurrentUser().name }} ({{ getCurrentUser().karaokeId }})!
     </div>
     <button
       class="navbar-toggler"
@@ -50,7 +50,12 @@
               <b>Admin</b>
               <a [routerLink]="['/results']" class="dropdown-item">Ergebnis</a>
               <a [routerLink]="['/live-page']" class="dropdown-item"
-                >Live-Page</a
+                >Karaoke-Live-Page</a
+              >
+              <a
+                [routerLink]="['/karaoke-administration']"
+                class="dropdown-item"
+                >Verwaltung</a
               >
             </div>
             <div class="navigation-category" *ngIf="isLoggedIn()">

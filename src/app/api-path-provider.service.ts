@@ -5,7 +5,20 @@ import { Injectable } from "@angular/core";
 })
 export class ApiPathProviderService {
 
+
   private readonly ENV_QUALIFIER = "https://charity-karaoke.fanya.dev/api";
+
+  postNewKaraokePath(): string {
+    return this.ENV_QUALIFIER + "/karaoke/"
+  }
+
+  postKaraokeStartPath(): string {
+    return this.ENV_QUALIFIER + "/karaoke/start"
+  }
+
+  postShuffleKaraokePath(): string {
+    return this.ENV_QUALIFIER + "/karaoke/shuffle"
+  }
 
   getSongsForKaraokeHttpPath(karaokeId: string): string {
     return this.ENV_QUALIFIER + "/song/" + karaokeId

@@ -10,6 +10,7 @@ export class LoginStateService implements OnInit {
   private readonly USER_COOKIE_NAME = "USER_COOKIE_NAME";
   private readonly USER_COOKIE_ID = "USER_COOKIE_ID";
   private readonly USER_COOKIE_KARAOKE_ID = "USER_COOKIE_KARAOKE_ID";
+  private readonly USER_COOKIE_KARAOKE_NAME = "USER_COOKIE_KARAOKE_NAME";
   private readonly USER_COOKIE_TOKEN = "USER_COOKIE_TOKEN";
 
   private currentUser: User = null;
@@ -22,14 +23,20 @@ export class LoginStateService implements OnInit {
     }
   }
 
-  setUserCookies(user: User) {
-    console.log("Setting User Cookies for " + user.name);
+  setCurrentUser(user: User){
+    this.currentUser = user
+    this.setUserCookies(user)
+  }
+
+  private setUserCookies(user: User) {
+    console.log("Setting User Cookies for " + user.name) ;
 
     this.cookieService.put(this.USER_COOKIE_IS_ADMIN, user.isAdmin.toString());
     this.cookieService.put(this.USER_COOKIE_NAME, user.name);
     this.cookieService.put(this.USER_COOKIE_ID, user.id);
     this.cookieService.put(this.USER_COOKIE_KARAOKE_ID, user.karaokeId);
     this.cookieService.put(this.USER_COOKIE_TOKEN, user.token);
+    
   }
 
   getCurrentUser$(): Observable<User | null>{
@@ -45,13 +52,13 @@ export class LoginStateService implements OnInit {
 
     let userCookies = new Map<string, string>();
 
-    userCookies[this.USER_COOKIE_IS_ADMIN] =
-      allCookies[this.USER_COOKIE_IS_ADMIN];
+    userCookies[this.USER_COOKIE_IS_ADMIN] = allCookies[this.USER_COOKIE_IS_ADMIN];
     userCookies[this.USER_COOKIE_NAME] = allCookies[this.USER_COOKIE_NAME];
     userCookies[this.USER_COOKIE_ID] = allCookies[this.USER_COOKIE_ID];
-    userCookies[this.USER_COOKIE_KARAOKE_ID] =
-      allCookies[this.USER_COOKIE_KARAOKE_ID];
+    userCookies[this.USER_COOKIE_KARAOKE_ID] = allCookies[this.USER_COOKIE_KARAOKE_ID];
+    userCookies[this.USER_COOKIE_KARAOKE_NAME] = allCookies[this.USER_COOKIE_KARAOKE_NAME];
     userCookies[this.USER_COOKIE_TOKEN] = allCookies[this.USER_COOKIE_TOKEN];
+
 
     if (this.userCookiesAreValid(userCookies)) {
       return {

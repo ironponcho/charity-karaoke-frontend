@@ -15,7 +15,80 @@
         <div class="col-lg-5">
           <div class="card bg-secondary shadow border-0">
             <div class="card-body px-lg-5 py-lg-5">
-              <div class="px-4"></div>
+              <div class="px-4">
+                <h3 class="headline">Veranstaltungs-Verwaltung</h3>
+                <div class="actions">
+                  <div class="sub-headline">Create New Karaoke Competition</div>
+                  <div class="row">
+                    <div>
+                      Name
+                      <div class="input-group-alternative">
+                        <input
+                          [(ngModel)]="newKaraoke.name"
+                          class="form-control"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      Datum
+                      <div class="input-group-alternative">
+                        <input
+                          [(ngModel)]="newKaraoke.date"
+                          class="form-control"
+                          type="text"
+                        />
+                      </div>
+                      <div class="button">
+                        <button
+                          class="btn btn-primary"
+                          (click)="createNewKaraoke()"
+                          type="button"
+                        >
+                          Erstellen
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <mat-divider></mat-divider>
+                  <div class="sub-headline">Modify Existing Karaoke</div>
+                  <div class="row">
+                    <div class="input-group input-group-alternative">
+                      <select required [(ngModel)]="selectedModifyKaraokeId">
+                        <option
+                          class="form-control"
+                          *ngFor="
+                            let karaoke of allKaraokeCompetitions$ | async
+                          "
+                          [ngValue]="karaoke.id"
+                        >
+                          Game# {{ karaoke.name }} ({{ karaoke.id }})
+                        </option>
+                      </select>
+                    </div>
+                    <div class="button">
+                      <button
+                        class="btn btn-primary"
+                        (click)="shuffleKaraoke()"
+                        [disabled]="!selectedModifyKaraokeId"
+                        type="button"
+                      >
+                        Shuffle
+                      </button>
+                      <button
+                        class="btn btn-primary"
+                        (click)="startKaraoke()"
+                        [disabled]="!selectedModifyKaraokeId"
+                        type="button"
+                      >
+                        Start
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

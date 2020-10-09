@@ -1,5 +1,5 @@
 interface Login {
   username: string;
   password: string;
-  karaokeId: string;
+  karaoke: Karaoke;
 }

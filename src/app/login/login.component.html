@@ -27,11 +27,8 @@
                 </h3>
               </div>
               <div class="form-group">
-                <label for="User Name">Username</label>
-                <div
-                  class="form-group mb-3"
-                  [ngClass]="{ focused: usernameFocus === true }"
-                >
+                <label>Username</label>
+                <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"></span>
@@ -41,37 +38,11 @@
                       class="form-control"
                       placeholder="Username"
                       type="name"
-                      (focus)="usernameFocus = true"
-                      (blur)="focus = false"
                     />
                   </div>
                 </div>
-
-                <label for="User Name">Veranstaltung-Schlüssel</label>
-                <div
-                  class="form-group mb-3"
-                  [ngClass]="{ focused: karaokeIdFocus === true }"
-                >
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"></span>
-                    </div>
-                    <input
-                      [(ngModel)]="loginForm.karaokeId"
-                      class="form-control"
-                      placeholder="Karaoke-Id"
-                      type="name"
-                      (focus)="karaokeIdFocus = true"
-                      (blur)="focus = false"
-                    />
-                  </div>
-                </div>
-
-                <label for="User Name">Password</label>
-                <div
-                  class="form-group"
-                  [ngClass]="{ focused: passwordFocus === true }"
-                >
+                <label>Password</label>
+                <div class="form-group">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"></span>
@@ -81,11 +52,27 @@
                       class="form-control"
                       placeholder="Password"
                       type="password"
-                      (focus)="passwordFocus = true"
-                      (blur)="focus1 = false"
                     />
                   </div>
                 </div>
+
+                <label>Veranstaltung</label>
+                <div class="form-group">
+                  <div class="input-group input-group-alternative">
+                    <select
+                      class="form-control"
+                      required
+                      [(ngModel)]="loginForm.karaoke"
+                    >
+                      <option
+                        *ngFor="let karaoke of allKaraokeCompetitions$ | async"
+                      >
+                        {{ karaoke.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
                 <div
                   class="custom-control custom-control-alternative custom-checkbox"
                 >

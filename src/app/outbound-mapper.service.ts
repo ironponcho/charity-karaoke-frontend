@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class OutboundMapperService {
+  
   constructor() {}
 
   toVoteOutbound(vote: Vote, karaokeId: string): VoteOutbound {
@@ -18,7 +19,7 @@ export class OutboundMapperService {
     return {
       username: login.username,
       password: login.password,
-      karaokeId: login.karaokeId,
+      karaokeId: login.karaoke.id,
     };
   }
 
@@ -37,6 +38,27 @@ export class OutboundMapperService {
       link: song.youtubeKaraokeLink,
       karaokeId: +karaokeId,
     };
+  }
+  
+  toKaraokeStartOutbound(karaokeId: string): KaraokeStartOutbound {
+    return {
+      karaokeId: +karaokeId, 
+      songId: 1
+    }
+  }
+
+  toKaraokeShuffleOutbound(karaokeId: string): KaraokeShuffleOutbound {
+    return {
+      karaokeId: +karaokeId, 
+      songId: 1
+    }
+  }
+
+  toKaraokeCreationOutbound(karaoke: { name: string; date: string; }) {
+    return {
+      name: karaoke.name, 
+      date: karaoke.date
+    }
   }
 }
 
@@ -63,4 +85,19 @@ interface SongOutbound {
   title: string;
   link: string;
   karaokeId: number;
+}
+
+interface KaraokeStartOutbound {
+  karaokeId: number,
+  songId: number
+}
+
+interface KaraokeShuffleOutbound {
+  karaokeId: number,
+  songId: number
+}
+
+interface KaraokeCreationOutbound {
+  name: string,
+  date: string
 }

@@ -30,6 +30,14 @@ export class InboundMapperService {
       receivedVotes: [],
     };
   }
+
+  mapToKaraokeInbound(inbound: KaraokeInbound): Karaoke {
+    return {
+      id: inbound.id.toString(),
+      name: inbound.name,
+      date: inbound.date
+    };
+  }
 }
 
 export interface SongForVoting {
@@ -42,4 +50,10 @@ export interface SongForVoting {
 export interface UserVotingOverviewInbound {
   id: string;
   username: string;
+}
+
+export interface KaraokeInbound {
+  id: number;
+  name: string;
+  date: string;
 }

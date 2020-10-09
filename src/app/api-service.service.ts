@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { EMPTY, Observable, of, Subject } from "rxjs";
 import { ApiPathProviderService } from "./api-path-provider.service";
 import { OutboundMapperService } from "./outbound-mapper.service";
-import { map, tap } from "rxjs/operators";
+import { map, shareReplay, tap } from "rxjs/operators";
 import { InboundMapperService, SongForVoting } from "./inbound-mapper.service";
 import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import { LoginStateService } from "./login-state-service.service";
@@ -13,7 +13,7 @@ import { LoginStateService } from "./login-state-service.service";
   providedIn: "root",
 })
 export class ApiService{
-  
+
   constructor(
     private http: HttpClient,
     private pathProvider: ApiPathProviderService,
@@ -22,8 +22,25 @@ export class ApiService{
     private inboundMapperService: InboundMapperService,
   ) {}
 
-  getAllKaraokeCompetitions() {
-    return this.http.get<Karaoke[]>(this.pathProvider.getKaraokesPath());
+  getAllKaraokeCompetitions$() {
+    return this.http.get<Karaoke[]>(this.pathProvider.getKaraokesPath()).pipe(shareReplay(1));
+  }
+
+  createNewKaraoke(karaoke: { name: string; date: string; }) {
+    return this.http.post<Karaoke>(this.pathProvider.postNewKaraokePath(), 
+    this.outboundMapperService.toKaraokeCreationOutbound(karaoke))
+  }
+
+  startKaraoke(karaokeId: string) {
+    return this.http.post<any>(this.pathProvider.postKaraokeStartPath(),
+    this.outboundMapperService.toKaraokeStartOutbound(karaokeId)
+    )
+  }
+
+  shuffleKaraoke(karaokeId: string) {
+    return this.http.post<any>(this.pathProvider.postShuffleKaraokePath(),
+    this.outboundMapperService.toKaraokeShuffleOutbound(karaokeId)
+    )
   }
 
   getAttendee$(attendeeId: string): Observable<Attendee | null> {
@@ -66,10 +83,6 @@ export class ApiService{
       */
   }
 
-  getResults$() {
-    return this.getAttendees$()
-  }
-
   closeWebsocketConnection() {
     let karaokeId = this.loginStateService.getCurrentUser().karaokeId
     let token = this.loginStateService.getCurrentUser().token
@@ -99,14 +112,14 @@ export class ApiService{
   login$(login: Login): Observable<User> {
     return this.http
       .post<UserInbound>(
-        this.pathProvider.postLoginPath(login.karaokeId),
+        this.pathProvider.postLoginPath(login.karaoke.id),
         this.outboundMapperService.toLoginOutbound(login)
       )
       .pipe(
         map((userInbound) => {
           return this.inboundMapperService.mapUser(
             userInbound,
-            login.karaokeId
+            login.karaoke.id
           );
         })
       );

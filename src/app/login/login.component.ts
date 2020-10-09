@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: Login;
 
+  allKaraokeCompetitions$ = this.httpService.getAllKaraokeCompetitions$();
+
   constructor(
     private httpService: ApiService,
     private loginStateService: LoginStateService,
@@ -27,15 +29,16 @@ export class LoginComponent implements OnInit {
     this.loginForm = {
       username: "",
       password: "",
-      karaokeId: "",
+      karaoke: null,
     };
   }
 
   login() {
     if (this.loginFormIsValid()) {
+
       this.httpService.login$(this.loginForm).subscribe(
         (user) => {
-          this.loginStateService.setUserCookies(user);
+          this.loginStateService.setCurrentUser(user);
           this.toastrService.success("Hallo " + user.name + "!");
           this.router.navigate(["/voting"]);
         },
@@ -50,10 +53,9 @@ export class LoginComponent implements OnInit {
     return (
       this.loginForm.password &&
       this.loginForm.username &&
-      this.loginForm.karaokeId &&
+      this.loginForm.karaoke &&
       this.loginForm.password.length > 0 &&
-      this.loginForm.username.length > 0 &&
-      this.loginForm.karaokeId.length > 0
+      this.loginForm.username.length > 0
     );
   }
 }

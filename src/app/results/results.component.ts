@@ -12,7 +12,7 @@ import { LoginStateService } from "../login-state-service.service";
 })
 export class ResultsComponent implements OnInit {
 
-  contestants$ = this.httpService.getResults$()
+  contestants$ = this.httpService.getAttendees$
 
   constructor(
     private route: ActivatedRoute,

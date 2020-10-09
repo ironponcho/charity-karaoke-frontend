@@ -13,7 +13,7 @@ export class SignupComponent {
   nameFocus;
   passwordFocus;
   competitionSelectionFocus;
-  allKaraokeCompetitions = this.httpService.getAllKaraokeCompetitions();
+  allKaraokeCompetitions$ = this.httpService.getAllKaraokeCompetitions$();
 
   registrationModel: Registration = {
     karaokeId: "",
@@ -36,7 +36,7 @@ export class SignupComponent {
     ) {
       this.httpService.register$(this.registrationModel).subscribe(
         (user) => {
-          this.loginStateService.setUserCookies(user);
+          this.loginStateService.setCurrentUser(user);
           this.toastrService.success(
             "Herzlich Willkommen, " + this.registrationModel.name + "!"
           );

@@ -28,7 +28,7 @@
               </div>
               <div
                 *ngFor="
-                  let attendee of getContestants$() | async | sortByAverageVote
+                  let attendee of contestants$() | async | sortByAverageVote
                 "
               >
                 <div class="attendee">
