@@ -1,0 +1,22 @@
+.headline {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.actions {
+  .sub-headline {
+    margin-top: 32px;
+  }
+
+  .row {
+    margin: 24px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .button {
+    margin-top: 16px;
+    justify-content: end;
+  }
+}
