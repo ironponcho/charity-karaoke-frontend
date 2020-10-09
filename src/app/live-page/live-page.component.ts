@@ -11,7 +11,7 @@ import { LoginStateService } from "../login-state-service.service";
 })
 export class LivePageComponent {
   attendees$ = this.api
-    .getAttendees(this.loginState.getCurrentUser().karaokeId)
+    .getAttendees$()
     .pipe(shareReplay(1));
 
   currentlyPerformingAttendees$ = this.attendees$.pipe(

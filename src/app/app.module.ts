@@ -14,7 +14,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatDividerModule } from "@angular/material/divider";
 import { CookieModule, CookieService } from "ngx-cookie";
-
+import {MatProgressBarModule} from '@angular/material/progress-bar'; 
 import { HomeModule } from "./home/home.module";
 import { LoginComponent } from "./login/login.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -30,6 +30,7 @@ import { LivePageComponent } from "./live-page/live-page.component";
 import { AuthInterceptor } from "./auth.interceptor";
 import { TrimmerPipe } from "./trimmer.pipe";
 import { YouTubePlayerModule } from "@angular/youtube-player";
+import { KaraokeAdministrationComponent } from './karaoke-administration/karaoke-administration.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { YouTubePlayerModule } from "@angular/youtube-player";
     LandingPageComponent,
     LivePageComponent,
     TrimmerPipe,
+    KaraokeAdministrationComponent,
   ],
   imports: [
     CookieModule.forRoot(),
@@ -55,6 +57,7 @@ import { YouTubePlayerModule } from "@angular/youtube-player";
     FormsModule,
     RouterModule,
     AppRoutingModule,
+    MatProgressBarModule,
     HomeModule,
     BrowserAnimationsModule,
     MatFormFieldModule,

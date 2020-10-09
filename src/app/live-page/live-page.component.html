@@ -25,34 +25,28 @@
                 >
                   Live
                 </h3>
+                <div *ngIf="currentlyPerformingAttendees$ | async as current">
+                  <div class="currentlyPerformingAttendee">
+                    <b>
+                      {{ current.name }}
+                    </b>
+                  </div>
 
-                <div class="currentlyPerformingAttendee">
-                  <b>
-                    {{ (currentlyPerformingAttendees$ | async).name }}
-                  </b>
-                </div>
-
-                <div class="song">
-                  <a
-                    target="_blank"
-                    href="{{
-                      (currentlyPerformingAttendees$ | async).song
-                        .youtubeKaraokeLink
-                    }}"
-                  >
-                    <b>Artist:</b>
-                    {{
-                      (currentlyPerformingAttendees$ | async).song
-                        .originalArtist
-                    }}
-                    <div>
+                  <div class="song">
+                    <a
+                      target="_blank"
+                      href="{{ current.song.youtubeKaraokeLink }}"
+                    >
+                      <b>Artist:</b>
+                      {{ current.song.originalArtist }}
                       <div>
-                        <b>Title:</b>
-                        {{ (currentlyPerformingAttendees$ | async).song.name }}
+                        <div>
+                          <b>Title:</b>
+                          {{ current.song.name }}
+                        </div>
                       </div>
-                    </div>
-                  </a>
-
+                    </a>
+                  </div>
                   <div class="buttonContainer">
                     <span>
                       <button

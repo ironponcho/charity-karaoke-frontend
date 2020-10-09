@@ -18,56 +18,76 @@
               <div class="px-4">
                 <h3 class="headline">Songauswahl</h3>
               </div>
-              <div class="form-group">
-                <label for="Artist Name">Original Artist Name</label>
 
-                <div class="input-group input-group-alternative">
-                  <input
-                    [(ngModel)]="songFormModel.originalArtist"
-                    class="form-control"
-                    type="name"
-                  />
-                </div>
-
-                <label for="Song Title">Song Title</label>
-
-                <div class="input-group input-group-alternative">
-                  <input
-                    [(ngModel)]="songFormModel.name"
-                    class="form-control"
-                    type="name"
-                  />
-                </div>
-
-                <label for="Youtube Karaoke Link">Youtube Karaoke Link</label>
-
-                <div class="input-group input-group-alternative">
-                  <input
-                    [(ngModel)]="songFormModel.youtubeKaraokeLink"
-                    class="form-control"
-                    type="name"
-                  />
-                </div>
-                <i
-                  *ngIf="
-                    !isValidYoutubeLink() &&
-                    songFormModel.youtubeKaraokeLink.length > 8
-                  "
-                  class="youtube-validation"
-                  >Kein gültiger Youtube-Link</i
-                >
-
-                <div class="text-center">
-                  <button
-                    type="button"
-                    class="btn btn-primary my-4"
-                    [disabled]="!isValidYoutubeLink()"
-                    (click)="saveSong()"
-                  >
-                    Speichern
-                  </button>
-                </div>
+              <div class="pseudosubscription">
+                {{ saveLoading$ | async }} {{ saveError$ | async }}
+                {{ saveSuccess$ | async }}
               </div>
+
+              <div
+                *ngIf="
+                  (saveLoading$ | async) ||
+                    (getCurrentAttendeeRequestLoading$ | async);
+                  then loading;
+                  else content
+                "
+              ></div>
+
+              <ng-template #loading>
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+              </ng-template>
+              <ng-template #content>
+                <div class="form-group">
+                  <label for="Artist Name">Original Artist Name</label>
+
+                  <div class="input-group input-group-alternative">
+                    <input
+                      [(ngModel)]="songFormModel.originalArtist"
+                      class="form-control"
+                      type="name"
+                    />
+                  </div>
+
+                  <label for="Song Title">Song Title</label>
+
+                  <div class="input-group input-group-alternative">
+                    <input
+                      [(ngModel)]="songFormModel.name"
+                      class="form-control"
+                      type="name"
+                    />
+                  </div>
+
+                  <label for="Youtube Karaoke Link">Youtube Karaoke Link</label>
+
+                  <div class="input-group input-group-alternative">
+                    <input
+                      [(ngModel)]="songFormModel.youtubeKaraokeLink"
+                      class="form-control"
+                      type="name"
+                    />
+                  </div>
+                  <i
+                    *ngIf="
+                      !isValidYoutubeLink() &&
+                      songFormModel.youtubeKaraokeLink.length > 8
+                    "
+                    class="youtube-validation"
+                    >Kein gültiger Youtube-Link</i
+                  >
+
+                  <div class="text-center">
+                    <button
+                      type="button"
+                      class="btn btn-primary my-4"
+                      [disabled]="!isValidYoutubeLink()"
+                      (click)="triggerSave$.next($event)"
+                    >
+                      Speichern
+                    </button>
+                  </div>
+                </div>
+              </ng-template>
             </div>
           </div>
         </div>

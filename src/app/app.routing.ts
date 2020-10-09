@@ -11,6 +11,7 @@ import { SignupComponent } from "./registration/signup.component";
 import { ResultsComponent } from "./results/results.component";
 import { LandingPageComponent } from "./landing-page/landing-page.component";
 import { LivePageComponent } from "./live-page/live-page.component";
+import { KaraokeAdministrationComponent } from "./karaoke-administration/karaoke-administration.component";
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: "landing-page", component: LandingPageComponent },
   { path: "live-page", component: LivePageComponent },
   { path: "song-selection", component: SongSelectionComponent },
+  { path: "karaoke-administration", component: KaraokeAdministrationComponent },
   { path: "", redirectTo: "home", pathMatch: "full" },
 ];
 

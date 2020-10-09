@@ -1,10 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ContestantService } from "../contestant.service";
 import { ApiService } from "../api-service.service";
 import { LoginStateService } from "../login-state-service.service";
 import { ToastrService } from "ngx-toastr";
-import { interval } from "rxjs/internal/observable/interval";
-import { map } from "rxjs/operators";
 
 @Component({
   selector: "app-landing",
@@ -12,26 +9,18 @@ import { map } from "rxjs/operators";
   styleUrls: ["./voting.component.scss"],
 })
 export class VotingComponent implements OnDestroy {
-  readonly intervalInMs = 10000;
 
-  currentUser = this.loginStateService.getCurrentUser();
-  contestants$ = this.httpService.getAttendees(this.currentUser.karaokeId);
-
-  reloadSubscription = interval(this.intervalInMs).subscribe(() => {
-    this.contestants$ = this.httpService.getAttendees(
-      this.currentUser.karaokeId
-    );
-  });
+  currentUser = this.loginStateService.getCurrentUser()
+  contestants$ = this.api.getAttendees$()
 
   constructor(
     private loginStateService: LoginStateService,
-    private httpService: ApiService,
-    private contestantService: ContestantService,
+    private api: ApiService,
     private toastr: ToastrService
   ) {}
 
   ngOnDestroy(): void {
-    this.reloadSubscription.unsubscribe;
+    this.api.closeWebsocketConnection()
   }
 
   saveVote(forAttende: Attendee, percentage: number) {
@@ -39,12 +28,10 @@ export class VotingComponent implements OnDestroy {
       this.toastr.error("Fehler beim Speichern deiner Stimme.");
       return;
     }
-    const vote: VoteOutbound = {
-      fromAttendeeId: this.currentUser.id,
+    this.api.saveVote$(this.currentUser.karaokeId, {
       forAttendeeId: forAttende.id,
       percentage: percentage ? percentage : 0,
-    };
-    this.httpService.saveVote(this.currentUser.karaokeId, vote).subscribe(
+    }).subscribe(
       (data) => {
         this.toastr.success(
           forAttende.name + " erhält von dir " + percentage + " Punkte!"
@@ -54,12 +41,12 @@ export class VotingComponent implements OnDestroy {
         console.log(err);
         this.toastr.error("Fehler beim Speichern deiner Stimme");
       }
-    ).unsubscribe;
+    )
   }
 
   getVoteFromCurrentContestant(votes: Vote[]): number {
     const maybeVotes = votes.filter(
-      (vote) => vote.fromAttendeeId == this.currentUser.id
+      (vote) => vote.forAttendeeId == this.currentUser.id
     );
     if (maybeVotes.length != 1) {
       return 0;

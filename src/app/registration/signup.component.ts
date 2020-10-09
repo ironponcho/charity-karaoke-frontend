@@ -34,7 +34,7 @@ export class SignupComponent {
       this.registrationModel.name &&
       this.registrationModel.password
     ) {
-      this.httpService.register(this.registrationModel).subscribe(
+      this.httpService.register$(this.registrationModel).subscribe(
         (user) => {
           this.loginStateService.setUserCookies(user);
           this.toastrService.success(

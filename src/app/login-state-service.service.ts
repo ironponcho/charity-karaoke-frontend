@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from "@angular/core";
 import { CookieService } from "ngx-cookie";
+import { Observable, of } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -29,6 +30,10 @@ export class LoginStateService implements OnInit {
     this.cookieService.put(this.USER_COOKIE_ID, user.id);
     this.cookieService.put(this.USER_COOKIE_KARAOKE_ID, user.karaokeId);
     this.cookieService.put(this.USER_COOKIE_TOKEN, user.token);
+  }
+
+  getCurrentUser$(): Observable<User | null>{
+    return of(this.getCurrentUser())
   }
 
   getCurrentUser(): User | null {

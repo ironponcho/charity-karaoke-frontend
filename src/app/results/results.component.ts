@@ -11,7 +11,8 @@ import { LoginStateService } from "../login-state-service.service";
   styleUrls: ["./results.component.css"],
 })
 export class ResultsComponent implements OnInit {
-  currentAttendee: Attendee;
+
+  contestants$ = this.httpService.getResults$()
 
   constructor(
     private route: ActivatedRoute,
@@ -21,9 +22,4 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  getContestants$() {
-    return this.httpService.getAttendees(
-      this.loginStateService.getCurrentUser().karaokeId
-    );
-  }
 }

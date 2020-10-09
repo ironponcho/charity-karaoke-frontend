@@ -27,13 +27,13 @@ export class LoginComponent implements OnInit {
     this.loginForm = {
       username: "",
       password: "",
-      karaokeId: "1234",
+      karaokeId: "",
     };
   }
 
   login() {
     if (this.loginFormIsValid()) {
-      this.httpService.login(this.loginForm).subscribe(
+      this.httpService.login$(this.loginForm).subscribe(
         (user) => {
           this.loginStateService.setUserCookies(user);
           this.toastrService.success("Hallo " + user.name + "!");

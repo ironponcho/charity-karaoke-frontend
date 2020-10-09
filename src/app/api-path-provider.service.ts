@@ -4,10 +4,15 @@ import { Injectable } from "@angular/core";
   providedIn: "root",
 })
 export class ApiPathProviderService {
+
   private readonly ENV_QUALIFIER = "https://charity-karaoke.fanya.dev/api";
 
-  getSongsForKaraoke(karaokeId: string) {
-    return this.ENV_QUALIFIER + "/song/" + karaokeId;
+  getSongsForKaraokeHttpPath(karaokeId: string): string {
+    return this.ENV_QUALIFIER + "/song/" + karaokeId
+  }
+
+  getSongsForKaraokeWebsocketPath(karaokeId: string, token: string) {
+    return (this.ENV_QUALIFIER.replace("https", "ws") + "/song/" + karaokeId +'?authentication='+token)
   }
 
   getKaraokesPath() {
@@ -30,5 +35,10 @@ export class ApiPathProviderService {
     return this.ENV_QUALIFIER + "/vote";
   }
 
+  postNextSingerPath(): string {
+    throw this.ENV_QUALIFIER + "/currentUser";
+  }
+
   constructor() {}
+
 }

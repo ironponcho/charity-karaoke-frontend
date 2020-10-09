@@ -9,7 +9,7 @@ export class OutboundMapperService {
   toVoteOutbound(vote: Vote, karaokeId: string): VoteOutbound {
     return {
       karaokeId: +karaokeId,
-      recipientId: vote.fromAttendeeId,
+      recipientId: +vote.forAttendeeId,
       percentage: vote.percentage,
     };
   }
@@ -41,7 +41,7 @@ export class OutboundMapperService {
 }
 
 interface VoteOutbound {
-  recipientId: string;
+  recipientId: number;
   percentage: number;
   karaokeId: number;
 }
