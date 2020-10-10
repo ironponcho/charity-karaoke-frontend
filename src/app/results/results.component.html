@@ -30,7 +30,9 @@
               <mat-accordion
                 class="accordion"
                 *ngFor="
-                  let contestant of contestantsData$ | async;
+                  let contestant of contestantsData$
+                    | async
+                    | sortByAverageVote;
                   let i = index
                 "
               >
