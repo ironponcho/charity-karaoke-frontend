@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { filter, first, map, shareReplay } from "rxjs/operators";
-import { ContestantService } from "../contestant.service";
+import { filter, map, shareReplay } from "rxjs/operators";
 import { ApiService } from "../api-service.service";
 import { LoginStateService } from "../login-state-service.service";
-import { Attendee } from "../domain/Attendee";
 import { merge } from "rxjs";
 import { isDefined } from "@angular/compiler/src/util";
 import { fromHttpResponse } from "../util/fromHttpResponse";
