@@ -52,4 +52,14 @@ export class ResultsComponent implements OnInit, OnDestroy {
     
   }
 
+  getColorForIndex(i: number){
+    
+    let color = "white"
+
+    if(i == 0) color = "rgb(255,223,0)"
+    if(i == 1) color = "rgb(192,192,192)"
+    if(i == 2) color = "rgb(205, 127, 50)"
+
+    return color
+  }
 }

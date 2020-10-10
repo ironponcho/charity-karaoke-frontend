@@ -36,7 +36,10 @@
                   let i = index
                 "
               >
-                <mat-expansion-panel style="margin-bottom: 12px">
+                <mat-expansion-panel
+                  style="margin-bottom: 12px"
+                  style="background-color: {{ getColorForIndex(i) }}"
+                >
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       <span class="song">
