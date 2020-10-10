@@ -31,8 +31,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    if (this.loginFormIsValid()) {
-
+    if (this.loginFormIsValid()) {  
+      
       this.httpService.login$(this.loginForm).subscribe(
         (user) => {
           this.loginStateService.setCurrentUser(user, this.loginForm.karaokeId);
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       this.loginForm.username &&
       this.loginForm.karaokeId &&
       this.loginForm.password.length > 0 &&
-      this.loginForm.username.length > 0 
+      this.loginForm.username.length > 0
     );
   }
 }

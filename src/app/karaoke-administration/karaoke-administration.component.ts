@@ -39,11 +39,10 @@ export class KaraokeAdministrationComponent {
     // Perform Impersonation. Change use State 
     let currentUser = this.loginStateService.getCurrentUser()
     currentUser.karaokeId = this.selectedModifyKaraokeId
-    this.loginStateService.setCurrentUser(currentUser)
+    this.loginStateService.setCurrentUser(currentUser, this.selectedModifyKaraokeId)
     this.router.navigate(['/voting'])
 
   }
-
 
   shuffleKaraoke(){
     this.api.shuffleKaraoke(this.selectedModifyKaraokeId).subscribe(

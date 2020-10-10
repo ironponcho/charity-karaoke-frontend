@@ -23,7 +23,7 @@ export class LoginStateService implements OnInit {
     }
   }
 
-  setCurrentUser(user: User, karaokeId?: string){
+  setCurrentUser(user: User, karaokeId: string){
     this.currentUser = user
     this.currentUser.karaokeId = karaokeId
     this.setUserCookies(user)
