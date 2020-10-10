@@ -1,6 +1,7 @@
-import { Injectable } from "@angular/core";
+import { Injectable, ɵɵtextInterpolateV } from "@angular/core";
 import { Attendee } from "./domain/Attendee";
 import { Song } from "./domain/Song";
+import { Vote } from "./domain/Vote";
 
 @Injectable({
   providedIn: "root",
@@ -21,6 +22,15 @@ export class InboundMapperService {
 
   mapVotingInbound(inbound: SongForVoting, karaokeId: string): Attendee {
 
+    let votes: Vote[] = inbound.votes.map(
+      vote => ({
+          forSongId: inbound.id.toString(),
+          percentage: vote.percentage
+      })
+    )
+    
+    let average: number = this.calculateAverage(votes)
+
     return {
       id: inbound.user.id,
       name: inbound.user.username,
@@ -33,8 +43,20 @@ export class InboundMapperService {
         name: inbound.title,
         youtubeKaraokeLink: inbound.link,
       },
-      receivedVotes: [],
+      receivedVotes: votes,
+      averageVote: average
     };
+  }
+
+  calculateAverage(votes: Vote[]): number {
+    if(votes.length == 0 ){
+      return 0
+    }
+
+    let sum = 0
+    votes.forEach(vote => sum += vote.percentage)
+    return sum/votes.length
+
   }
 
   mapToKaraokeInbound(inbound: KaraokeInbound): Karaoke {
@@ -66,7 +88,7 @@ export interface SongForVoting {
   link: string;
   sequence: number;
   user: UserVotingOverviewInbound;
-  votes: any[]
+  votes: VoteInbound[]
 }
 
 export interface UserVotingOverviewInbound {
@@ -86,4 +108,9 @@ export interface CurrentSongInbound {
   artist: string;
   title: string;
   link: string;
+}
+
+export interface VoteInbound {
+  id: number
+  percentage: number
 }

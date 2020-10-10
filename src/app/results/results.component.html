@@ -26,39 +26,44 @@
                   Ergebnis
                 </h3>
               </div>
-              <div
+
+              <mat-accordion
+                class="accordion"
                 *ngFor="
-                  let attendee of contestantsData$ | async | sortByAverageVote
+                  let contestant of contestantsData$ | async;
+                  let i = index
                 "
               >
-                {{ attendee.receivedVotes.length }}
-                <div class="attendee">
-                  <div>
-                    <div>
-                      <h4>{{ attendee.name }}</h4>
+                <div class="row">
+                  <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                        <span class="song">
+                          <div class="cover">{{ i + 1 }}. Platz</div>
+                          <span class="original"> </span>
+                        </span>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="name">
+                      {{ contestant.name | trim }}
                     </div>
-                    <i
-                      >{{ attendee.song.originalArtist }} -
-                      {{ attendee.song.name }}</i
-                    >
-                  </div>
-                  <div>
                     <mat-slider
                       style="width: 100%"
                       thumbLabel="true"
-                      value="{{ attendee.averageVote }}"
+                      value="{{ contestant.averageVote }}"
                       min="1"
                       max="100"
                     >
                     </mat-slider>
+
                     <span
-                      >Ø {{ attendee.averageVote }} bei
-                      {{ attendee.receivedVotes.length }} Stimmen
+                      >Ø {{ contestant.averageVote }} bei
+                      {{ contestant.receivedVotes.length }} Stimmen
                     </span>
-                  </div>
+                  </mat-expansion-panel>
                 </div>
-                <mat-divider></mat-divider>
-              </div>
+              </mat-accordion>
             </div>
           </div>
         </div>
