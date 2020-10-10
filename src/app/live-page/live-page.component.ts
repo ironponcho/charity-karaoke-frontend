@@ -102,7 +102,7 @@ export class LivePageComponent implements OnDestroy{
   }
 
   goToPreviousSinger() {
-    this.api.selectNextSong(
+    this.api.selectPreviousSong(
       this.prevContestant.song.id      
       ).subscribe(
       (data) => {
@@ -157,10 +157,10 @@ export class LivePageComponent implements OnDestroy{
   determinePrevious(): Attendee {
     for (let i = 0; i < this.allAttendeesWithSong.length; i++) {
       if (this.isCurrentAttendee(this.allAttendeesWithSong[i].id)) {
-        if (i - 1 < 0) {
+        if (i==0) {
           return null;
         } else {
-          return this.allAttendeesWithSong[i + 1];
+          return this.allAttendeesWithSong[i - 1];
         }
       }
     }

@@ -63,7 +63,7 @@ export class LoginStateService implements OnInit {
 
     if (this.userCookiesAreValid(userCookies)) {
       return {
-        isAdmin: Boolean(userCookies[this.USER_COOKIE_IS_ADMIN]),
+        isAdmin: userCookies[this.USER_COOKIE_IS_ADMIN],
         name: userCookies[this.USER_COOKIE_NAME],
         id: userCookies[this.USER_COOKIE_ID],
         karaokeId: userCookies[this.USER_COOKIE_KARAOKE_ID],

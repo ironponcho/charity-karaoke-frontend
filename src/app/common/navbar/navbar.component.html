@@ -45,7 +45,7 @@
             </div>
             <div
               class="navigation-category"
-              *ngIf="isLoggedIn() && getCurrentUser().isAdmin"
+              *ngIf="isAuthorizedAdmin() == true"
             >
               <b>Admin</b>
               <a [routerLink]="['/results']" class="dropdown-item">Ergebnis</a>

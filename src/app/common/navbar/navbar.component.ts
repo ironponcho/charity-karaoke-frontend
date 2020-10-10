@@ -41,7 +41,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   getCurrentUser() {
     let currentUser = this.loginStateService.getCurrentUser();
-
     return currentUser;
   }
 
@@ -55,5 +54,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   performLogout() {
     this.loginStateService.performLogout();
+  }
+
+  isAuthorizedAdmin(): boolean {
+    let user = this.loginStateService.getCurrentUser()
+    let isAdmin = user && user.isAdmin
+    return isAdmin
   }
 }

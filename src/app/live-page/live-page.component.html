@@ -104,6 +104,12 @@
                         </button>
                       </span>
                     </div>
+
+                    <i *ngIf="prevContestant">
+                      Davor war
+                      {{ prevContestant.name }} dran
+                    </i>
+
                     <i *ngIf="nextContestant">
                       Als nächstes ist
                       {{ nextContestant.name }} dran

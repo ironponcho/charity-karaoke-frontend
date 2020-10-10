@@ -14,7 +14,7 @@ export class InboundMapperService {
       name: userInbound.name,
       id: userInbound.id.toString(),
       karaokeId: karaokeId,
-      isAdmin: userInbound.roles.includes("USER_ADMIN"),
+      isAdmin: userInbound.roles.includes("ROLE_ADMIN"),
       token: userInbound.tokenType + " " + userInbound.accessToken,
     };
   }

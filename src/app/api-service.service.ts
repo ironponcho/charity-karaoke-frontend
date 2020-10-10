@@ -16,6 +16,7 @@ import { InboundMapperService, SongForVoting } from "./inbound-mapper.service";
 })
 export class ApiService{
 
+
   constructor(
     private http: HttpClient,
     private pathProvider: ApiPathProviderService,
@@ -133,6 +134,14 @@ export class ApiService{
     return this.http.post<void>(
       this.pathProvider.postNextSingerPath(), 
       {songId: songId, 
+      karaokeId: this.loginStateService.getCurrentUser().karaokeId}
+    )
+  }
+
+  selectPreviousSong(id: string) {
+    return this.http.post<void>(
+      this.pathProvider.postPreviousSingerPath(), 
+      {songId: id, 
       karaokeId: this.loginStateService.getCurrentUser().karaokeId}
     )
   }
