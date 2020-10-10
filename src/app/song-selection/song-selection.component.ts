@@ -32,7 +32,8 @@ export class SongSelectionComponent implements OnDestroy{
     this.triggerSave$, 
     this.loginStateService.getCurrentUser$()
   ]).pipe(
-    fromHttpResponse(()=> this.httpService.saveSong$(this.songFormModel, this.loginStateService.getCurrentUser().karaokeId))
+    fromHttpResponse(()=> this.httpService.saveSong$(this.songFormModel, this.loginStateService.getCurrentUser().karaokeId)), 
+    shareReplay(1)
   )
 
   readonly saveLoading$ = this.saveRequest$.pipe(
