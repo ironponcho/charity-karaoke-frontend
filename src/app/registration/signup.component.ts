@@ -36,7 +36,7 @@ export class SignupComponent {
     ) {
       this.httpService.register$(this.registrationModel).subscribe(
         (user) => {
-          this.loginStateService.setCurrentUser(user);
+          this.loginStateService.setCurrentUser(user, this.registrationModel.karaokeId);
           this.toastrService.success(
             "Herzlich Willkommen, " + this.registrationModel.name + "!"
           );

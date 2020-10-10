@@ -1,16 +1,15 @@
 import { Injectable, OnDestroy, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { EMPTY, NEVER, Observable, of, Subject, throwError } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 import { ApiPathProviderService } from "./api-path-provider.service";
 import { OutboundMapperService } from "./outbound-mapper.service";
 import { map, shareReplay, tap } from "rxjs/operators";
-import { CurrentSongInbound, InboundMapperService, SongForVoting } from "./inbound-mapper.service";
-import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import { LoginStateService } from "./login-state-service.service";
 import { Vote } from "./domain/Vote";
 import { Song } from "./domain/Song";
 import { Attendee } from "./domain/Attendee";
+import { InboundMapperService, SongForVoting } from "./inbound-mapper.service";
 
 @Injectable({
   providedIn: "root",
@@ -40,31 +39,14 @@ export class ApiService{
     )
   }
 
-  getCurrentSong(): Observable<Song | null> {
+  getCurrentSongId(): Observable<string | null> {
     let karaokeId = this.loginStateService.getCurrentUser().karaokeId
-    
-    return of({
-      id: "35",
-      isCurrentSong: true,
-      originalArtist: "string",
-      name: "Shine on you crazy Diamond",
-      youtubeKaraokeLink: "youtube"
-    })
-    /*
-    return this.http.get<CurrentSongInbound>
-      (this.pathProvider.getCurrentSongPath(karaokeId))
-    .pipe(
-      map(songInbound => {
-        return this.inboundMapperService.mapToSongInbound(songInbound)
-      })
-    )
-    */
+    return this.http.get<string>(this.pathProvider.getCurrentSongPath(karaokeId))
   }
 
 
   shuffleKaraoke(karaokeId: string) {
-    return this.http.post<any>(this.pathProvider.postShuffleKaraokePath(),
-    this.outboundMapperService.toKaraokeShuffleOutbound(karaokeId)
+    return this.http.get<any>(this.pathProvider.getShuffleKaraokePath(karaokeId),
     )
   }
 
@@ -118,14 +100,14 @@ export class ApiService{
   login$(login: Login): Observable<User> {
     return this.http
       .post<UserInbound>(
-        this.pathProvider.postLoginPath(login.karaoke.id),
+        this.pathProvider.postLoginPath(login.karaokeId),
         this.outboundMapperService.toLoginOutbound(login)
       )
       .pipe(
         map((userInbound) => {
           return this.inboundMapperService.mapUser(
             userInbound,
-            login.karaoke.id
+            login.karaokeId
           );
         })
       );
@@ -147,10 +129,11 @@ export class ApiService{
       );
   }
 
-  selectSinger(id: string) {
+  selectNextSong(songId: string) {
     return this.http.post<void>(
       this.pathProvider.postNextSingerPath(), 
-      {id: id}
+      {songId: songId, 
+      karaokeId: this.loginStateService.getCurrentUser().karaokeId}
     )
   }
 }

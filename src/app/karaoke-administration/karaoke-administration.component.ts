@@ -46,7 +46,10 @@ export class KaraokeAdministrationComponent {
 
 
   shuffleKaraoke(){
-    this.api.shuffleKaraoke(this.selectedModifyKaraokeId)
+    this.api.shuffleKaraoke(this.selectedModifyKaraokeId).subscribe(
+      (data) => alert(JSON.stringify(data)),
+      (error) => this.toastrService.error(error.message)
+    )
   }
 
   createNewKaraoke(){

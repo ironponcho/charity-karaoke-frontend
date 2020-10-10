@@ -24,8 +24,7 @@
               <div class="zombieSubscription">
                 {{ contestantsData$ | async }}
               </div>
-
-              <div *ngIf="!currentSong; then notStarted; else started"></div>
+              <div *ngIf="!currentSongId; then notStarted; else started"></div>
               <ng-template #notStarted>
                 <div class="not-started">
                   <p>Die Veranstaltung hat noch nicht begonnen.</p>
@@ -70,7 +69,7 @@
                     <div class="attendee">
                       <mat-expansion-panel
                         [ngClass]="
-                          contestant.song.id == currentSong.id
+                          contestant.song.id == currentSongId
                             ? 'currentlyPerforming'
                             : 'notCurrentlyPerforming'
                         "
@@ -108,13 +107,6 @@
                             min="1"
                             max="100"
                           ></mat-slider>
-                          <div class="ids">
-                            <span>Song-ID: {{ contestant.song.id }}</span>
-                            <span>
-                              Attendee-ID:
-                              {{ contestant.id }}
-                            </span>
-                          </div>
                         </div>
                         <p>
                           <button
@@ -132,6 +124,13 @@
                             Speichern
                           </button>
                         </p>
+                        <div class="ids">
+                          <span>Song-ID: {{ contestant.song.id }}</span>
+                          <span>
+                            Attendee-ID:
+                            {{ contestant.id }}
+                          </span>
+                        </div>
                       </mat-expansion-panel>
                     </div>
                   </mat-accordion>

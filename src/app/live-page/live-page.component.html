@@ -25,54 +25,91 @@
                 >
                   Live
                 </h3>
-                <div *ngIf="currentlyPerformingAttendees$ | async as current">
-                  <div class="currentlyPerformingAttendee">
-                    <b>
-                      {{ current.name }}
-                    </b>
-                  </div>
+                <div
+                  *ngIf="!currentSongId; then notStarted; else started"
+                ></div>
 
-                  <div class="song">
-                    <a
-                      target="_blank"
-                      href="{{ current.song.youtubeKaraokeLink }}"
+                <ng-template #notStarted>
+                  <div class="not-started">
+                    <p>Die Veranstaltung hat noch nicht begonnen.</p>
+                    <p style="margin-top: 16px">
+                      Sobald die Veranstaltung gestart ist, kannst du hier die
+                      Reihenfolge der Auftritte einsehen und diese bewerten!
+                    </p>
+
+                    <div
+                      class="currently-registered"
+                      *ngIf="contestantsData$ | async as current"
                     >
-                      <b>Artist:</b>
-                      {{ current.song.originalArtist }}
-                      <div>
-                        <div>
-                          <b>Title:</b>
-                          {{ current.song.name }}
-                        </div>
+                      <div class="box">
+                        Aktuell haben sich für diese Veranstaltung
+                        {{ current.length }} Künstler*innen angemeldet
                       </div>
-                    </a>
+                    </div>
                   </div>
-                  <div class="buttonContainer">
-                    <span>
-                      <button
-                        type="button"
-                        class="btn btn-primary my-4"
-                        [disabled]="!(previousAttendee$ | async)"
-                        (click)="goToPreviousSinger()"
-                      >
-                        <span class="material-icons"> navigate_before </span>
-                      </button>
+                </ng-template>
 
-                      <button
-                        type="button"
-                        class="btn btn-primary my-4"
-                        [disabled]="!(nextAttendee$ | async)"
-                        (click)="goToNextSinger()"
-                      >
-                        <span class="material-icons"> navigate_next </span>
-                      </button>
-                    </span>
+                <ng-template #started>
+                  <div class="error" *ngIf="!currentAttendee">
+                    currentAttendee is null
                   </div>
-                  <i *ngIf="nextAttendee$ | async">
-                    Als nächstes ist
-                    {{ (nextAttendee$ | async).name }} dran
-                  </i>
-                </div>
+
+                  <div *ngIf="currentAttendee">
+                    <div class="currentlyPerformingAttendee">
+                      <b>
+                        {{ currentAttendee.name }}
+                      </b>
+                    </div>
+
+                    <div class="song">
+                      <a
+                        target="_blank"
+                        href="{{ currentAttendee.song.youtubeKaraokeLink }}"
+                      >
+                        <b>Artist:</b>
+                        {{ currentAttendee.song.originalArtist }}
+                        <div>
+                          <div>
+                            <b>Title:</b>
+                            {{ currentAttendee.song.name }}
+                          </div>
+                        </div>
+                      </a>
+                      <div class="ids">
+                        <span>Song-ID: {{ currentAttendee.song.id }}</span>
+                        <span>
+                          Attendee-ID:
+                          {{ currentAttendee.id }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="buttonContainer">
+                      <span>
+                        <button
+                          type="button"
+                          class="btn btn-primary my-4"
+                          [disabled]="!prevContestant"
+                          (click)="goToPreviousSinger()"
+                        >
+                          <span class="material-icons"> navigate_before </span>
+                        </button>
+
+                        <button
+                          type="button"
+                          class="btn btn-primary my-4"
+                          [disabled]="!nextContestant"
+                          (click)="goToNextSinger()"
+                        >
+                          <span class="material-icons"> navigate_next </span>
+                        </button>
+                      </span>
+                    </div>
+                    <i *ngIf="nextContestant">
+                      Als nächstes ist
+                      {{ nextContestant.name }} dran
+                    </i>
+                  </div>
+                </ng-template>
               </div>
             </div>
           </div>

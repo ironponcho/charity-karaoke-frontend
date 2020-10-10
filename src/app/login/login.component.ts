@@ -10,9 +10,6 @@ import { LoginStateService } from "../login-state-service.service";
   styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
-  usernameFocus;
-  passwordFocus;
-  karaokeIdFocus;
 
   loginForm: Login;
 
@@ -29,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = {
       username: "",
       password: "",
-      karaoke: null,
+      karaokeId: "",
     };
   }
 
@@ -38,7 +35,7 @@ export class LoginComponent implements OnInit {
 
       this.httpService.login$(this.loginForm).subscribe(
         (user) => {
-          this.loginStateService.setCurrentUser(user);
+          this.loginStateService.setCurrentUser(user, this.loginForm.karaokeId);
           this.toastrService.success("Hallo " + user.name + "!");
           this.router.navigate(["/voting"]);
         },
@@ -53,9 +50,9 @@ export class LoginComponent implements OnInit {
     return (
       this.loginForm.password &&
       this.loginForm.username &&
-      this.loginForm.karaoke &&
+      this.loginForm.karaokeId &&
       this.loginForm.password.length > 0 &&
-      this.loginForm.username.length > 0
+      this.loginForm.username.length > 0 
     );
   }
 }

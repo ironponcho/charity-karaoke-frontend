@@ -12,7 +12,7 @@ export class OutboundMapperService {
   toVoteOutbound(vote: Vote, karaokeId: string): VoteOutbound {
     return {
       karaokeId: +karaokeId,
-      recipientId: +vote.forSongId,
+      songId: +vote.forSongId,
       percentage: vote.percentage,
     };
   }
@@ -21,7 +21,7 @@ export class OutboundMapperService {
     return {
       username: login.username,
       password: login.password,
-      karaokeId: login.karaoke.id,
+      karaokeId: login.karaokeId,
     };
   }
 
@@ -65,7 +65,7 @@ export class OutboundMapperService {
 }
 
 interface VoteOutbound {
-  recipientId: number;
+  songId: number;
   percentage: number;
   karaokeId: number;
 }

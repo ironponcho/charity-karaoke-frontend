@@ -16,8 +16,8 @@ export class ApiPathProviderService {
     return this.ENV_QUALIFIER + "/karaoke/start"
   }
 
-  postShuffleKaraokePath(): string {
-    return this.ENV_QUALIFIER + "/karaoke/shuffle"
+  getShuffleKaraokePath(karaokeId: string): string {
+    return this.ENV_QUALIFIER + "/karaoke/shuffle/"+karaokeId
   }
 
   getCurrentSongPath(karaokeId: string): string {
@@ -26,10 +26,6 @@ export class ApiPathProviderService {
 
   getSongsForKaraokeHttpPath(karaokeId: string): string {
     return this.ENV_QUALIFIER + "/song/" + karaokeId
-  }
-
-  getSongsForKaraokeWebsocketPath(karaokeId: string, token: string) {
-    return (this.ENV_QUALIFIER.replace("https", "ws") + "/song/" + karaokeId +'?authentication='+token)
   }
 
   getKaraokesPath() {
@@ -53,7 +49,7 @@ export class ApiPathProviderService {
   }
 
   postNextSingerPath(): string {
-    throw this.ENV_QUALIFIER + "/currentUser";
+    return this.ENV_QUALIFIER + "/karaoke/next";
   }
 
   constructor() {}

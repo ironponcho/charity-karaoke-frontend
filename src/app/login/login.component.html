@@ -62,10 +62,11 @@
                     <select
                       class="form-control"
                       required
-                      [(ngModel)]="loginForm.karaoke"
+                      [(ngModel)]="loginForm.karaokeId"
                     >
                       <option
                         *ngFor="let karaoke of allKaraokeCompetitions$ | async"
+                        [ngValue]="karaoke.id"
                       >
                         {{ karaoke.name }}
                       </option>
