@@ -98,7 +98,7 @@
                         >
                           Du kannst nicht für dich selber stimmen
                         </div>
-
+                        {{ contestant.averageVote }}
                         <div *ngIf="!isCurrentAttendee(contestant.id)">
                           <mat-slider
                             style="width: 100%"

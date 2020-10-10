@@ -44,6 +44,7 @@ export class InboundMapperService {
         youtubeKaraokeLink: inbound.link,
       },
       receivedVotes: votes,
+      voteFromCurrentAttendee: average,
       averageVote: average
     };
   }

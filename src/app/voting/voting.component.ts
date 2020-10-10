@@ -4,7 +4,7 @@ import { LoginStateService } from "../login-state-service.service";
 import { ToastrService } from "ngx-toastr";
 import { BehaviorSubject, combineLatest, concat, interval, merge, ReplaySubject, Subject } from "rxjs";
 import { fromHttpResponse } from "../util/fromHttpResponse";
-import { filter, map, shareReplay, tap } from "rxjs/operators";
+import { filter, map, share, shareReplay, tap } from "rxjs/operators";
 import { isDefined } from "@angular/compiler/src/util";
 import { Vote } from "../domain/Vote";
 import { Attendee } from "../domain/Attendee";
