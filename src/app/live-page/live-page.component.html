@@ -105,15 +105,17 @@
                       </span>
                     </div>
 
-                    <i *ngIf="prevContestant">
-                      Davor war
-                      {{ prevContestant.name }} dran
-                    </i>
-
-                    <i *ngIf="nextContestant">
-                      Als nächstes ist
-                      {{ nextContestant.name }} dran
-                    </i>
+                    <span *ngIf="prevContestant">
+                      {{ prevContestant.name }} ({{ prevContestant.song.id }})
+                    </span>
+                    <b
+                      >{{ currentAttendee.name }} ({{
+                        currentAttendee.song.id
+                      }})</b
+                    >
+                    <span *ngIf="nextContestant">
+                      {{ nextContestant.name }} ({{ nextContestant.song.id }})
+                    </span>
                   </div>
                 </ng-template>
               </div>

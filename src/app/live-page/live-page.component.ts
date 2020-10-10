@@ -1,11 +1,10 @@
 import { isDefined } from "@angular/compiler/src/util";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
-import { interval, merge, Observable, Subject } from "rxjs";
+import { merge, Subject } from "rxjs";
 import { filter, map, shareReplay, tap } from "rxjs/operators";
 import { ApiService } from "../api-service.service";
 import { Attendee } from "../domain/Attendee";
-import { Song } from "../domain/Song";
 import { LoginStateService } from "../login-state-service.service";
 import { fromHttpResponse } from "../util/fromHttpResponse";
 
