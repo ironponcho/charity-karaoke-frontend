@@ -53,7 +53,8 @@ export class VotingComponent implements OnInit, OnDestroy {
     this.triggerReload$,
     this.loginStateService.getCurrentUser$()
   ]).pipe(
-    fromHttpResponse(() => this.api.getAttendees$())
+    fromHttpResponse(() => this.api.getAttendees$()), 
+    shareReplay(1)
   )
 
   readonly contestantsLoading$ = this.contestantsRequest$.pipe(
