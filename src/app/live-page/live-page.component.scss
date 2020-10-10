@@ -1,0 +1,47 @@
+.song {
+  margin-top: 24px;
+}
+
+.buttonContainer {
+  margin-top: 64px;
+}
+
+.currentlyPerformingAttendee {
+  margin-top: 12px;
+}
+
+.livePageContainer {
+  align-items: center;
+  text-align: center;
+}
+
+.not-started {
+  max-width: 600px;
+  display: block;
+  text-align: center;
+  justify-content: center;
+  margin: 40px;
+}
+
+.error {
+  background-color: red;
+  padding: 32px;
+}
+
+.currently-registered {
+  .box {
+    margin-top: 40px;
+    padding: 16px;
+    color: white;
+    background-color: rgba(149, 107, 228, 0.74);
+    -webkit-box-shadow: 6px 6px 17px -4px rgba(111, 66, 193, 0.74);
+    -moz-box-shadow: 6px 6px 17px -4px rgba(111, 66, 193, 0.74);
+    box-shadow: 6px 6px 17px -4px rgba(111, 66, 193, 0.74);
+  }
+}
+
+.ids {
+  margin-top: 16px;
+  font-family: Courier New;
+  font-size: 12px;
+}
