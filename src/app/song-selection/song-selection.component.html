@@ -19,11 +19,11 @@
                 <h3 class="headline">Songauswahl</h3>
               </div>
 
-              <div class="pseudosubscription">
+              <div class="zombiesubscription">
                 {{ saveLoading$ | async }} {{ saveError$ | async }}
-                {{ saveSuccess$ | async }}
+                {{ saveSuccess$ | async }} {{ saveRequest$ | async }}
+                {{ getCurrentAttendeeRequestSuccess$ | async | json }}
               </div>
-
               <div
                 *ngIf="
                   (saveLoading$ | async) ||

@@ -1,4 +1,4 @@
-interface Vote {
-  forAttendeeId: string;
+export interface Vote {
+  forSongId: string;
   percentage: number;
 }

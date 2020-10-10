@@ -1,4 +1,7 @@
-interface Attendee {
+import { Song } from "./Song";
+import { Vote } from "./Vote";
+
+export interface Attendee {
   id: string;
   name: string;
   karaokeId: string;

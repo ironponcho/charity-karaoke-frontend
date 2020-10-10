@@ -3,20 +3,24 @@ import { ApiService } from "../api-service.service";
 import { Router } from "@angular/router";
 import { LoginStateService } from "../login-state-service.service";
 import { ToastrService } from "ngx-toastr";
-import { map, shareReplay, tap } from "rxjs/operators";
-import { combineLatest, of, Subject } from "rxjs";
+import { filter, map, shareReplay, tap } from "rxjs/operators";
+import { combineLatest, Subject } from "rxjs";
 import { fromHttpResponse } from "../util/fromHttpResponse";
+import { isDefined } from "../util/isDefined";
+import { Song } from "../domain/Song";
 
 @Component({
   selector: "app-song-selection",
   templateUrl: "./song-selection.component.html",
   styleUrls: ["./song-selection.component.scss"],
 })
-export class SongSelectionComponent {
+export class SongSelectionComponent implements OnDestroy{
   readonly youtubeSharePrefix = "https://youtu.be/";
   readonly youtubeCopyPrefix = "https://www.youtube.com/watch?v=";
 
   songFormModel: Song = {
+    isCurrentSong: false, 
+    id: null, 
     originalArtist: "",
     name: "",
     youtubeKaraokeLink: "",
@@ -38,7 +42,6 @@ export class SongSelectionComponent {
   readonly saveSuccess$ = this.saveRequest$.pipe(
     map((response) => response.data),
     tap((data) => {
-      console.error(data)
       this.toastrService.success(this.songFormModel.name + " wurde eingetragen!");
       this.router.navigate(["/voting"]);
     })
@@ -50,7 +53,8 @@ export class SongSelectionComponent {
   )
 
   readonly getCurrentAttendeeRequest$ = this.loginStateService.getCurrentUser$().pipe(
-    fromHttpResponse((user) => this.httpService.getAttendee$(user.id))
+    fromHttpResponse((user) => this.httpService.getAttendee$(user.id)),
+    shareReplay(1)
   )
   
   readonly getCurrentAttendeeRequestLoading$ = this.getCurrentAttendeeRequest$.pipe(
@@ -64,6 +68,8 @@ export class SongSelectionComponent {
 
   readonly getCurrentAttendeeRequestSuccess$ = this.getCurrentAttendeeRequest$.pipe(
     map((response) => response.data), 
+    filter(isDefined),
+
     tap((attendee) => {
       this.toastrService.info("Trag hier deinen Song ein!")
       if(attendee.song){
@@ -74,12 +80,19 @@ export class SongSelectionComponent {
     })
   )
 
+  saveZombieSub = this.saveRequest$.subscribe()
+  getAttendeeZombieSub = this.getCurrentAttendeeRequest$.subscribe()
+
   constructor(
     private httpService: ApiService,
     private loginStateService: LoginStateService,
     private toastrService: ToastrService,
     private router: Router
   ) {}
+
+  ngOnDestroy(): void {
+    
+  }
 
   isValidYoutubeLink(): boolean {
     return (

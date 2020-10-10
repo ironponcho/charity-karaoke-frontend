@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Observable } from "rxjs";
 import { map, shareReplay } from "rxjs/operators";
 import { ApiService } from "../api-service.service";
+import { Attendee } from "../domain/Attendee";
 import { LoginStateService } from "../login-state-service.service";
 
 @Component({

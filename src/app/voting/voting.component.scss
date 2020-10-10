@@ -4,6 +4,10 @@
   margin-bottom: 24px;
 }
 
+.zombieSubscription {
+  display: none;
+}
+
 .attendee {
   display: block;
   -webkit-box-shadow: 6px 6px 17px -4px rgba(111, 66, 193, 0.74);
@@ -24,8 +28,33 @@
     margin-top: 16px;
     margin-bottom: 16px;
   }
+
+  .ids {
+    font-family: Courier New;
+    font-size: 12px;
+  }
 }
 
 .attendee {
   margin: 8px;
+}
+
+.not-started {
+  max-width: 600px;
+  display: block;
+  text-align: center;
+  justify-content: center;
+  margin: 40px;
+}
+
+.currently-registered {
+  .box {
+    margin-top: 40px;
+    padding: 16px;
+    color: white;
+    background-color: rgba(149, 107, 228, 0.74);
+    -webkit-box-shadow: 6px 6px 17px -4px rgba(111, 66, 193, 0.74);
+    -moz-box-shadow: 6px 6px 17px -4px rgba(111, 66, 193, 0.74);
+    box-shadow: 6px 6px 17px -4px rgba(111, 66, 193, 0.74);
+  }
 }

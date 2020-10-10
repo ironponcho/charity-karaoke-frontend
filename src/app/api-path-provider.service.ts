@@ -20,6 +20,10 @@ export class ApiPathProviderService {
     return this.ENV_QUALIFIER + "/karaoke/shuffle"
   }
 
+  getCurrentSongPath(karaokeId: string): string {
+    return this.ENV_QUALIFIER + "/karaoke/currentSong/" + karaokeId
+  }
+
   getSongsForKaraokeHttpPath(karaokeId: string): string {
     return this.ENV_QUALIFIER + "/song/" + karaokeId
   }

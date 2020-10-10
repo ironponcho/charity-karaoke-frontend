@@ -1,4 +1,6 @@
 import { Injectable } from "@angular/core";
+import { Song } from "./domain/Song";
+import { Vote } from "./domain/Vote";
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +12,7 @@ export class OutboundMapperService {
   toVoteOutbound(vote: Vote, karaokeId: string): VoteOutbound {
     return {
       karaokeId: +karaokeId,
-      recipientId: +vote.forAttendeeId,
+      recipientId: +vote.forSongId,
       percentage: vote.percentage,
     };
   }

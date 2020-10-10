@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { orderBy } from "lodash";
+import { Attendee } from "./domain/Attendee";
 
 @Pipe({
   name: "sortByAverageVote",

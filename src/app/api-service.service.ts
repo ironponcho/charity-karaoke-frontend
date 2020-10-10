@@ -1,13 +1,16 @@
 import { Injectable, OnDestroy, OnInit } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { EMPTY, Observable, of, Subject } from "rxjs";
+import { EMPTY, NEVER, Observable, of, Subject, throwError } from "rxjs";
 import { ApiPathProviderService } from "./api-path-provider.service";
 import { OutboundMapperService } from "./outbound-mapper.service";
 import { map, shareReplay, tap } from "rxjs/operators";
-import { InboundMapperService, SongForVoting } from "./inbound-mapper.service";
+import { CurrentSongInbound, InboundMapperService, SongForVoting } from "./inbound-mapper.service";
 import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 import { LoginStateService } from "./login-state-service.service";
+import { Vote } from "./domain/Vote";
+import { Song } from "./domain/Song";
+import { Attendee } from "./domain/Attendee";
 
 @Injectable({
   providedIn: "root",
@@ -37,6 +40,28 @@ export class ApiService{
     )
   }
 
+  getCurrentSong(): Observable<Song | null> {
+    let karaokeId = this.loginStateService.getCurrentUser().karaokeId
+    
+    return of({
+      id: "35",
+      isCurrentSong: true,
+      originalArtist: "string",
+      name: "Shine on you crazy Diamond",
+      youtubeKaraokeLink: "youtube"
+    })
+    /*
+    return this.http.get<CurrentSongInbound>
+      (this.pathProvider.getCurrentSongPath(karaokeId))
+    .pipe(
+      map(songInbound => {
+        return this.inboundMapperService.mapToSongInbound(songInbound)
+      })
+    )
+    */
+  }
+
+
   shuffleKaraoke(karaokeId: string) {
     return this.http.post<any>(this.pathProvider.postShuffleKaraokePath(),
     this.outboundMapperService.toKaraokeShuffleOutbound(karaokeId)
@@ -49,51 +74,32 @@ export class ApiService{
       map(attendees => {
         return attendees.filter(attendee => attendee.id == attendeeId)
       }),
-      map((attendees: Attendee[]) => attendees.length == 1 ? attendees[0] : null)
+      map((attendees) => {
+        if(attendees.length == 1){
+          return attendees[0]
+        } else {
+          throwError("ZERO OR MORE THAN ONE ATTENDEE WERE FOUND WITH ATTENDEE-ID "+attendeeId)
+        }})
     )  
   }
 
   getAttendees$(): Observable<Attendee[]> {
     let karaokeId = this.loginStateService.getCurrentUser().karaokeId
-    return this.http
+    let result = this.http
       .get<SongForVoting[]>(this.pathProvider.getSongsForKaraokeHttpPath(karaokeId))
       .pipe(
-        tap(console.log),
         map((songs) =>
           songs.map(
             (song) =>
               this.inboundMapperService.mapVotingInbound(song, karaokeId),
             karaokeId
           )
-        )
+        ),
+        shareReplay(1)
       );
-
-    /* Websockets 
-  
-    let token = this.loginStateService.getCurrentUser().token
-    return webSocket<SongForVoting[]>(this.pathProvider.getSongsForKaraoke(karaokeId, token)).asObservable().pipe(
-        map((songs) =>
-          songs.map(
-            (songForVoting) =>
-              this.inboundMapperService.mapVotingInbound(songForVoting, karaokeId),
-            karaokeId
-          )
-        )
-      )
-      */
+    return result
   }
 
-  closeWebsocketConnection() {
-    let karaokeId = this.loginStateService.getCurrentUser().karaokeId
-    let token = this.loginStateService.getCurrentUser().token
-    webSocket({
-        url: this.pathProvider.getSongsForKaraokeWebsocketPath(karaokeId, token),
-        closeObserver: new Subject<CloseEvent>(),
-        openObserver: {
-          next: () => console.log('Underlying WebSocket connection open')
-        }
-      });
-  }
 
   saveVote$(karaokeId: string, vote: Vote): Observable<string> {
     return this.http.post<string>(
