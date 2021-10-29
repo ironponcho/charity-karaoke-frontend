@@ -34,8 +34,7 @@
     "popper.js": "1.14.7",
     "rxjs": "6.5.4",
     "rxjs-compat": "6.5.4",
-    "service": "^0.1.4",
-    "zone.js": "0.10.2"
+    "service": "^0.1.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1001.1",

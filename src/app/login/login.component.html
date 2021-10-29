@@ -56,21 +56,15 @@
                   </div>
                 </div>
 
-                <label>Veranstaltung</label>
+                <label>Veranstaltungsname</label>
                 <div class="form-group">
                   <div class="input-group input-group-alternative">
-                    <select
-                      class="form-control"
-                      required
+                    <input
                       [(ngModel)]="loginForm.karaokeId"
-                    >
-                      <option
-                        *ngFor="let karaoke of allKaraokeCompetitions$ | async"
-                        [ngValue]="karaoke.id"
-                      >
-                        {{ karaoke.name }}
-                      </option>
-                    </select>
+                      class="form-control"
+                      placeholder="Veranstaltungsname"
+                      type="name"
+                    />
                   </div>
                 </div>
 
